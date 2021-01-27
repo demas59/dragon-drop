@@ -1,0 +1,45 @@
+.videoForm {
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+	font-size: 18px;
+}
+.videoForm input,
+.videoForm textarea {
+	border: 1px solid #aaa;
+	padding: 6px 15px;
+	color: #555;
+	font-size: 16px;
+	margin-bottom: 20px;
+	border-radius: 2px;
+}
+.videoForm input:focus,
+.videoForm textarea:focus {
+	border-color: #666;
+	box-shadow: 0 0 3px #05f5 inset;
+	outline:none;
+}
+.videoForm button {
+	align-self: flex-end;
+	padding: 7px 17px;
+	border: none;
+	background-color: #c00;
+	color: white;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: bold;
+	letter-spacing: .05em;
+	font-family: Oswald;
+	border-radius: 2px;
+	transition: all .1s ease;
+}
+.videoForm button:focus:not(:disabled),
+.videoForm button:hover:not(:disabled) {
+	cursor: pointer;
+	background-color: #b00;
+}
+
+.videoForm button:disabled {
+	background-color: #ccc;
+	color: #666;
+}

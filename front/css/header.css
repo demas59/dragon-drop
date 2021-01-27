@@ -1,0 +1,73 @@
+.appContainer > header {
+	margin: 0;
+	padding: 0 20px;
+	width: 100%;
+	display: flex;
+	position: fixed;
+	z-index: 99;
+	height: 58px;
+	top: 0;
+	background-color: #fff;
+	color: #000;
+}
+.appContainer > header > nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+.appContainer > header > nav > h1 {
+	margin: 0;
+	font-size: 25px;
+	font-family: Oswald;
+	font-weight: normal;
+	letter-spacing: -.05em;
+}
+.appContainer > header > nav > h1.logo:before {
+	content: '';
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	background-image: url('../images/logo.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	transform: translateY(2px);
+}
+.appContainer > header > nav > h1.logo em {
+	display: inline-block;
+	font-style: normal;
+	color: #111;
+}
+.appContainer > header .mainMenu {
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+.appContainer > header .mainMenu li {
+	display: flex;
+	overflow: hidden;
+}
+.appContainer > header .mainMenu a {
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+	padding-bottom: 2px;
+	font-size: 18px;
+	font-weight: 200;
+	text-decoration: none;
+	color: black;
+	transition: all .2s ease;
+	border-bottom: 2px #cb0a23 solid;
+	transform: translateY(2px);
+}
+.appContainer > header .mainMenu a.active,
+.appContainer > header .mainMenu a:hover {
+	color: #f82b23bb;
+	transform: translateY(0);
+}
+.appContainer > header .mainMenu a.active {
+	color: #f82b23;
+}
