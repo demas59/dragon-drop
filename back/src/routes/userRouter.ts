@@ -5,7 +5,10 @@ const router = express.Router();
 
 router.get("/api/user", async (req: Request, res: Response) => {
   try {
-    const users = await User.find({});
+    const users = await User.find({}, (err, doc) => {
+      console.log("err", err);
+      console.log("doc", doc);
+    });
     return res.status(200).send(users);
   } catch (error) {
     console.error(error);

@@ -11,7 +11,8 @@ app.use(userRouter);
 
 //Configuration connexion mongoDb
 mongoose.connect(
-  "mongodb+srv://localhost:27017/dragondrop",
+  // "mongodb+srv://localhost:27017/dragondrop",
+  "mongodb+srv://ademas:elbuy4ZcgodGpeHg@cluster0.pr6cz.mongodb.net/dragondrop?retryWrites=true&w=majority",
   {
     useCreateIndex: true,
     useNewUrlParser: true,
