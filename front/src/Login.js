@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import {generate as generateHash, verify as verifyHash} from 'password-hash'
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const username = useRef();
     const password = useRef();
+    let history = useHistory();
 
     function handleSubmitLogin(event) {
 		event.preventDefault();
@@ -13,6 +14,10 @@ export default function Login() {
 
         var hashedPassword = generateHash('toto'); //remplacer par un get du password en bdd
         console.log(verifyHash(password.current.value, hashedPassword));
+        setTimeout(() => {
+            console.log(hashedPassword);
+            history.push(`/`);
+        }, 2000);
         
 		/*const body = JSON.stringify({
 			title: titleInput.current.value,
@@ -42,6 +47,7 @@ export default function Login() {
                                 placeholder="Enter username"
                                 readOnly = {isLoading}
                                 ref={username}
+                                required
                             ></input>
                         </div>
                         <div className="form-group">
@@ -53,6 +59,7 @@ export default function Login() {
                                 placeholder="Password"
                                 readOnly = {isLoading}
                                 ref={password}
+                                required
                             ></input>
                         </div>
                         <div className="d-flex justify-content-between mt-4">

@@ -89726,6 +89726,7 @@ function Login() {
 
   var username = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   var password = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
   function handleSubmitLogin(event) {
     event.preventDefault();
@@ -89733,6 +89734,10 @@ function Login() {
     var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])('toto'); //remplacer par un get du password en bdd
 
     console.log(Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["verify"])(password.current.value, hashedPassword));
+    setTimeout(function () {
+      console.log(hashedPassword);
+      history.push("/");
+    }, 2000);
     /*const body = JSON.stringify({
     	title: titleInput.current.value,
     	description: descriptionInput.current.value,
@@ -89767,7 +89772,8 @@ function Login() {
     id: "usernameInputLogin",
     placeholder: "Enter username",
     readOnly: isLoading,
-    ref: username
+    ref: username,
+    required: true
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -89778,7 +89784,8 @@ function Login() {
     id: "passwordInputLogin",
     placeholder: "Password",
     readOnly: isLoading,
-    ref: password
+    ref: password,
+    required: true
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "d-flex justify-content-between mt-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
@@ -89834,10 +89841,7 @@ function Menu() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/"
-  }, "Vid\xE9os"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    className: "nav-link",
-    to: "/videos/new"
-  }, "Ajouter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "Thread"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/login"
   }, "Login")));
@@ -89896,6 +89900,58 @@ function Navigator() {
 
 /***/ }),
 
+/***/ "./src/Post.js":
+/*!*********************!*\
+  !*** ./src/Post.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Post; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function Post(_ref) {
+  var _ref$post = _ref.post,
+      id = _ref$post.id,
+      creator = _ref$post.creator,
+      likes = _ref$post.likes,
+      dislikes = _ref$post.dislikes,
+      tags = _ref$post.tags,
+      url = _ref$post.url,
+      caption = _ref$post.caption;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-7 mx-auto"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card p-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-sm-2"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-sm"
+  }, creator), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-sm-1"
+  })))))
+  /*<div>
+      <div>{id}</div>
+      <div>{creator}</div>
+      <div>{likes-dislikes}</div>
+      <div><ul>{tags.map(element => {
+          return <li>{element}</li>
+      })}</ul></div>
+      <div>{url}</div>
+      <div>{caption}</div>
+  </div>*/
+  ;
+}
+
+/***/ }),
+
 /***/ "./src/Register.js":
 /*!*************************!*\
   !*** ./src/Register.js ***!
@@ -89947,6 +90003,8 @@ function Register() {
       isLoading = _useState6[0],
       setIsLoading = _useState6[1];
 
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
+
   function handleInputUsername(event) {
     event.preventDefault();
 
@@ -89959,21 +90017,18 @@ function Register() {
   }
 
   function handleSubmitRegister(event) {
-    event.preventDefault(); //setIsLoading(true);
+    event.preventDefault();
+    setIsLoading(true);
 
     if (!passwordsMatch) {
       return;
     }
 
-    var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])(password);
-    /*const body = JSON.stringify({
-    title: titleInput.current.value,
-    description: descriptionInput.current.value,
-    thumbnail: thumbnailInput.current.value,
-    });*/
-    //fetch(`http://localhost:8080/api/videos`, { method: 'POST', body })
-    //	.then(response => response.json())
-    //	.then(({ id }) => history.push(`/videos/${id}`));
+    var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])(password.current.value);
+    setTimeout(function () {
+      console.log(hashedPassword);
+      history.push("/");
+    }, 2000);
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -90001,7 +90056,8 @@ function Register() {
     className: "form-control " + (validUsername ? "" : "is-invalid"),
     id: "usernameInput",
     placeholder: "Enter username",
-    readOnly: isLoading
+    readOnly: isLoading,
+    required: true
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "invalid-feedback"
   }, "Username already used.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -90015,7 +90071,8 @@ function Register() {
     className: "form-control",
     id: "passwordInputLogin",
     placeholder: "Password",
-    readOnly: isLoading
+    readOnly: isLoading,
+    required: true
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -90027,7 +90084,8 @@ function Register() {
     className: "form-control " + (passwordsMatch ? "" : "is-invalid"),
     id: "confirmPasswordInputLogin",
     placeholder: "Confirm password",
-    readOnly: isLoading
+    readOnly: isLoading,
+    required: true
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "invalid-feedback"
   }, "Passwords do not match.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -90056,9 +90114,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Thread; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Post */ "./src/Post.js");
+
 
 function Thread() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "coucou");
+  var postToSend = {
+    id: 5,
+    creator: "Tom",
+    likes: 12,
+    dislikes: 8,
+    tags: ["a", "tag1", "tag2", "tag3"],
+    url: "1.jpg",
+    caption: "legende de l'image"
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    post: postToSend
+  });
 }
 
 /***/ }),
