@@ -9,6 +9,16 @@ router.get("/post", async (req: Request, res: Response) => {
   return res.send(posts);
 });
 
+router.get("/post/id", async (req: Request, res: Response) => {
+  let posts = await Post.find({});
+  return res.send(posts.map((post: { _id: String }) => post._id));
+});
+
+router.get("/post/:id", async (req: Request, res: Response) => {
+  const posts = await Post.findById({ _id: req.params.id });
+  return res.send(posts);
+});
+
 router.post("/post", async (req: Request, res: Response) => {
   const newPost = new Post(req.body);
 

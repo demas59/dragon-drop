@@ -17,7 +17,7 @@ const PostSchema: Schema = new Schema({
   dislike: { type: Number, required: false },
   tags: { type: [String], required: false },
   visibility: { type: String, required: true },
-  caption: String,
+  caption: { type: String, required: false },
 });
 
 const Post: Model<IPost> = model<IPost>("posts", PostSchema);
