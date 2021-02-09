@@ -11,7 +11,7 @@ export default function Menu() {
 				<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			<div className="navbar-nav">
-				<NavLink className="nav-link" to="/">Thread</NavLink>
+				<NavLink className="nav-link" o="/">Thread</NavLink>
 				<NavLink className="nav-link" to="/login">Login</NavLink>
 			</div>
 		</Navbar>
