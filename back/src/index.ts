@@ -13,23 +13,16 @@ app.use(postRouter);
 
 //Configuration connexion mongoDb
 mongoose.connect(
-  "mongodb://localhost:27017/dragondrop",
-  // "mongodb://ademas:elbuy4ZcgodGpeHg@cluster0.pr6cz.mongodb.net/dragondrop",
+  // "mongodb://localhost:27017/dragondrop",
+  "mongodb+srv://ademas:ademas@cluster0.pr6cz.mongodb.net/dragondrop?retryWrites=true&w=majority",
   {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
-);
+)     .then(() => console.log( 'Database Connected' ))
+.catch(err => console.log( err ));
 
-const database = mongoose.connection;
-
-database.once("open", async () => {
-  console.log("Connected to database");
-});
-database.on("error", () => {
-  console.log("Error connecting to database");
-});
 
 app.listen(3000, () => {
   console.log("server is listening on port 3000");
