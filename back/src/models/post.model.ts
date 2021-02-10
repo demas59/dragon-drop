@@ -1,23 +1,34 @@
 import { model, Schema, Model, Document, Mongoose } from "mongoose";
 
 interface IPost extends Document {
-  type: String;
-  creator: Number;
-  like: Number;
-  dislike: Number;
+  format: String;
+  creator: String;
+  likes: [
+    {
+      userName: String;
+      value: Number;
+    }
+  ];
   tags: [String];
   visibility: String;
   caption: String;
+  comments: [
+    {
+      writer: String;
+      value: String;
+      creation: Date;
+    }
+  ];
 }
 
 const PostSchema: Schema = new Schema({
-  type: { type: String, requiered: true },
-  creator: { type: Number, required: true },
-  like: { type: Number, required: false },
-  dislike: { type: Number, required: false },
+  format: { type: String, requiered: true },
+  creator: { type: String, required: true },
+  likes: { type: [Object], required: false },
   tags: { type: [String], required: false },
   visibility: { type: String, required: true },
   caption: { type: String, required: false },
+  comments: { type: [Object], required: false },
 });
 
 const Post: Model<IPost> = model<IPost>("posts", PostSchema);
