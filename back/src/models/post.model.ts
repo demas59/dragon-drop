@@ -1,7 +1,7 @@
 import { model, Schema, Model, Document, Mongoose } from "mongoose";
 
 interface IPost extends Document {
-  image: String;
+  type: String;
   creator: Number;
   like: Number;
   dislike: Number;
@@ -11,7 +11,7 @@ interface IPost extends Document {
 }
 
 const PostSchema: Schema = new Schema({
-  image: { type: String, requiered: true },
+  type: { type: String, requiered: true },
   creator: { type: Number, required: true },
   like: { type: Number, required: false },
   dislike: { type: Number, required: false },
