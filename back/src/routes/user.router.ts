@@ -9,6 +9,11 @@ router.get("/user", async (req: Request, res: Response) => {
   return res.send(users);
 });
 
+router.get("/user/:id", async (req: Request, res: Response) => {
+  const user = await User.findById({ _id: req.params.id });
+  return res.send(user);
+});
+
 router.post("/user", async (req: Request, res: Response) => {
   const newUser = new User(req.body);
 
