@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import CommentsRenderer from './CommentsRenderer.js';
+import LikeButtons from './LikeButtons.js';
 
 export default function Post(idPost) {
     //get post from id, ici: 5
@@ -10,24 +12,40 @@ export default function Post(idPost) {
 	}, []);
 
     function fetchPost() {
-		//fetch(`http://localhost:8080/api/post/${idPost}`)
+		//fetch(`http://localhost:3000/post`)
 		//	.then(response => response.json())
-		//	.then(post => setPost(post));
-        setPost({id: 5, creator: "Tom", likes: 12, dislikes: 8, tags: ["a", "tag1", "tag2", "tag3"], url: "1.jpg", caption: "Voici la legende de l'image" });
-	}
-
-	function handleLikeClick() {
-		//fetch(`http://localhost:8080/api/videos/${id}/likes`, {
-		//	method: 'POST',
-		//}).then(() => fetchPost());
-        console.log("like");
-	}
-    
-	function handleDislikeClick() {
-        //fetch(`http://localhost:8080/api/videos/${id}/dislikes`, {
-        //	method: 'POST',
-        //}).then(() => fetchPost());
-        console.log("dislike");
+		//	.then(post => console.log(post));
+        setPost({
+            id: 1,
+            creator: "Tom",
+            tags: ["a", "tag1", "tag2", "tag3"],
+            caption: "Voici la legende de l'image",
+            format: "jpg",
+            comments: [
+                {
+                    writer: "userName",
+                    value: "commentaire"
+                }, {
+                    writer: "userName2",
+                    value: "commentaire 2"
+                }
+            ],
+            likes: [
+                {
+                    username: "username1",
+                    value: 1
+                }, {
+                    username: "username2",
+                    value: -1
+                }, {
+                    username: "username2",
+                    value: 1
+                }, {
+                    username: "username2",
+                    value: 1
+                }
+            ]
+        });
 	}
 
     if (!post) {
@@ -45,7 +63,7 @@ export default function Post(idPost) {
             </div>
         );
 	}
-    const {id, creator, likes, dislikes, tags, url, caption } = post;
+    const {id, creator, tags, caption, format, comments, likes } = post;
 	return (
         <div className="container mt-3">
             <div className="col-7 mx-auto">
@@ -59,12 +77,10 @@ export default function Post(idPost) {
                     </div>
                     <div className="row">
                         <div className="col-sm-1 pr-0 pl-3">
-                            <div className="w-100 text-center"><img src="../images/arrow-up.png" alt="Arrow up" onClick={() => handleLikeClick()} style={{cursor: 'pointer'}}></img></div>
-                            <div className="w-100 text-center">{likes-dislikes}</div>
-                            <div className="w-100 text-center"><img src="../images/arrow-down.png" alt="Arrow down" onClick={() => handleDislikeClick()} style={{cursor: 'pointer'}}></img></div>
+                            <LikeButtons likes={likes}></LikeButtons>
                         </div>
                         <div className="col-sm">
-                            <img src={"../images/"+creator+"/"+url} className="img-fluid" alt="Responsive image"></img>
+                            <img src={`../images/posts/${id}.${format}`} className="img-fluid" alt="Responsive image"></img>
                         </div>
                         <div className="col-sm-1">
                         </div>
@@ -80,8 +96,15 @@ export default function Post(idPost) {
                         <div className="col-sm-1"></div>
                         <div className="col-sm">
                             {tags.map(tag => {
-                                return <NavLink to={"/?tag="+tag} class="mr-2">{"#"+tag}</NavLink>;
+                                return <NavLink to={`/?tag=${tag}`} key={tag} className="mr-2">{"#"+tag}</NavLink>;
                             })}
+                        </div>
+                        <div className="col-sm-1"></div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-1"></div>
+                        <div className="col-sm">
+                            <CommentsRenderer comments={comments}></CommentsRenderer>
                         </div>
                         <div className="col-sm-1"></div>
                     </div>
@@ -89,15 +112,5 @@ export default function Post(idPost) {
                 </div>
             </div>
         </div>
-        /*<div>
-            <div>{id}</div>
-            <div>{creator}</div>
-            <div>{likes-dislikes}</div>
-            <div><ul>{tags.map(element => {
-                return <li>{element}</li>
-            })}</ul></div>
-            <div>{url}</div>
-            <div>{caption}</div>
-        </div>*/
 	);
 }

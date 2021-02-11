@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import {generate as generateHash, verify as verifyHash} from 'password-hash'
+import { UsernameHook } from './app';
 
 export default function Login() {
+	const [{username}, dispatch] = UsernameHook();
     const [isLoading, setIsLoading] = useState(false);
-    const username = useRef();
+    const usernameTyped = useRef();
     const password = useRef();
     let history = useHistory();
 
@@ -16,6 +18,7 @@ export default function Login() {
         console.log(verifyHash(password.current.value, hashedPassword));
         setTimeout(() => {
             console.log(hashedPassword);
+            dispatch({newUsername:usernameTyped.current.value});
             history.push(`/`);
         }, 2000);
         
@@ -46,7 +49,7 @@ export default function Login() {
                                 id="usernameInputLogin"
                                 placeholder="Enter username"
                                 readOnly = {isLoading}
-                                ref={username}
+                                ref={usernameTyped}
                                 required
                             ></input>
                         </div>
