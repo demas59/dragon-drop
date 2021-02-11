@@ -1,6 +1,13 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/user.model";
 import HttpStatusCodes from "http-status-codes";
+import {
+  Controller,
+  ValidationService,
+  FieldErrors,
+  ValidateError,
+  TsoaRoute,
+} from "tsoa";
 
 const router = express.Router();
 

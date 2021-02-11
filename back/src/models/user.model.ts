@@ -4,14 +4,14 @@ interface IUser extends Document {
   role: String;
   login: String;
   password: String;
-  friends: [Number];
+  friends: [String];
 }
 
 const UserSchema: Schema = new Schema({
   role: { type: String, required: true },
   login: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  friends: [Number],
+  friends: [String],
 });
 
 const User: Model<IUser> = model<IUser>("users", UserSchema);

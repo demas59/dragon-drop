@@ -4,8 +4,23 @@ import { json } from "body-parser";
 import { userRouter } from "./routes/user.router";
 import { postRouter } from "./routes/post.router";
 import mongoose from "mongoose";
+import * as swaggerUi from "swagger-ui-express";
 
 const app = express();
+const swaggerOption = {
+  explorer: true,
+};
+try {
+  const swaggerDocument = require("../swagger.json");
+  app.use(
+    "/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, swaggerOption)
+  );
+} catch (err) {
+  console.error("Unable to read swagger.json", err);
+}
+
 app.use(cors());
 app.use(json());
 
