@@ -19,6 +19,34 @@ router.get("/post/:id", async (req: Request, res: Response) => {
   res.send(post);
 });
 
+router.delete("/post/comment/:id", async (req: Request, res: Response) => {
+  const commentToDelete = req.body.comment;
+
+  const post = await Post.findById({ _id: req.params.id });
+
+  const index = post.comments
+    .map((comment: { creation: any }) => comment.creation)
+    .indexOf(commentToDelete.creation);
+
+  if (index > -1) {
+    post.comments.splice(index, 1);
+  } else {
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
+      .send("comment doesn't exist");
+    return;
+  }
+
+  const updatedPost = new Post(post);
+
+  try {
+    const result = await updatedPost.save();
+    res.status(HttpStatusCodes.ACCEPTED).send(result);
+  } catch (err) {
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send(err.message);
+  }
+});
+
 router.put("/post/comment/:id", async (req: Request, res: Response) => {
   const userName = req.body.userName;
   const commentValue = req.body.commentValue;
