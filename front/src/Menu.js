@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import { UsernameHook } from './app';
 
 export default function Menu() {
 	const [{username}, dispatch] = UsernameHook();
-	//
 
+	useEffect(() => {
+		if(localStorage.getItem('username')) {
+			dispatch({newUsername:localStorage.getItem('username')});
+		}
+	}, []);
+	
 	function handleSearchSubmit(event) {
 		event.preventDefault();
 		console.log('coucou');
@@ -26,6 +31,7 @@ export default function Menu() {
 				:
 					<NavLink className="nav-link" to="/login">Login</NavLink>
 				}
+				<NavLink className="nav-link" to="/newPost">TMP THREAD</NavLink>
 			</div>
 		</Navbar>
 	);

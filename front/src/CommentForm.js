@@ -1,38 +1,40 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 export default function CommentsForm(props) {
-	const [content, setContent] = useState(``);
 	const [isLoading, setIsLoading] = useState(false);
+	const commentTyped = useRef();
 
-	function handleInputChange(event) {
+	function handleSubmitComment(event) {
 		event.preventDefault();
-		setContent(event.target.value);
-	}
-
-	function handleSubmit(event) {
-		event.preventDefault();
-
-		const newComment = { content: content };
 		setIsLoading(true);
-		props.onSubmit(newComment).then(() => {
-			setIsLoading(false);
-			setContent('');
-		});
+		console.log(commentTyped.current.value);
+		
+		setTimeout(() => {
+            setIsLoading(false);
+			commentTyped.current.value="";
+        }, 1000);
 	}
 
 	return (
-		<form className="commentForm" onSubmit={handleSubmit}>
-			<textarea
-				value={content}
-				onChange={handleInputChange}
-				name="content"
-				rows="2"
-				disabled={isLoading}
-				placeholder="Ajouter un commentaire public"
-			/>
-			<button type="submit" disabled={isLoading}>
-				{!isLoading ? 'Envoyer' : 'Envoi en cours...'}
-			</button>
+		<form onSubmit={event => handleSubmitComment(event)}>
+			<div className="form-group mb-2">
+				<div htmlFor="commentInput" className="h6 mt-1 mb-1">Add a comment :</div>
+				<textarea
+					className="form-control"
+					id="commentInput"
+					ref={commentTyped}
+					placeholder="Enter your comment"
+					required
+					readOnly={isLoading}
+				></textarea>
+			</div>
+			<div className="w-100 text-right">
+				<button
+					type="submit"
+					className="btn btn-outline-secondary"
+					disabled={isLoading}
+				>Send</button>
+			</div>
 		</form>
 	);
 }

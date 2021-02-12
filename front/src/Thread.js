@@ -9,10 +9,10 @@ export default function Thread() {
 	}, []);
 
     function fetchPosts() {
-		//fetch(`http://localhost:8080/api/post/${idPost}`)
-		//	.then(response => response.json())
-		//	.then(post => setPost(post));
-        setPosts([5, 4,3,2,1]);
+		fetch(`http://localhost:3000/post/id`)
+			.then(response => response.json())
+			.then(post => setPosts(post));
+        // setPosts([5, 4,3,2,1]);
 	}
 
     if (!posts) {

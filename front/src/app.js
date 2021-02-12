@@ -1,5 +1,5 @@
 import { render } from 'react-dom';
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import Menu from './Menu';
 import Navigator from './Navigator';
 import { BrowserRouter } from 'react-router-dom';
@@ -19,7 +19,8 @@ export const UsernameProvider = ({children}) => (
 	<UsernameContext.Provider value={useReducer(reducer, initialState)}>
 		{children}
 	</UsernameContext.Provider>
- );
+);
+
 
 render(
 	<UsernameProvider>

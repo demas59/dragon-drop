@@ -5,6 +5,7 @@ import { UsernameHook } from './app';
 
 export default function Login() {
 	const [{username}, dispatch] = UsernameHook();
+
     const [isLoading, setIsLoading] = useState(false);
     const usernameTyped = useRef();
     const password = useRef();
@@ -15,21 +16,25 @@ export default function Login() {
         setIsLoading(true);
 
         var hashedPassword = generateHash('toto'); //remplacer par un get du password en bdd
-        console.log(verifyHash(password.current.value, hashedPassword));
         setTimeout(() => {
-            console.log(hashedPassword);
+            localStorage.setItem('username', usernameTyped.current.value);
             dispatch({newUsername:usernameTyped.current.value});
             history.push(`/`);
-        }, 2000);
+        }, 1000);
         
-		/*const body = JSON.stringify({
-			title: titleInput.current.value,
-			description: descriptionInput.current.value,
-			thumbnail: thumbnailInput.current.value,
-		});*/
-		//fetch(`http://localhost:8080/api/videos`, { method: 'POST', body })
-		//	.then(response => response.json())
-		//	.then(({ id }) => history.push(`/videos/${id}`));
+		// const body = JSON.stringify({
+		// 	role: "user",
+		// 	login: usernameTyped.current.value.toString().toLowerCase(),
+		// 	password: hashedPassword
+		// });
+		// fetch(
+        //     `http://localhost:3000/user`,
+        //     {
+        //         method: 'POST',
+        //         headers: {'Content-Type': 'application/json'},
+        //         body
+        //     }).then(response => response.json())
+		// 	.then(res => console.log(res));
 	}
 
 	return (
@@ -51,6 +56,7 @@ export default function Login() {
                                 readOnly = {isLoading}
                                 ref={usernameTyped}
                                 required
+                                autoFocus
                             ></input>
                         </div>
                         <div className="form-group">
