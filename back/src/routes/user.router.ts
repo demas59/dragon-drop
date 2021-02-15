@@ -5,6 +5,8 @@ import UserController from "../controllers/user.controller";
 
 const userController = new UserController();
 const router = express.Router();
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 router.get("/user", async (req: Request, res: Response) => {
   const users = await userController.getAll();
@@ -16,8 +18,24 @@ router.get("/user/:login", async (req: Request, res: Response) => {
   return res.send(user);
 });
 
-router.post("/user", async (req: Request, res: Response) => {
-  const newUser = new User(req.body);
+router.post("/signIn", async (req: Request, res: Response) => {
+  const user = await userController.getByLogin(req.body.login);
+  const compareRes = await bcrypt.compare(req.body.password, user.password);
+
+  if (compareRes) {
+    return res.send(user);
+  } else {
+    res
+      .status(HttpStatusCodes.UNAUTHORIZED)
+      .send({ error: "Invalid login or password" });
+  }
+});
+
+router.post("/signUp", async (req: Request, res: Response) => {
+  const user = req.body;
+
+  user.password = await bcrypt.hash(user.password, saltRounds);
+  const newUser = new User(user);
   try {
     const createdUser = await newUser.save();
     res.status(HttpStatusCodes.ACCEPTED).send(createdUser);
