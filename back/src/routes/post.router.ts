@@ -5,9 +5,11 @@ import HttpStatusCodes from "http-status-codes";
 
 import PostController from "../controllers/post.controller";
 import CommentController from "../controllers/comment.controller";
+import UserController from "../controllers/user.controller";
 
 const router = express.Router();
 const postController = new PostController();
+const userController = new UserController();
 const commentController = new CommentController();
 
 router.get("/post", async (req: Request, res: Response) => {
@@ -25,6 +27,10 @@ router.get("/post/:id", async (req: Request, res: Response) => {
 
 router.get("/post/tags/:tag", async (req: Request, res: Response) => {
   res.send(await postController.getByTag(req.params.tag));
+});
+
+router.get("/post/creator/:login", async (req: Request, res: Response) => {
+  res.send(await postController.getByCreator(req.params.login));
 });
 
 router.delete(

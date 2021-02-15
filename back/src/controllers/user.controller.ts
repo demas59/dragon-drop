@@ -8,4 +8,8 @@ export default class UserController {
   async getByLogin(login: String) {
     return await User.findOne({ login: login });
   }
+
+  async getById(id: String) {
+    return await User.findById({ _id: id });
+  }
 }

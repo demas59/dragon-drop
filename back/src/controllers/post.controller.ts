@@ -9,8 +9,18 @@ export default class PostController {
     return await Post.findById({ _id: id });
   }
 
+  async getByCreator(creator: String) {
+    return await Post.find({ creator: creator }, function (err, result) {
+      if (err) {
+        return err;
+      } else {
+        return result;
+      }
+    });
+  }
+
   async getByTag(tag: String) {
-    return await Post.find({ tags: "chien" }, function (err, result) {
+    return await Post.find({ tags: tag }, function (err, result) {
       if (err) {
         return err;
       } else {

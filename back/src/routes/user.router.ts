@@ -19,11 +19,17 @@ router.get("/user/:login", async (req: Request, res: Response) => {
 });
 
 router.post("/signIn", async (req: Request, res: Response) => {
-  const user = await userController.getByLogin(req.body.login);
-  const compareRes = await bcrypt.compare(req.body.password, user.password);
+  if (req.body.login && req.body.password) {
+    const user = await userController.getByLogin(req.body.login);
+    const compareRes = await bcrypt.compare(req.body.password, user.password);
 
-  if (compareRes) {
-    return res.send(user);
+    if (compareRes) {
+      return res.send(user);
+    } else {
+      res
+        .status(HttpStatusCodes.UNAUTHORIZED)
+        .send({ error: "Invalid login or password" });
+    }
   } else {
     res
       .status(HttpStatusCodes.UNAUTHORIZED)
