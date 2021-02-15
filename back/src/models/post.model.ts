@@ -9,16 +9,10 @@ interface IPost extends Document {
       value: Number;
     }
   ];
-  tags: [String];
+  tags: String[];
   visibility: String;
   caption: String;
-  comments: [
-    {
-      writer: String;
-      value: String;
-      creation: Date;
-    }
-  ];
+  comments: String[];
 }
 
 const PostSchema: Schema = new Schema({
@@ -28,7 +22,7 @@ const PostSchema: Schema = new Schema({
   tags: { type: [String], required: false },
   visibility: { type: String, required: true },
   caption: { type: String, required: false },
-  comments: { type: [Object], required: false },
+  comments: { type: [String], required: false },
 });
 
 const Post: Model<IPost> = model<IPost>("posts", PostSchema);

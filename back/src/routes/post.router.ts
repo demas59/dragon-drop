@@ -1,73 +1,69 @@
 import express, { Request, Response } from "express";
 import { Post } from "../models/post.model";
+import { Comment } from "../models/comment.model";
 import HttpStatusCodes from "http-status-codes";
 
+import PostController from "../controllers/post.controller";
+import CommentController from "../controllers/comment.controller";
+
 const router = express.Router();
+const postController = new PostController();
+const commentController = new CommentController();
 
 router.get("/post", async (req: Request, res: Response) => {
-  const posts = await Post.find({});
-  res.send(posts);
+  res.send(await postController.getAll());
 });
 
 router.get("/post/id", async (req: Request, res: Response) => {
-  let posts = await Post.find({});
+  let posts = await postController.getAll();
   res.send(posts.map((post: { _id: String }) => post._id));
 });
 
 router.get("/post/:id", async (req: Request, res: Response) => {
-  const post = await Post.findById({ _id: req.params.id });
-  res.send(post);
+  res.send(await postController.getById(req.params.id));
 });
 
-router.delete("/post/comment/:id", async (req: Request, res: Response) => {
-  const commentToDelete = req.body.comment;
+router.delete(
+  "/post/comment/:idPost/:idComment",
+  async (req: Request, res: Response) => {
+    const idPost = req.params.idPost;
+    const idComment = req.params.idComment;
 
-  const post = await Post.findById({ _id: req.params.id });
+    const filter = idPost;
+    const update = {
+      $pull: {
+        comments: idComment,
+      },
+    };
 
-  const index = post.comments
-    .map((comment: { creation: any }) => comment.creation)
-    .indexOf(commentToDelete.creation);
+    await commentController.deleteById(idComment);
 
-  if (index > -1) {
-    post.comments.splice(index, 1);
-  } else {
-    res
-      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR)
-      .send("comment doesn't exist");
-    return;
+    const result = await postController.updateOne(filter, update);
+    res.send(result);
   }
-
-  const updatedPost = new Post(post);
-
-  try {
-    const result = await updatedPost.save();
-    res.status(HttpStatusCodes.ACCEPTED).send(result);
-  } catch (err) {
-    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send(err.message);
-  }
-});
+);
 
 router.put("/post/comment/:id", async (req: Request, res: Response) => {
-  const userName = req.body.userName;
-  const commentValue = req.body.commentValue;
+  const sentComment = {
+    userName: req.body.userName,
+    value: req.body.value,
+    creation: -1,
+  };
+  sentComment.creation = Date.now();
 
-  const post = await Post.findById({ _id: req.params.id });
+  const createdComment = await commentController.saveComment(
+    new Comment(sentComment)
+  );
 
-  post.comments.push({
-    writer: userName,
-    value: commentValue,
-    creation: Date.now(),
-  });
+  const filter = req.params.id;
+  const update = {
+    $push: {
+      comments: [createdComment._id],
+    },
+  };
 
-  const updatedPost = new Post(post);
-
-  try {
-    const result = await updatedPost.save();
-    res.status(HttpStatusCodes.ACCEPTED).send(result);
-  } catch (err) {
-    console.error(err.message);
-    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send(err.message);
-  }
+  const result = await postController.updateOne(filter, update);
+  res.send(result);
 });
 
 router.put("/post/like/:id", async (req: Request, res: Response) => {

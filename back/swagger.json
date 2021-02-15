@@ -2,6 +2,24 @@
   "basePath": "/",
   "consumes": ["application/json"],
   "definitions": {
+    "IComment": {
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "creation": {
+          "type": "date"
+        }
+      },
+      "required": ["userName", "value"],
+      "type": "object"
+    },
     "IPost": {
       "properties": {
         "_id": {
@@ -30,19 +48,7 @@
         "caption": {
           "type": "string"
         },
-        "comments": [
-          {
-            "writer": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            },
-            "creation": {
-              "type": "date"
-            }
-          }
-        ]
+        "comments": "array<String>"
       },
       "required": ["_id", "visibility", "creator", "format"],
       "type": "object"
@@ -204,13 +210,36 @@
         ]
       }
     },
+    "/post/comment/{idPost}/{idComment}": {
+      "delete": {
+        "operationId": "deleteComment",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IPost"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+
     "/post/comment/{id}": {
       "put": {
         "operationId": "addComment",
         "produces": ["application/json"],
         "responses": {
           "200": {
-            "description": "No content"
+            "description": "Ok",
+            "schema": {
+              "userName": { "type": "string" },
+              "value": { "type": "string" }
+            }
           }
         },
         "security": [],
@@ -219,17 +248,7 @@
             "in": "body",
             "name": "body",
             "schema": {
-              "properties": {
-                "userName": {
-                  "type": "string"
-                },
-                "commentValue": {
-                  "type": "string"
-                }
-              },
-              "type": "object",
-
-              "title": "addComment"
+              "$ref": "#/definitions/IComment"
             }
           },
           {

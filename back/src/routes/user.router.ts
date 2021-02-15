@@ -1,29 +1,23 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/user.model";
 import HttpStatusCodes from "http-status-codes";
-import {
-  Controller,
-  ValidationService,
-  FieldErrors,
-  ValidateError,
-  TsoaRoute,
-} from "tsoa";
+import UserController from "../controllers/user.controller";
 
+const userController = new UserController();
 const router = express.Router();
 
 router.get("/user", async (req: Request, res: Response) => {
-  const users = await User.find({});
+  const users = await userController.getAll();
   return res.send(users);
 });
 
-router.get("/user/:id", async (req: Request, res: Response) => {
-  const user = await User.findById({ _id: req.params.id });
+router.get("/user/:login", async (req: Request, res: Response) => {
+  const user = await userController.getByLogin(req.params.login);
   return res.send(user);
 });
 
 router.post("/user", async (req: Request, res: Response) => {
   const newUser = new User(req.body);
-
   try {
     const createdUser = await newUser.save();
     res.status(HttpStatusCodes.ACCEPTED).send(createdUser);

@@ -3,6 +3,7 @@ import cors from "cors";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user.router";
 import { postRouter } from "./routes/post.router";
+import { commentRouter } from "./routes/comment.router";
 import mongoose from "mongoose";
 import * as swaggerUi from "swagger-ui-express";
 
@@ -27,6 +28,7 @@ app.use(json());
 //Implementation des routes
 app.use(userRouter);
 app.use(postRouter);
+app.use(commentRouter);
 
 //Configuration connexion mongoDb
 mongoose
