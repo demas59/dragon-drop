@@ -1,18 +1,35 @@
 import React, { useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-export default function CommentsForm(props) {
+export default function CommentsForm({idPost, fetchPost}) {
+	const username = localStorage.getItem('username');
 	const [isLoading, setIsLoading] = useState(false);
 	const commentTyped = useRef();
+    let history = useHistory();
 
 	function handleSubmitComment(event) {
+		if(!username){history.push(`/login`);return;}
 		event.preventDefault();
 		setIsLoading(true);
-		console.log(commentTyped.current.value);
 		
-		setTimeout(() => {
+		fetch(`http://localhost:3000/post/comment/${idPost}`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({userName: username, value: commentTyped.current.value})
+		}).then(() => {
             setIsLoading(false);
 			commentTyped.current.value="";
-        }, 1000);
+			fetchPost();
+			return;
+		});
+	}
+
+	if(!username) {
+		return (
+			<div className="text-muted mb-2">
+				You need to be logged in to write a comment.
+			</div>
+		);
 	}
 
 	return (

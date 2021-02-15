@@ -4,7 +4,6 @@ import CommentsRenderer from './CommentsRenderer.js';
 import LikeButtons from './LikeButtons.js';
 
 export default function Post({idPost}) {
-    //get post from id, ici: 5
     const [post, setPost] = useState(null);
 
     useEffect(() => {
@@ -15,37 +14,6 @@ export default function Post({idPost}) {
 		fetch(`http://localhost:3000/post/${idPost}`)
 			.then(response => response.json())
 			.then(post => setPost(post));
-        // setPost({
-        //     id: 1,
-        //     creator: "Tom",
-        //     tags: ["a", "tag1", "tag2", "tag3"],
-        //     caption: "Voici la legende de l'image",
-        //     format: "jpg",
-        //     comments: [
-        //         {
-        //             writer: "userName",
-        //             value: "commentaire"
-        //         }, {
-        //             writer: "userName2",
-        //             value: "commentaire 2"
-        //         }
-        //     ],
-        //     likes: [
-        //         {
-        //             username: "username1",
-        //             value: 1
-        //         }, {
-        //             username: "username2",
-        //             value: -1
-        //         }, {
-        //             username: "username2",
-        //             value: 1
-        //         }, {
-        //             username: "username2",
-        //             value: 1
-        //         }
-        //     ]
-        // });
 	}
 
     if (!post) {
@@ -104,7 +72,7 @@ export default function Post({idPost}) {
                     <div className="row">
                         <div className="col-sm-1"></div>
                         <div className="col-sm">
-                            <CommentsRenderer comments={comments}></CommentsRenderer>
+                            <CommentsRenderer comments={comments} idPost={idPost} fetchPost={() => fetchPost()}></CommentsRenderer>
                         </div>
                         <div className="col-sm-1"></div>
                     </div>

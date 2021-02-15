@@ -30,20 +30,17 @@ export default function Register() {
 		event.preventDefault();
         setIsLoading(true);
         
-        if(!passwordsMatch) {return;}
+        if(!passwordsMatch) {setIsLoading(false); return;}
         const hashedPassword = generateHash(password.current.value);
-        // setTimeout(() => {
-        //     console.log(hashedPassword);
-        //     history.push(`/`);
-        // }, 2000);
+        
         const body = JSON.stringify({
 			role: "user",
-			login: usernameTyped.current.value,
-			password: hashedPassword
+			login: usernameTyped.current.value.toString().toLowerCase(),
+			password: password.current.value,
+            friends: []
 		});
-
 		fetch(
-            `http://localhost:3000/user`,
+            `http://localhost:3000/signUp`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -51,8 +48,10 @@ export default function Register() {
             }
         )
         .then(() => {
-            localStorage.setItem('username', usernameTyped.current.value);
-            dispatch({newUsername:usernameTyped.current.value});
+            const lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
+            const wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
+            localStorage.setItem('username', wellFormattedUsername);
+            dispatch({newUsername: wellFormattedUsername});
             history.push(`/`);
         }).catch(error => {
             setValidUsername(false);
@@ -113,7 +112,7 @@ export default function Register() {
                         </div>
                         <div className="d-flex justify-content-between mt-4">
                             <NavLink className="nav-link pl-0" to="/login">I have an account</NavLink>
-                            <button type="submit" className="btn btn-primary" disabled={isLoading}>{!isLoading ? 'Register' : 'Loading...'}</button>
+                            <button type="submit" className="btn btn-primary" disabled={isLoading || !passwordsMatch}>{!isLoading ? 'Register' : 'Loading...'}</button>
                         </div>
                     </form>
                 </div>

@@ -25,7 +25,7 @@ export default function LikeButtons({likes, fetchPost, idPost}) {
 	}
 
 	function handleLikeClick() {
-		if(!username){history.push(`/login`);}
+		if(!username){history.push(`/login`);return;}
 
 		let updateLikeValue = (likeValue===1)?0:1;
 
