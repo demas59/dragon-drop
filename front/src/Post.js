@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import CommentsRenderer from './CommentsRenderer.js';
 import LikeButtons from './LikeButtons.js';
 
-export default function Post(idPost) {
+export default function Post({idPost}) {
     //get post from id, ici: 5
     const [post, setPost] = useState(null);
 
@@ -12,40 +12,40 @@ export default function Post(idPost) {
 	}, []);
 
     function fetchPost() {
-		//fetch(`http://localhost:3000/post`)
-		//	.then(response => response.json())
-		//	.then(post => console.log(post));
-        setPost({
-            id: 1,
-            creator: "Tom",
-            tags: ["a", "tag1", "tag2", "tag3"],
-            caption: "Voici la legende de l'image",
-            format: "jpg",
-            comments: [
-                {
-                    writer: "userName",
-                    value: "commentaire"
-                }, {
-                    writer: "userName2",
-                    value: "commentaire 2"
-                }
-            ],
-            likes: [
-                {
-                    username: "username1",
-                    value: 1
-                }, {
-                    username: "username2",
-                    value: -1
-                }, {
-                    username: "username2",
-                    value: 1
-                }, {
-                    username: "username2",
-                    value: 1
-                }
-            ]
-        });
+		fetch(`http://localhost:3000/post/${idPost}`)
+			.then(response => response.json())
+			.then(post => setPost(post));
+        // setPost({
+        //     id: 1,
+        //     creator: "Tom",
+        //     tags: ["a", "tag1", "tag2", "tag3"],
+        //     caption: "Voici la legende de l'image",
+        //     format: "jpg",
+        //     comments: [
+        //         {
+        //             writer: "userName",
+        //             value: "commentaire"
+        //         }, {
+        //             writer: "userName2",
+        //             value: "commentaire 2"
+        //         }
+        //     ],
+        //     likes: [
+        //         {
+        //             username: "username1",
+        //             value: 1
+        //         }, {
+        //             username: "username2",
+        //             value: -1
+        //         }, {
+        //             username: "username2",
+        //             value: 1
+        //         }, {
+        //             username: "username2",
+        //             value: 1
+        //         }
+        //     ]
+        // });
 	}
 
     if (!post) {
@@ -63,7 +63,7 @@ export default function Post(idPost) {
             </div>
         );
 	}
-    const {id, creator, tags, caption, format, comments, likes } = post;
+    const {_id, creator, tags, caption, format, comments, likes } = post;
 	return (
         <div className="container mt-3">
             <div className="col-7 mx-auto">
@@ -77,10 +77,10 @@ export default function Post(idPost) {
                     </div>
                     <div className="row">
                         <div className="col-sm-1 pr-0 pl-3">
-                            <LikeButtons likes={likes}></LikeButtons>
+                            <LikeButtons likes={likes} fetchPost={() => fetchPost()} idPost={idPost}></LikeButtons>
                         </div>
                         <div className="col-sm">
-                            <img src={`../images/posts/${id}.${format}`} className="img-fluid" alt="Responsive image"></img>
+                            <img src={`../images/posts/${_id}.${format}`} className="img-fluid" alt="Responsive image"></img>
                         </div>
                         <div className="col-sm-1">
                         </div>

@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import {generate as generateHash, verify as verifyHash} from 'password-hash'
+import { UsernameHook } from './app';
 
 export default function Register() {
-    const username = useRef();
+	const [{username}, dispatch] = UsernameHook();
+    
+    const usernameTyped = useRef();
     const [validUsername, setValidUsername] = useState(true);
     const password = useRef();
     const passwordConfirm = useRef();
@@ -29,10 +32,33 @@ export default function Register() {
         
         if(!passwordsMatch) {return;}
         const hashedPassword = generateHash(password.current.value);
-        setTimeout(() => {
-            console.log(hashedPassword);
+        // setTimeout(() => {
+        //     console.log(hashedPassword);
+        //     history.push(`/`);
+        // }, 2000);
+        const body = JSON.stringify({
+			role: "user",
+			login: usernameTyped.current.value,
+			password: hashedPassword
+		});
+
+		fetch(
+            `http://localhost:3000/user`,
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body
+            }
+        )
+        .then(() => {
+            localStorage.setItem('username', usernameTyped.current.value);
+            dispatch({newUsername:usernameTyped.current.value});
             history.push(`/`);
-        }, 2000);
+        }).catch(error => {
+            setValidUsername(false);
+            console.error(error);
+            setIsLoading(false);
+        });
 	}
 
 	return (
@@ -48,7 +74,7 @@ export default function Register() {
                             <label htmlFor="usernameInput">Username</label>
                             <input
                                 type="text"
-                                ref={username}
+                                ref={usernameTyped}
                                 onChange={handleInputUsername}
                                 className={"form-control "+ (validUsername ? "" : "is-invalid")}
                                 id="usernameInput"
