@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "5b58cae4-b5d6-4c01-8898-9a9bcb0f48d0",
+		"name": "DragonDrop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "list Posts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"toto\":\"test\",\r\n    \"password\":\"test\",\r\n    \"login\":\"sdqsd\",\r\n    \"role\":\"admin\",\r\n    \"lastname\":\"toto\",\r\n    \"firstname\":\"toto\",\r\n    \"friends\":[1,2,3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addLike",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"toto\",\r\n    \"likeValue\":-1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/post/like/601c5d9c2ea92508445002ef",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"post",
+						"like",
+						"601c5d9c2ea92508445002ef"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addComment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userName\":\"toto\",\r\n        \"value\":\"Ceci est un nouveau commentaire\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/post/comment/601c5d9c2ea92508445002ef",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"post",
+						"comment",
+						"601c5d9c2ea92508445002ef"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCommentById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/comment/6027162bddbf717c2091cbb6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"comment",
+						"6027162bddbf717c2091cbb6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete com from post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\":            {\r\n                \"writer\": \"string\",\r\n                \"value\": \"string\",\r\n                \"creation\": 1613061384246\r\n            }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/post/comment/601c5d9c2ea92508445002ef/602aba2f72daf117b84ff47a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"post",
+						"comment",
+						"601c5d9c2ea92508445002ef",
+						"602aba2f72daf117b84ff47a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserByLogin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/demas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"demas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPostByTag",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/post/tags/voiture",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"post",
+						"tags",
+						"voiture"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createNewPost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"likes\": [\r\n    ],\r\n    \"tags\": [\r\n        \"chien\",\r\n        \"voiture\"\r\n    ],\r\n    \"comments\": [\r\n    ],\r\n    \"format\": \"jpg\",\r\n    \"creator\": \"toto\",\r\n    \"visibility\": \"hidden\",\r\n    \"caption\": \"Ceci est un putain de deuxieme test alors ne me juge pas connard!\",\r\n    \"__v\": 74\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/post/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"post",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

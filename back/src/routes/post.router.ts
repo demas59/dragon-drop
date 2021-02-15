@@ -23,6 +23,10 @@ router.get("/post/:id", async (req: Request, res: Response) => {
   res.send(await postController.getById(req.params.id));
 });
 
+router.get("/post/tags/:tag", async (req: Request, res: Response) => {
+  res.send(await postController.getByTag(req.params.tag));
+});
+
 router.delete(
   "/post/comment/:idPost/:idComment",
   async (req: Request, res: Response) => {
@@ -69,9 +73,9 @@ router.put("/post/comment/:id", async (req: Request, res: Response) => {
 router.put("/post/like/:id", async (req: Request, res: Response) => {
   const userName = req.body.userName;
   const likeValue = req.body.likeValue;
-  let existingUser: boolean = false;
+  var existingUser = false;
 
-  const post = await Post.findById({ _id: req.params.id });
+  const post = await postController.getById(req.params.id);
 
   post.likes.forEach((like: any) => {
     if (like.userName === userName) {
