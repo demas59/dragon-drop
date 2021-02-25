@@ -10,7 +10,7 @@ export default function Navigator() {
 	return (
 		<Switch>
 			<Route exact path="/">
-				<NewPost />
+				<Thread />
 			</Route>
 			<Route exact path="/login">
 				<Login />
@@ -22,7 +22,7 @@ export default function Navigator() {
 				<MyAccount />
 			</Route>
 			<Route exact path="/newPost">
-				<Thread />
+				<NewPost />
 			</Route>
 		</Switch>
 	);

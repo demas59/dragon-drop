@@ -89602,6 +89602,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CommentsForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -89615,22 +89616,49 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-function CommentsForm(props) {
+
+function CommentsForm(_ref) {
+  var idPost = _ref.idPost,
+      fetchPost = _ref.fetchPost;
+  var username = localStorage.getItem('username');
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
       isLoading = _useState2[0],
       setIsLoading = _useState2[1];
 
   var commentTyped = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
   function handleSubmitComment(event) {
+    if (!username) {
+      history.push("/login");
+      return;
+    }
+
     event.preventDefault();
     setIsLoading(true);
-    console.log(commentTyped.current.value);
-    setTimeout(function () {
+    fetch("http://localhost:3000/post/comment/".concat(idPost), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userName: username,
+        value: commentTyped.current.value
+      })
+    }).then(function () {
       setIsLoading(false);
       commentTyped.current.value = "";
-    }, 1000);
+      fetchPost();
+      return;
+    });
+  }
+
+  if (!username) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "text-muted mb-2"
+    }, "You need to be logged in to write a comment.");
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -89688,7 +89716,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function CommentsRenderer(_ref) {
-  var comments = _ref.comments;
+  var comments = _ref.comments,
+      idPost = _ref.idPost,
+      _fetchPost = _ref.fetchPost;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -89711,20 +89741,55 @@ function CommentsRenderer(_ref) {
     }
   }
 
+  function CommentView(_ref2) {
+    var idComment = _ref2.idComment;
+
+    var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
+        _useState4 = _slicedToArray(_useState3, 2),
+        comment = _useState4[0],
+        setComment = _useState4[1];
+
+    Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+      fetchComment();
+    }, []);
+
+    function fetchComment() {
+      fetch("http://localhost:3000/comment/".concat(idComment)).then(function (response) {
+        return response.json();
+      }).then(function (sentComment) {
+        return setComment(sentComment);
+      });
+    }
+
+    if (!comment) {
+      return "";
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "container pl-2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "h6 mt-1 mb-0"
+    }, comment.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value));
+  }
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
     onClick: function onClick() {
       return setDisplayComments(false);
     }
-  }, "Hide comments"), comments.map(function (comment) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "container pl-2"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "h6 mt-1 mb-0"
-    }, comment.writer), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value));
+  }, "Hide comments"), comments.map(function (commentId) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CommentView, {
+      idComment: commentId,
+      key: commentId
+    });
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container pl-2 mt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_1__["default"], null)), comments.length > 5 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    idPost: idPost,
+    fetchPost: function fetchPost() {
+      return _fetchPost();
+    }
+  })), comments.length > 5 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "#",
     onClick: function onClick() {
       return setDisplayComments(false);
@@ -89800,6 +89865,7 @@ function LikeButtons(_ref) {
   function handleLikeClick() {
     if (!username) {
       history.push("/login");
+      return;
     }
 
     var updateLikeValue = likeValue === 1 ? 0 : 1;
@@ -89911,34 +89977,56 @@ function Login() {
       isLoading = _useState2[0],
       setIsLoading = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState4 = _slicedToArray(_useState3, 2),
+      validLogin = _useState4[0],
+      setValidLogin = _useState4[1];
+
   var usernameTyped = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   var password = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
   function handleSubmitLogin(event) {
     event.preventDefault();
-    setIsLoading(true);
-    var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])('toto'); //remplacer par un get du password en bdd
+    setIsLoading(true); // setTimeout(() => {
+    //     localStorage.setItem('username', usernameTyped.current.value);
+    //     dispatch({newUsername:usernameTyped.current.value});
+    //     history.push(`/`);
+    // }, 1000);
 
-    setTimeout(function () {
-      localStorage.setItem('username', usernameTyped.current.value);
-      dispatch({
-        newUsername: usernameTyped.current.value
-      });
-      history.push("/");
-    }, 1000); // const body = JSON.stringify({
-    // 	role: "user",
-    // 	login: usernameTyped.current.value.toString().toLowerCase(),
-    // 	password: hashedPassword
-    // });
-    // fetch(
-    //     `http://localhost:3000/user`,
-    //     {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body
-    //     }).then(response => response.json())
-    // 	.then(res => console.log(res));
+    var body = JSON.stringify({
+      role: "user",
+      login: usernameTyped.current.value.toString().toLowerCase(),
+      password: password.current.value
+    });
+    fetch("http://localhost:3000/signIn", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body
+    }).then(function (response) {
+      return response.json();
+    }).then(function (res) {
+      if (res.error && res.error === "Invalid login or password") {
+        password.current.value = "";
+        setIsLoading(false);
+        setValidLogin(false);
+      } else {
+        var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
+        var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
+        localStorage.setItem('username', wellFormattedUsername);
+        dispatch({
+          newUsername: wellFormattedUsername
+        });
+        history.push("/");
+      }
+    })["catch"](function (error) {
+      password.current.value = "";
+      setIsLoading(false);
+      setValidLogin(false);
+      console.error(error);
+    });
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -89956,6 +90044,8 @@ function Login() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "text-muted"
   }, " Please enter your login and password!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: validLogin ? "d-none" : "text-danger mb-2"
+  }, "Invalid login or username."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
     htmlFor: "usernameInputLogin"
@@ -90175,7 +90265,7 @@ function Navigator() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPost__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Thread__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/login"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
@@ -90187,7 +90277,7 @@ function Navigator() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MyAccount__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/newPost"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Thread__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPost__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
 }
 
 /***/ }),
@@ -90328,7 +90418,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Post(_ref) {
   var idPost = _ref.idPost;
 
-  //get post from id, ici: 5
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState2 = _slicedToArray(_useState, 2),
       post = _useState2[0],
@@ -90343,37 +90432,7 @@ function Post(_ref) {
       return response.json();
     }).then(function (post) {
       return setPost(post);
-    }); // setPost({
-    //     id: 1,
-    //     creator: "Tom",
-    //     tags: ["a", "tag1", "tag2", "tag3"],
-    //     caption: "Voici la legende de l'image",
-    //     format: "jpg",
-    //     comments: [
-    //         {
-    //             writer: "userName",
-    //             value: "commentaire"
-    //         }, {
-    //             writer: "userName2",
-    //             value: "commentaire 2"
-    //         }
-    //     ],
-    //     likes: [
-    //         {
-    //             username: "username1",
-    //             value: 1
-    //         }, {
-    //             username: "username2",
-    //             value: -1
-    //         }, {
-    //             username: "username2",
-    //             value: 1
-    //         }, {
-    //             username: "username2",
-    //             value: 1
-    //         }
-    //     ]
-    // });
+    });
   }
 
   if (!post) {
@@ -90461,7 +90520,11 @@ function Post(_ref) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentsRenderer_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    comments: comments
+    comments: comments,
+    idPost: idPost,
+    fetchPost: function fetchPost() {
+      return _fetchPost();
+    }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1"
   })))));
@@ -90545,29 +90608,29 @@ function Register() {
     setIsLoading(true);
 
     if (!passwordsMatch) {
+      setIsLoading(false);
       return;
     }
 
-    var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])(password.current.value); // setTimeout(() => {
-    //     console.log(hashedPassword);
-    //     history.push(`/`);
-    // }, 2000);
-
+    var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])(password.current.value);
     var body = JSON.stringify({
       role: "user",
-      login: usernameTyped.current.value,
-      password: hashedPassword
+      login: usernameTyped.current.value.toString().toLowerCase(),
+      password: password.current.value,
+      friends: []
     });
-    fetch("http://localhost:3000/user", {
+    fetch("http://localhost:3000/signUp", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: body
     }).then(function () {
-      localStorage.setItem('username', usernameTyped.current.value);
+      var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
+      var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
+      localStorage.setItem('username', wellFormattedUsername);
       dispatch({
-        newUsername: usernameTyped.current.value
+        newUsername: wellFormattedUsername
       });
       history.push("/");
     })["catch"](function (error) {
@@ -90642,7 +90705,7 @@ function Register() {
   }, "I have an account"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary",
-    disabled: isLoading
+    disabled: isLoading || !passwordsMatch
   }, !isLoading ? 'Register' : 'Loading...'))))));
 }
 
