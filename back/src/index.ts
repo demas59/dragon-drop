@@ -1,15 +1,18 @@
 import express from "express";
 import cors from "cors";
-import { json } from "body-parser";
 import { userRouter } from "./routes/user.router";
 import { postRouter } from "./routes/post.router";
 import { commentRouter } from "./routes/comment.router";
 import mongoose from "mongoose";
+const fileUpload = require("express-fileupload");
 
+const bodyParser = require("body-parser");
 const app = express();
-
+app.use(express.static("public"));
 app.use(cors());
-app.use(json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(fileUpload());
 
 //Implementation des routes
 app.use(userRouter);

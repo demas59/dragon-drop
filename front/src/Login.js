@@ -1,102 +1,115 @@
 import React, { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { generate as generateHash, verify as verifyHash } from 'password-hash'
+import { generate as generateHash, verify as verifyHash } from 'password-hash';
 import { UsernameHook } from './app';
 
 export default function Login() {
-	const [{username}, dispatch] = UsernameHook();
+	const [{ username }, dispatch] = UsernameHook();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [validLogin, setValidLogin] = useState(true);
-    const usernameTyped = useRef();
-    const password = useRef();
-    let history = useHistory();
+	const [isLoading, setIsLoading] = useState(false);
+	const [validLogin, setValidLogin] = useState(true);
+	const usernameTyped = useRef();
+	const password = useRef();
+	let history = useHistory();
 
-    function handleSubmitLogin(event) {
+	function handleSubmitLogin(event) {
 		event.preventDefault();
-        setIsLoading(true);
+		setIsLoading(true);
 
+		// setTimeout(() => {
+		//     localStorage.setItem('username', usernameTyped.current.value);
+		//     dispatch({newUsername:usernameTyped.current.value});
+		//     history.push(`/`);
+		// }, 1000);
 
-        // setTimeout(() => {
-        //     localStorage.setItem('username', usernameTyped.current.value);
-        //     dispatch({newUsername:usernameTyped.current.value});
-        //     history.push(`/`);
-        // }, 1000);
-        
 		const body = JSON.stringify({
-			role: "user",
+			role: 'user',
 			login: usernameTyped.current.value.toString().toLowerCase(),
-			password: password.current.value
+			password: password.current.value,
 		});
-		fetch(
-            `http://localhost:3000/signIn`,
-            {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body
-            }).then(response => response.json())
+		fetch(`http://localhost:3000/signIn`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body,
+		})
+			.then(response => response.json())
 			.then(res => {
-                if(res.error && res.error === "Invalid login or password") {
-                    password.current.value="";
-                    setIsLoading(false);
-                    setValidLogin(false);
-                }else {
-                    const lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-                    const wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
-                    localStorage.setItem('username', wellFormattedUsername);
-                    dispatch({newUsername: wellFormattedUsername});
-                    history.push(`/`);
-                }
-            }).catch(error => {
-                password.current.value="";
-                setIsLoading(false);
-                setValidLogin(false);
-                console.error(error);
-            });
+				if (res.error && res.error === 'Invalid login or password') {
+					password.current.value = '';
+					setIsLoading(false);
+					setValidLogin(false);
+				} else {
+					const lowerCaseUsername = usernameTyped.current.value
+						.toString()
+						.toLowerCase();
+					const wellFormattedUsername =
+						lowerCaseUsername.charAt(0).toUpperCase() +
+						lowerCaseUsername.slice(1);
+					localStorage.setItem('username', wellFormattedUsername);
+					dispatch({ newUsername: wellFormattedUsername });
+					history.push(`/`);
+				}
+			})
+			.catch(error => {
+				password.current.value = '';
+				setIsLoading(false);
+				setValidLogin(false);
+				console.error(error);
+			});
 	}
 
 	return (
-        <div className="container mt-5">
-            <div className="col-md-5 mx-auto">
-                <div className="card p-4">
-                    <div className="text-center mb-3">
-                        <h1>Login</h1>
-                    </div>
-                    <form onSubmit={event => handleSubmitLogin(event)}>
-                        <p className="text-muted"> Please enter your login and password!</p>
-                        <div className={validLogin? "d-none":"text-danger mb-2"}>Invalid login or username.</div>
-                        <div className="form-group">
-                            <label htmlFor="usernameInputLogin">Username</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="usernameInputLogin"
-                                placeholder="Enter username"
-                                readOnly = {isLoading}
-                                ref={usernameTyped}
-                                required
-                                autoFocus
-                            ></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="passwordInputLogin">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="passwordInputLogin"
-                                placeholder="Password"
-                                readOnly = {isLoading}
-                                ref={password}
-                                required
-                            ></input>
-                        </div>
-                        <div className="d-flex justify-content-between mt-4">
-                            <NavLink className="nav-link pl-0" to="/register">Create account</NavLink>
-                            <button type="submit" className="btn btn-primary" disabled={isLoading}>{!isLoading ? 'Login' : 'Loading...'}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+		<div className="container mt-5">
+			<div className="col-md-5 mx-auto">
+				<div className="card p-4">
+					<div className="text-center mb-3">
+						<h1>Login</h1>
+					</div>
+					<form onSubmit={event => handleSubmitLogin(event)}>
+						<p className="text-muted"> Please enter your login and password!</p>
+						<div className={validLogin ? 'd-none' : 'text-danger mb-2'}>
+							Invalid login or username.
+						</div>
+						<div className="form-group">
+							<label htmlFor="usernameInputLogin">Username</label>
+							<input
+								type="text"
+								className="form-control"
+								id="usernameInputLogin"
+								placeholder="Enter username"
+								readOnly={isLoading}
+								ref={usernameTyped}
+								required
+								autoFocus
+							></input>
+						</div>
+						<div className="form-group">
+							<label htmlFor="passwordInputLogin">Password</label>
+							<input
+								type="password"
+								className="form-control"
+								id="passwordInputLogin"
+								placeholder="Password"
+								readOnly={isLoading}
+								ref={password}
+								required
+							></input>
+						</div>
+						<div className="d-flex justify-content-between mt-4">
+							<NavLink className="nav-link pl-0" to="/register">
+								Create account
+							</NavLink>
+							<button
+								type="submit"
+								className="btn btn-primary"
+								disabled={isLoading}
+							>
+								{!isLoading ? 'Login' : 'Loading...'}
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	);
 }

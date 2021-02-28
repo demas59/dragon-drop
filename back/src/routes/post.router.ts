@@ -6,6 +6,7 @@ import HttpStatusCodes from "http-status-codes";
 import PostController from "../controllers/post.controller";
 import CommentController from "../controllers/comment.controller";
 import UserController from "../controllers/user.controller";
+import { UploadedFile } from "express-fileupload";
 
 const router = express.Router();
 const postController = new PostController();
@@ -110,6 +111,40 @@ router.post("/post", async (req: Request, res: Response) => {
 
   try {
     const createdPost = await newPost.save();
+    res.status(HttpStatusCodes.ACCEPTED).send(createdPost);
+  } catch (err) {
+    console.error(err.message);
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send(err.message);
+  }
+});
+
+// file upload api
+router.post("/upload", async (req, res) => {
+  if (!req.files) {
+    return res.status(500).send({ msg: "file is not found" });
+  }
+  // accessing the file
+  const myFile = req.files.file as UploadedFile;
+  const format = myFile.name.split(".")[1];
+
+  const post = {
+    format: format,
+    creator: req.body.creator,
+    tags: req.body.tags,
+    visibility: req.body.visibility,
+    caption: req.body.caption,
+  };
+
+  const newPost = new Post(post);
+
+  // Use the mv() method to place the file somewhere on your server
+
+  try {
+    const createdPost = await newPost.save();
+    myFile.name = createdPost._id;
+    const uploadPath =
+      __dirname + "\\..\\..\\public\\" + myFile.name + "." + format;
+    myFile.mv(uploadPath);
     res.status(HttpStatusCodes.ACCEPTED).send(createdPost);
   } catch (err) {
     console.error(err.message);

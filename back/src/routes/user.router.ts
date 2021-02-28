@@ -51,14 +51,4 @@ router.post("/signUp", async (req: Request, res: Response) => {
   }
 });
 
-router.post("/upload", (req, res) => {
-  if (!req.file) {
-    return res.status(500).send({ msg: "file is not found" });
-  }
-  // accessing the file
-  const myFile = req.file;
-  console.log(myFile);
-  res.send("done");
-});
-
 export { router as userRouter };
