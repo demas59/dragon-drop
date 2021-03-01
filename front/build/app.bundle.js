@@ -38145,7 +38145,7 @@ utils.intFromLE = intFromLE;
 /*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"C:\\\\Users\\\\33695\\\\Documents\\\\github\\\\dragon-drop\\\\front\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"C:\\\\Users\\\\33695\\\\Documents\\\\github\\\\dragon-drop\\\\front\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
+module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"C:\\\\Users\\\\Tom\\\\Documents\\\\Cours\\\\JS\\\\tp6\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"C:\\\\Users\\\\Tom\\\\Documents\\\\Cours\\\\JS\\\\tp6\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
 
 /***/ }),
 
@@ -91579,6 +91579,7 @@ function CommentsRenderer(_ref) {
   var comments = _ref.comments,
       idPost = _ref.idPost,
       _fetchPost = _ref.fetchPost;
+  var username = localStorage.getItem('username');
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -91589,7 +91590,12 @@ function CommentsRenderer(_ref) {
     //comments not displayed
     if (comments.length === 0) {
       //no comments
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No commentary.");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No commentary.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        idPost: idPost,
+        fetchPost: function fetchPost() {
+          return _fetchPost();
+        }
+      }));
     } else {
       //ask to display comments
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -91602,7 +91608,8 @@ function CommentsRenderer(_ref) {
   }
 
   function CommentView(_ref2) {
-    var idComment = _ref2.idComment;
+    var idComment = _ref2.idComment,
+        idPost = _ref2.idPost;
 
     var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(),
         _useState4 = _slicedToArray(_useState3, 2),
@@ -91614,10 +91621,20 @@ function CommentsRenderer(_ref) {
     }, []);
 
     function fetchComment() {
+      console.log(username.toLocaleLowerCase());
       fetch("http://localhost:3000/comment/".concat(idComment)).then(function (response) {
         return response.json();
       }).then(function (sentComment) {
         return setComment(sentComment);
+      });
+    }
+
+    function handleDelete() {
+      fetch("http://localhost:3000/post/comment/".concat(idPost, "/").concat(idComment), {
+        method: 'DELETE'
+      }).then(function () {
+        setComment(null);
+        return;
       });
     }
 
@@ -91626,10 +91643,19 @@ function CommentsRenderer(_ref) {
     }
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "container pl-2"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "container pl-2 d-flex justify-content-between"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "h6 mt-1 mb-0"
-    }, comment.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value));
+    }, comment.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value)), username && (username.toLocaleLowerCase() === comment.userName.toLocaleLowerCase() || username.toLocaleLowerCase() === "admin") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: "../images/trash.png",
+      alt: "Trash",
+      onClick: function onClick() {
+        return handleDelete();
+      },
+      style: {
+        cursor: 'pointer'
+      }
+    })) : "");
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -91640,7 +91666,8 @@ function CommentsRenderer(_ref) {
   }, "Hide comments"), comments.map(function (commentId) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CommentView, {
       idComment: commentId,
-      key: commentId
+      key: commentId,
+      idPost: idPost
     });
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container pl-2 mt-2"
@@ -92022,14 +92049,14 @@ function Menu() {
     to: "/"
   }, "Thread"), username && username.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
+    to: "/newPost"
+  }, "New post") : "", username && username.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    className: "nav-link",
     to: "/myAccount"
   }, "My account (", username, ")") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/login"
-  }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    className: "nav-link",
-    to: "/newPost"
-  }, "TMP THREAD")));
+  }, "Login")));
 }
 
 /***/ }),
@@ -92090,8 +92117,8 @@ function MyAccount() {
     }
   }, "disconnect"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "",
-    to: "/addPost"
-  }, "Add a post"));
+    to: "/newPost"
+  }, "New post"));
 }
 
 /***/ }),
@@ -92177,8 +92204,8 @@ function NewPost() {
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
-      progress = _useState2[0],
-      setProgress = _useState2[1];
+      isLoading = _useState2[0],
+      setIsLoading = _useState2[1];
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -92193,16 +92220,9 @@ function NewPost() {
       data = _useState6[0],
       getFile = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
-      _useState8 = _slicedToArray(_useState7, 2),
-      caption = _useState8[0],
-      setCaption = _useState8[1];
-
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
-      _useState10 = _slicedToArray(_useState9, 2),
-      tags = _useState10[0],
-      setTag = _useState10[1];
-
+  var caption = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var tags = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var closeFriends = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (!localStorage.getItem('username') || localStorage.getItem('username') === '') {
       history.push("/login");
@@ -92211,33 +92231,34 @@ function NewPost() {
 
   function handleFileChange(event) {
     var file = event.target.files[0];
-    console.log('file', file);
     setFile(file);
   }
 
   function handleSubmitNewPost(event) {
+    setIsLoading(true);
     event.preventDefault();
     var formData = new FormData();
-    formData.append('tags', tags);
-    formData.append('caption', caption);
+    formData.append('tags', tags.current.value);
+    formData.append('caption', caption.current.value);
     formData.append('creator', localStorage.getItem('username'));
-    formData.append('visibility', 'all');
+
+    if (closeFriends.current.checked) {
+      formData.append('visibility', 'all');
+    } else {
+      formData.append('visibility', 'hidden');
+    }
+
     formData.append('file', file);
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('http://localhost:3000/upload', formData, {
-      onUploadProgress: function onUploadProgress(ProgressEvent) {
-        var progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-        setProgress(progress);
-      }
-    }).then(function (res) {
-      console.log('res:', res);
-      setProgress(false);
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('http://localhost:3000/upload', formData).then(function (res) {
       getFile({
         name: res.data.name,
         path: 'http://localhost:3000/' + res.data.path
       });
+      setIsLoading(false);
+      history.push("/");
     })["catch"](function (err) {
       console.log(err);
-      setProgress(false);
+      setIsLoading(false);
     });
   }
 
@@ -92249,7 +92270,7 @@ function NewPost() {
     className: "card p-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "text-center mb-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Add a post")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "New post")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     onSubmit: function onSubmit(event) {
       return handleSubmitNewPost(event);
     }
@@ -92263,7 +92284,8 @@ function NewPost() {
     type: "file",
     className: "form-control-file",
     id: "imageInput",
-    onChange: handleFileChange
+    onChange: handleFileChange,
+    disabled: isLoading
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -92272,10 +92294,8 @@ function NewPost() {
     className: "form-control",
     id: "captionInput",
     placeholder: "Caption",
-    readOnly: progress,
-    onChange: function onChange(event) {
-      return setCaption(event.target.value);
-    }
+    readOnly: isLoading,
+    ref: caption
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -92285,17 +92305,26 @@ function NewPost() {
     className: "form-control",
     id: "tagsInput",
     placeholder: "Tag list",
-    readOnly: progress,
-    onChange: function onChange(event) {
-      return setTag(event.target.value);
-    }
+    readOnly: isLoading,
+    ref: tags
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group form-check"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "checkbox",
+    className: "form-check-input",
+    id: "visibilityCheckbox",
+    ref: closeFriends,
+    disabled: isLoading
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: "form-check-label",
+    htmlFor: "visibilityCheckbox"
+  }, "Only for close friends")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "d-flex justify-content-between mt-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary",
-    disabled: progress
-  }, !progress ? 'Post' : 'Progress...'))))));
+    disabled: isLoading
+  }, !isLoading ? 'Post' : 'Posting ...'))))));
 }
 
 /***/ }),
@@ -92333,11 +92362,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function Post(_ref) {
   var idPost = _ref.idPost;
+  var username = localStorage.getItem('username');
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState2 = _slicedToArray(_useState, 2),
       post = _useState2[0],
       setPost = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      deleted = _useState4[0],
+      setDeleted = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _fetchPost();
@@ -92351,7 +92386,21 @@ function Post(_ref) {
     });
   }
 
+  function handleDeletePost() {
+    setPost(null);
+    setDeleted(true); // fetch(`http://localhost:3000/post/${idPost}`, {
+    //     method: 'DELETE'
+    // }).then(() => {
+    //     setPost(null);
+    //     return;
+    // });
+  }
+
   if (!post) {
+    if (deleted) {
+      return "";
+    }
+
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "container mt-3"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -92400,14 +92449,34 @@ function Post(_ref) {
     },
     idPost: idPost
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-sm"
+    className: "col-sm text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: "../images/posts/".concat(_id, ".").concat(format),
+    src: "http://localhost:3000/".concat(_id, ".").concat(format),
     className: "img-fluid",
     alt: "Responsive image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-sm-1"
+    className: "col-sm-1 pl-0 pr-3"
+  }, username && (username.toLocaleLowerCase() === creator.toLocaleLowerCase() || username.toLocaleLowerCase() === "admin") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "../images/trash.png",
+    alt: "Trash",
+    onClick: function onClick() {
+      return handleDeletePost();
+    },
+    style: {
+      cursor: 'pointer'
+    }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "mt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "../images/pen.png",
+    alt: "Trash",
+    onClick: function onClick() {
+      return handleModifyPost();
+    },
+    style: {
+      cursor: 'pointer'
+    }
+  }))) : "")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1"
@@ -92692,7 +92761,7 @@ function Thread() {
       className: "col-7 mx-auto p-4"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "text-center"
-    }, "Il n'y a aucun post \xE0 afficher... :(")));
+    }, "There isn't any post... :(")));
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -32,7 +32,7 @@ export default function Thread() {
             <div className="container">
                 <div className="col-7 mx-auto p-4">
 					<div className="text-center">
-						Il n'y a aucun post à afficher... :(
+						There isn't any post... :(
 					</div>
                 </div>
             </div>
