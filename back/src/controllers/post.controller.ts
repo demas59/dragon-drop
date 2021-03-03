@@ -1,6 +1,10 @@
 import { Post } from "../models/post.model";
 
 export default class PostController {
+  async deleteById(id: String) {
+    return await Post.findByIdAndDelete({ _id: id });
+  }
+
   async getAll() {
     return await Post.find({});
   }

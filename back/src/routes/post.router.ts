@@ -34,6 +34,15 @@ router.get("/post/creator/:login", async (req: Request, res: Response) => {
   res.send(await postController.getByCreator(req.params.login));
 });
 
+router.delete("/post/:id", async (req: Request, res: Response) => {
+  const post = await postController.getById(req.params.id);
+  post.comments.forEach(async (element: String) => {
+    await commentController.deleteById(element);
+  });
+  postController.deleteById(req.params.id);
+  res.send("deleted");
+});
+
 router.delete(
   "/post/comment/:idPost/:idComment",
   async (req: Request, res: Response) => {
