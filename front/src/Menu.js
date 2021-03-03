@@ -27,11 +27,16 @@ export default function Menu() {
 			<div className="navbar-nav">
 				<NavLink className="nav-link" to="/">Thread</NavLink>
 				{username && username.length>0?
+					<NavLink className="nav-link" to="/newPost">New post</NavLink>
+				:
+					""
+				}
+				
+				{username && username.length>0?
 					<NavLink className="nav-link" to="/myAccount">My account ({username})</NavLink>
 				:
 					<NavLink className="nav-link" to="/login">Login</NavLink>
 				}
-				<NavLink className="nav-link" to="/newPost">TMP THREAD</NavLink>
 			</div>
 		</Navbar>
 	);

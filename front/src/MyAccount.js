@@ -21,7 +21,7 @@ export default function MyAccount() {
 	return (
         <div>
             <a onClick={() => handleDisconnectClick()}>disconnect</a>
-            <NavLink className="" to="/addPost">Add a post</NavLink>
+            <NavLink className="" to="/newPost">New post</NavLink>
         </div>
     );
 }
