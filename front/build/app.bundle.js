@@ -92387,13 +92387,13 @@ function Post(_ref) {
   }
 
   function handleDeletePost() {
-    setPost(null);
-    setDeleted(true); // fetch(`http://localhost:3000/post/${idPost}`, {
-    //     method: 'DELETE'
-    // }).then(() => {
-    //     setPost(null);
-    //     return;
-    // });
+    fetch("http://localhost:3000/post/".concat(idPost), {
+      method: 'DELETE'
+    }).then(function () {
+      setPost(null);
+      setDeleted(true);
+      return;
+    });
   }
 
   if (!post) {
@@ -92723,7 +92723,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Thread() {
+function Thread(_ref) {
+  var search = _ref.search;
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState2 = _slicedToArray(_useState, 2),
       posts = _useState2[0],
@@ -92733,12 +92735,56 @@ function Thread() {
     fetchPosts();
   }, []);
 
+  function getIDsFromPosts(posts) {
+    return posts.map(function (post) {
+      return post._id;
+    });
+  }
+
   function fetchPosts() {
-    fetch("http://localhost:3000/post/id").then(function (response) {
-      return response.json();
-    }).then(function (post) {
-      return setPosts(post);
-    }); // setPosts([5, 4,3,2,1]);
+    //search={tag:"Toto", user:"Toto"};
+    var postsToDisplay = [];
+    setPosts([]);
+
+    if (!search) {
+      fetch("http://localhost:3000/post").then(function (response) {
+        return response.json();
+      }).then(function (post) {
+        return setPosts(getIDsFromPosts(post));
+      });
+      return;
+    }
+
+    if (search.user) {
+      fetch("http://localhost:3000/post/creator/".concat(search.user)).then(function (response) {
+        return response.json();
+      }).then(function (postList) {
+        var postIDList = getIDsFromPosts(postList);
+        postIDList.forEach(function (postID) {
+          if (postsToDisplay.indexOf(postID) === -1) {
+            postsToDisplay.push(postID);
+          }
+        });
+
+        if (!search.tag) {
+          setPosts(postsToDisplay);
+        }
+      });
+    }
+
+    if (search.tag) {
+      fetch("http://localhost:3000/post/tags/".concat(search.tag)).then(function (response) {
+        return response.json();
+      }).then(function (postList) {
+        var postIDList = getIDsFromPosts(postList);
+        postIDList.forEach(function (postID) {
+          if (postsToDisplay.indexOf(postID) === -1) {
+            postsToDisplay.push(postID);
+          }
+        });
+        setPosts(postsToDisplay);
+      });
+    }
   }
 
   if (!posts) {

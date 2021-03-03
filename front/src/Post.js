@@ -19,14 +19,13 @@ export default function Post({idPost}) {
 	}
 
     function handleDeletePost() {
-        setPost(null);
-        setDeleted(true);
-        // fetch(`http://localhost:3000/post/${idPost}`, {
-        //     method: 'DELETE'
-        // }).then(() => {
-        //     setPost(null);
-        //     return;
-        // });
+        fetch(`http://localhost:3000/post/${idPost}`, {
+            method: 'DELETE'
+        }).then(() => {
+            setPost(null);
+            setDeleted(true);
+            return;
+        });
     }
 
     if (!post) {
