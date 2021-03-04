@@ -12,4 +12,11 @@ export default class UserController {
   async getById(id: String) {
     return await User.findById({ _id: id });
   }
+
+  async updateOne(id: String, update: Object) {
+    return User.findByIdAndUpdate(id, update, {
+      new: true,
+      useFindAndModify: false,
+    });
+  }
 }

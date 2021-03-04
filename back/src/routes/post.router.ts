@@ -20,13 +20,10 @@ router.get("/post/exif/:id", async (req: Request, res: Response) => {
   try {
       new ExifImage({ image : `public\\${post._id}.${post.format}`}, function (error: { message: string; }, exifData: any) {
           if (error){
-            console.log('Error: '+error.message);
             res.send('Error: '+error.message);
           }
 
           else{
-
-            console.log("data:",exifData)
             res.send(exifData); // Do something with your data!
           }
       });
@@ -72,7 +69,6 @@ router.delete(
     const idPost = req.params.idPost;
     const idComment = req.params.idComment;
 
-    const filter = idPost;
     const update = {
       $pull: {
         comments: idComment,
@@ -81,7 +77,7 @@ router.delete(
 
     await commentController.deleteById(idComment);
 
-    const result = await postController.updateOne(filter, update);
+    const result = await postController.updateOne(idPost, update);
     res.send(result);
   }
 );
