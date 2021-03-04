@@ -12,6 +12,29 @@ const router = express.Router();
 const postController = new PostController();
 const userController = new UserController();
 const commentController = new CommentController();
+const ExifImage = require('exif').ExifImage;
+
+router.get("/post/exif/:id", async (req: Request, res: Response) => {
+  const post = await postController.getById(req.params.id);
+ 
+  try {
+      new ExifImage({ image : `public\\${post._id}.${post.format}`}, function (error: { message: string; }, exifData: any) {
+          if (error){
+            console.log('Error: '+error.message);
+            res.send('Error: '+error.message);
+          }
+
+          else{
+
+            console.log("data:",exifData)
+            res.send(exifData); // Do something with your data!
+          }
+      });
+  } catch (error) {
+      console.log('Error: ' + error.message);
+  }
+
+});
 
 router.get("/post", async (req: Request, res: Response) => {
   res.send(await postController.getAll());
