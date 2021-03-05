@@ -92462,7 +92462,7 @@ function Post(_ref) {
       state: {
         user: username
       }
-    }); // history.push('/?user='+username);
+    });
   }
 
   function handleTagClick(tag) {
@@ -92471,7 +92471,7 @@ function Post(_ref) {
       state: {
         tag: tag
       }
-    }); // history.push('/?tag='+tag);
+    });
   }
 
   if (!post) {
@@ -92797,7 +92797,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Thread; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Post */ "./src/Post.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _Post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Post */ "./src/Post.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -92812,37 +92813,36 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Thread(_ref) {
   var search = _ref.search;
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState2 = _slicedToArray(_useState, 2),
       posts = _useState2[0],
       setPosts = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      searchedSomething = _useState4[0],
-      setSearchedSomething = _useState4[1];
-
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     fetchPosts();
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    fetchPosts();
+  }, [search]);
+
+  function searchedSomething() {
     if (!search) {
-      setSearchedSomething(false);
+      return false;
     } else if (search.tag || search.user) {
-      setSearchedSomething(true);
+      return true;
     } else if (search.search) {
       search.user = search.search;
       search.tag = search.search;
-      setSearchedSomething(true);
+      return true;
     } else {
-      setSearchedSomething(false);
+      return false;
     }
-
-    fetchPosts();
-  }, [search]);
+  }
 
   function getIDsFromPosts(posts) {
     return posts.map(function (post) {
@@ -92853,7 +92853,7 @@ function Thread(_ref) {
   function fetchPosts() {
     var postsToDisplay = [];
 
-    if (!searchedSomething) {
+    if (!searchedSomething()) {
       fetch("http://localhost:3000/post").then(function (response) {
         return response.json();
       }).then(function (post) {
@@ -92897,7 +92897,7 @@ function Thread(_ref) {
   function displayRecapResult() {
     var sentence = "";
 
-    if (!searchedSomething) {
+    if (!searchedSomething()) {
       return "";
     }
 
@@ -92912,10 +92912,19 @@ function Thread(_ref) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col-7 mx-auto p-4"
+      className: "col-7 mx-auto pt-4 pb-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "text-center"
-    }, sentence)));
+    }, sentence, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        history.push({
+          pathname: '/',
+          state: {}
+        });
+      },
+      className: "btn btn-link"
+    }, "Reset"))));
   }
 
   if (!posts) {
@@ -92944,7 +92953,7 @@ function Thread(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mb-4"
   }, displayRecapResult(), posts.map(function (id) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
       idPost: id,
       key: id
     });

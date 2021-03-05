@@ -34,7 +34,6 @@ export default function Post({idPost}) {
 			pathname: '/',
 			state: { user: username }
 		});
-        // history.push('/?user='+username);
     }
 
     function handleTagClick(tag) {
@@ -42,7 +41,6 @@ export default function Post({idPost}) {
 			pathname: '/',
 			state: { tag: tag }
 		});
-        // history.push('/?tag='+tag);
     }
 
     if (!post) {

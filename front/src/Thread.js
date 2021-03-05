@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Post from './Post';
 
 export default function Thread({search}) {
+	let history = useHistory();
 	const [posts, setPosts] = useState(null);
-	const [searchedSomething, setSearchedSomething] = useState(false);
 
     useEffect(() => {
 		fetchPosts();
 	}, []);
 
 	useEffect(() => {
-		if(!search) {setSearchedSomething(false)}
-		else if(search.tag || search.user) {setSearchedSomething(true)}
+		fetchPosts();
+	}, [search]);
+
+	function searchedSomething () {
+		if(!search) {return false}
+		else if(search.tag || search.user) {return true}
 		else if(search.search) {
 			search.user = search.search;
 			search.tag = search.search;
-			setSearchedSomething(true);
+			return true;
 		}else {
-			setSearchedSomething(false);
+			return false;
 		}
-		fetchPosts();
-	}, [search]);
+	}
 
 	function getIDsFromPosts(posts) {
 		return posts.map(post => {
@@ -30,7 +34,8 @@ export default function Thread({search}) {
 
     function fetchPosts() {
 		let postsToDisplay=[];
-		if(!searchedSomething) {
+
+		if(!searchedSomething()) {
 			fetch(`http://localhost:3000/post`)
 				.then(response => response.json())
 				.then(post => setPosts(getIDsFromPosts(post)));
@@ -75,7 +80,7 @@ export default function Thread({search}) {
 
 	function displayRecapResult() {
 		let sentence = "";
-		if(!searchedSomething) {
+		if(!searchedSomething()) {
 			return "";
 		}
 
@@ -89,9 +94,17 @@ export default function Thread({search}) {
 
 		return (
 			<div className="container">
-                <div className="col-7 mx-auto p-4">
+                <div className="col-7 mx-auto pt-4 pb-2">
 					<div className="text-center">
-						{sentence}
+						{sentence} 
+						<button
+							type="button"
+							onClick={() => {history.push({
+								pathname: '/',
+								state: {}
+							})}}
+							className="btn btn-link"
+						>Reset</button>
 					</div>
 				</div>
 			</div>
