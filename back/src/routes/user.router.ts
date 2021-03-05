@@ -8,6 +8,20 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+router.put("/user/", async (req: Request, res: Response) => {
+  const user = await userController.getById(req.body._id);
+  if(user){
+    for(const element in req.body) {
+      user[element] = req.body[element];
+    }
+  }else{
+    res.status(HttpStatusCodes.NOT_FOUND).send("user not found")
+  }
+
+  const savedUser = await user.save();
+  return res.send(savedUser);
+});
+
 router.get("/user", async (req: Request, res: Response) => {
   const users = await userController.getAll();
   return res.send(users);
