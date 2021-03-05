@@ -11,7 +11,7 @@ export default function NewPost() {
 
 	const caption = useRef();
 	const tags = useRef();
-    const closeFriends = useRef();
+	const closeFriends = useRef();
 
 	useEffect(() => {
 		if (
@@ -28,19 +28,18 @@ export default function NewPost() {
 	}
 
 	function handleSubmitNewPost(event) {
-        setIsLoading(true);
+		setIsLoading(true);
 		event.preventDefault();
 		const formData = new FormData();
-		
 		formData.append('tags', tagsFormatted);
 		formData.append('caption', caption.current.value);
 		formData.append('creator', localStorage.getItem('username'));
 
-        if(closeFriends.current.checked){
-            formData.append('visibility', 'all');
-        }else {
-            formData.append('visibility', 'hidden');
-        }
+		if (closeFriends.current.checked) {
+			formData.append('visibility', 'all');
+		} else {
+			formData.append('visibility', 'hidden');
+		}
 
 		formData.append('file', file);
 
@@ -52,7 +51,7 @@ export default function NewPost() {
 					path: 'http://localhost:3000/' + res.data.path,
 				});
 				setIsLoading(false);
-                history.push(`/`);
+				history.push(`/`);
 			})
 			.catch(err => {
 				console.log(err);
@@ -62,10 +61,10 @@ export default function NewPost() {
 
 	function handleTagsChange(event) {
 		const tagsFormatted = event.target.value.trim().split(' ');
-		const tmpArray = tagsFormatted.filter(function (tag) { 
-			return tag != ""; 
-		}); 
-		setTagsFormatted(tmpArray)
+		const tmpArray = tagsFormatted.filter(function (tag) {
+			return tag != '';
+		});
+		setTagsFormatted(tmpArray);
 	}
 
 	return (
@@ -84,7 +83,7 @@ export default function NewPost() {
 								className="form-control-file"
 								id="imageInput"
 								onChange={handleFileChange}
-                                disabled={isLoading}
+								disabled={isLoading}
 							></input>
 						</div>
 						<div className="form-group">
@@ -94,7 +93,7 @@ export default function NewPost() {
 								id="captionInput"
 								placeholder="Caption"
 								readOnly={isLoading}
-                                ref={caption}
+								ref={caption}
 							/>
 						</div>
 						<div className="form-group">
@@ -106,24 +105,28 @@ export default function NewPost() {
 								placeholder="Tag list"
 								onChange={e => handleTagsChange(e)}
 								readOnly={isLoading}
-                                ref={tags}
+								ref={tags}
 							></input>
 							{tagsFormatted.map((tag, index) => {
 								return (
-									<span key={index} className="badge badge-pill badge-light">#{tag}</span>
-								)
+									<span key={index} className="badge badge-pill badge-light">
+										#{tag}
+									</span>
+								);
 							})}
 						</div>
-                        <div className="form-group form-check">
-                            <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="visibilityCheckbox"
-                                ref={closeFriends}
+						<div className="form-group form-check">
+							<input
+								type="checkbox"
+								className="form-check-input"
+								id="visibilityCheckbox"
+								ref={closeFriends}
 								disabled={isLoading}
-                            ></input>
-                            <label className="form-check-label" htmlFor="visibilityCheckbox">Only for close friends</label>
-                        </div>
+							></input>
+							<label className="form-check-label" htmlFor="visibilityCheckbox">
+								Only for close friends
+							</label>
+						</div>
 						<div className="d-flex justify-content-between mt-4">
 							<button
 								type="submit"

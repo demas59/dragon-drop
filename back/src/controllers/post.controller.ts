@@ -14,23 +14,37 @@ export default class PostController {
   }
 
   async getByCreator(creator: String) {
-    return await Post.find({ creator: creator }, function (err, result) {
-      if (err) {
-        return err;
-      } else {
-        return result;
+    return await Post.aggregate(
+      [
+        {
+          $match: { creator: { $regex: creator, $options: "i" } },
+        },
+      ],
+      function (err: any, result: any) {
+        if (err) {
+          return err;
+        } else {
+          return result;
+        }
       }
-    });
+    );
   }
 
   async getByTag(tag: String) {
-    return await Post.find({ tags: tag }, function (err, result) {
-      if (err) {
-        return err;
-      } else {
-        return result;
+    return await Post.aggregate(
+      [
+        {
+          $match: { tags: { $regex: tag, $options: "i" } },
+        },
+      ],
+      function (err: any, result: any) {
+        if (err) {
+          return err;
+        } else {
+          return result;
+        }
       }
-    });
+    );
   }
 
   async updateOne(id: String, update: Object) {
