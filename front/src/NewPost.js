@@ -7,6 +7,7 @@ export default function NewPost() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [file, setFile] = useState('');
 	const [data, getFile] = useState({ name: '', path: '' });
+	const [tagsFormatted, setTagsFormatted] = useState([]);
 
 	const caption = useRef();
 	const tags = useRef();
@@ -30,7 +31,8 @@ export default function NewPost() {
         setIsLoading(true);
 		event.preventDefault();
 		const formData = new FormData();
-		formData.append('tags', tags.current.value);
+		
+		formData.append('tags', tagsFormatted);
 		formData.append('caption', caption.current.value);
 		formData.append('creator', localStorage.getItem('username'));
 
@@ -39,7 +41,7 @@ export default function NewPost() {
         }else {
             formData.append('visibility', 'hidden');
         }
-        
+
 		formData.append('file', file);
 
 		axios
@@ -56,6 +58,14 @@ export default function NewPost() {
 				console.log(err);
 				setIsLoading(false);
 			});
+	}
+
+	function handleTagsChange(event) {
+		const tagsFormatted = event.target.value.trim().split(' ');
+		const tmpArray = tagsFormatted.filter(function (tag) { 
+			return tag != ""; 
+		}); 
+		setTagsFormatted(tmpArray)
 	}
 
 	return (
@@ -88,15 +98,21 @@ export default function NewPost() {
 							/>
 						</div>
 						<div className="form-group">
-							<label htmlFor="tagsInput">Tags</label>
+							<label htmlFor="tagsInput">Tags (example: tag1 tag2 tag3)</label>
 							<input
 								type="text"
 								className="form-control"
 								id="tagsInput"
 								placeholder="Tag list"
+								onChange={e => handleTagsChange(e)}
 								readOnly={isLoading}
                                 ref={tags}
 							></input>
+							{tagsFormatted.map((tag, index) => {
+								return (
+									<span key={index} className="badge badge-pill badge-light">#{tag}</span>
+								)
+							})}
 						</div>
                         <div className="form-group form-check">
                             <input

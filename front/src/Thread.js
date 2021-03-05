@@ -16,6 +16,8 @@ export default function Thread({search}) {
 
     function fetchPosts() {
 		//search={tag:"Toto", user:"Toto"};
+		//console.log(localStorage.getItem('toto'));
+		//localStorage.removeItem('toto');
 		let postsToDisplay=[];
 		setPosts([]);
 		if(!search) {

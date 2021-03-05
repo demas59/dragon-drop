@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import CommentsRenderer from './CommentsRenderer.js';
 import LikeButtons from './LikeButtons.js';
 
 export default function Post({idPost}) {
+	let history = useHistory();
 	const username = localStorage.getItem('username');
     const [post, setPost] = useState(null);
     const [deleted, setDeleted] = useState(false);
@@ -26,6 +27,12 @@ export default function Post({idPost}) {
             setDeleted(true);
             return;
         });
+    }
+
+    function handleTagClick(tag) {
+        //localStorage.setItem('toto', tag);
+        //console.log("oui, "+tag);
+        //history.push('/');
     }
 
     if (!post) {
@@ -87,8 +94,14 @@ export default function Post({idPost}) {
                     <div className="row">
                         <div className="col-sm-1"></div>
                         <div className="col-sm">
-                            {tags.map(tag => {
-                                return <NavLink to={`/?tag=${tag}`} key={tag} className="mr-2">{"#"+tag}</NavLink>;
+                            {tags.map((tag, index) => {
+                                return <button
+                                    type="button"
+                                    key={index}
+                                    onClick={() => handleTagClick(tag)}
+                                    className="pl-0 pr-1 pt-0 pb-0 btn btn-link"
+                                >{'#'+tag}</button>
+                                // <NavLink to={`/?search=${tag}`} key={tag} onClick={localStorage.setItem("toto", "titi")} className="mr-2">{"#"+tag}</NavLink>;
                             })}
                         </div>
                         <div className="col-sm-1"></div>
