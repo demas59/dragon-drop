@@ -29,10 +29,20 @@ export default function Post({idPost}) {
         });
     }
 
+    function handleUsernameClick(username) {
+        history.push({
+			pathname: '/',
+			state: { user: username }
+		});
+        // history.push('/?user='+username);
+    }
+
     function handleTagClick(tag) {
-        //localStorage.setItem('toto', tag);
-        //console.log("oui, "+tag);
-        //history.push('/');
+        history.push({
+			pathname: '/',
+			state: { tag: tag }
+		});
+        // history.push('/?tag='+tag);
     }
 
     if (!post) {
@@ -62,7 +72,7 @@ export default function Post({idPost}) {
                     <div className="row">
                         <div className="col-sm-1"></div>
                         <div className="col-sm h4">
-                            {creator}
+                            <div onClick={() => handleUsernameClick(creator)} style={{cursor: 'pointer', width: 'fit-content'}}>{creator}</div>
                         </div>
                         <div className="col-sm-1"></div>
                     </div>
@@ -101,7 +111,6 @@ export default function Post({idPost}) {
                                     onClick={() => handleTagClick(tag)}
                                     className="pl-0 pr-1 pt-0 pb-0 btn btn-link"
                                 >{'#'+tag}</button>
-                                // <NavLink to={`/?search=${tag}`} key={tag} onClick={localStorage.setItem("toto", "titi")} className="mr-2">{"#"+tag}</NavLink>;
                             })}
                         </div>
                         <div className="col-sm-1"></div>

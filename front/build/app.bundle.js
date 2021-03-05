@@ -38145,7 +38145,7 @@ utils.intFromLE = intFromLE;
 /*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"C:\\\\Users\\\\tom\\\\Documents\\\\cours\\\\dragon-drop\\\\front\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"C:\\\\Users\\\\tom\\\\Documents\\\\cours\\\\dragon-drop\\\\front\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
+module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"C:\\\\Users\\\\Tom\\\\Documents\\\\Cours\\\\JS\\\\tp6\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"C:\\\\Users\\\\Tom\\\\Documents\\\\Cours\\\\JS\\\\tp6\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
 
 /***/ }),
 
@@ -92003,11 +92003,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Menu() {
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
+
   var _UsernameHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["UsernameHook"])(),
       _UsernameHook2 = _slicedToArray(_UsernameHook, 2),
       username = _UsernameHook2[0].username,
       dispatch = _UsernameHook2[1];
 
+  var search = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (localStorage.getItem('username')) {
       dispatch({
@@ -92018,7 +92021,12 @@ function Menu() {
 
   function handleSearchSubmit(event) {
     event.preventDefault();
-    console.log('coucou');
+    history.push({
+      pathname: '/',
+      state: {
+        search: search.current.value
+      }
+    });
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -92038,7 +92046,8 @@ function Menu() {
     className: "form-control mr-sm-2",
     type: "search",
     placeholder: "Search",
-    "aria-label": "Search"
+    "aria-label": "Search",
+    ref: search
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-outline-success my-2 my-sm-0",
     type: "submit"
@@ -92046,7 +92055,10 @@ function Menu() {
     className: "navbar-nav"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
-    to: "/"
+    to: {
+      pathname: '/',
+      state: {}
+    }
   }, "Thread"), username && username.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/newPost"
@@ -92141,6 +92153,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Register */ "./src/Register.js");
 /* harmony import */ var _MyAccount__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MyAccount */ "./src/MyAccount.js");
 /* harmony import */ var _NewPost__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NewPost */ "./src/NewPost.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -92149,10 +92173,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Navigator() {
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+      _useState2 = _slicedToArray(_useState, 2),
+      search = _useState2[0],
+      setSearch = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (location.state) {
+      setSearch(location.state);
+    }
+  }, [location]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Thread__WEBPACK_IMPORTED_MODULE_1__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Thread__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    search: search
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/login"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_3__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
@@ -92418,9 +92456,22 @@ function Post(_ref) {
     });
   }
 
-  function handleTagClick(tag) {//localStorage.setItem('toto', tag);
-    //console.log("oui, "+tag);
-    //history.push('/');
+  function handleUsernameClick(username) {
+    history.push({
+      pathname: '/',
+      state: {
+        user: username
+      }
+    }); // history.push('/?user='+username);
+  }
+
+  function handleTagClick(tag) {
+    history.push({
+      pathname: '/',
+      state: {
+        tag: tag
+      }
+    }); // history.push('/?tag='+tag);
   }
 
   if (!post) {
@@ -92463,7 +92514,15 @@ function Post(_ref) {
     className: "col-sm-1"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm h4"
-  }, creator), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    onClick: function onClick() {
+      return handleUsernameClick(creator);
+    },
+    style: {
+      cursor: 'pointer',
+      width: 'fit-content'
+    }
+  }, creator)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
@@ -92525,7 +92584,7 @@ function Post(_ref) {
         return handleTagClick(tag);
       },
       className: "pl-0 pr-1 pt-0 pb-0 btn btn-link"
-    }, '#' + tag); // <NavLink to={`/?search=${tag}`} key={tag} onClick={localStorage.setItem("toto", "titi")} className="mr-2">{"#"+tag}</NavLink>;
+    }, '#' + tag);
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -92761,9 +92820,29 @@ function Thread(_ref) {
       posts = _useState2[0],
       setPosts = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      searchedSomething = _useState4[0],
+      setSearchedSomething = _useState4[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     fetchPosts();
   }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (!search) {
+      setSearchedSomething(false);
+    } else if (search.tag || search.user) {
+      setSearchedSomething(true);
+    } else if (search.search) {
+      search.user = search.search;
+      search.tag = search.search;
+      setSearchedSomething(true);
+    } else {
+      setSearchedSomething(false);
+    }
+
+    fetchPosts();
+  }, [search]);
 
   function getIDsFromPosts(posts) {
     return posts.map(function (post) {
@@ -92772,13 +92851,9 @@ function Thread(_ref) {
   }
 
   function fetchPosts() {
-    //search={tag:"Toto", user:"Toto"};
-    //console.log(localStorage.getItem('toto'));
-    //localStorage.removeItem('toto');
     var postsToDisplay = [];
-    setPosts([]);
 
-    if (!search) {
+    if (!searchedSomething) {
       fetch("http://localhost:3000/post").then(function (response) {
         return response.json();
       }).then(function (post) {
@@ -92819,6 +92894,30 @@ function Thread(_ref) {
     }
   }
 
+  function displayRecapResult() {
+    var sentence = "";
+
+    if (!searchedSomething) {
+      return "";
+    }
+
+    if (search.search) {
+      sentence = "Results for search '".concat(search.search, "' : ").concat(posts.length, " result(s).");
+    } else if (search.tag) {
+      sentence = "Results for tag '".concat(search.tag, "' : ").concat(posts.length, " result(s).");
+    } else if (search.user) {
+      sentence = "Results for user '".concat(search.user, "' : ").concat(posts.length, " result(s).");
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col-7 mx-auto p-4"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "text-center"
+    }, sentence)));
+  }
+
   if (!posts) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "container"
@@ -92844,7 +92943,7 @@ function Thread(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "mb-4"
-  }, posts.map(function (id) {
+  }, displayRecapResult(), posts.map(function (id) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Post__WEBPACK_IMPORTED_MODULE_1__["default"], {
       idPost: id,
       key: id
