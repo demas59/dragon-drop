@@ -12,25 +12,25 @@ const router = express.Router();
 const postController = new PostController();
 const userController = new UserController();
 const commentController = new CommentController();
-const ExifImage = require('exif').ExifImage;
+const ExifImage = require("exif").ExifImage;
 
 router.get("/post/exif/:id", async (req: Request, res: Response) => {
   const post = await postController.getById(req.params.id);
- 
+
   try {
-      new ExifImage({ image : `public\\${post._id}.${post.format}`}, function (error: { message: string; }, exifData: any) {
-          if (error){
-            res.send('Error: '+error.message);
-          }
-
-          else{
-            res.send(exifData); // Do something with your data!
-          }
-      });
+    new ExifImage(
+      { image: `public\\${post._id}.${post.format}` },
+      function (error: { message: string }, exifData: any) {
+        if (error) {
+          res.send("Error: " + error.message);
+        } else {
+          res.send(exifData); // Do something with your data!
+        }
+      }
+    );
   } catch (error) {
-      console.log('Error: ' + error.message);
+    console.log("Error: " + error.message);
   }
-
 });
 
 router.get("/post", async (req: Request, res: Response) => {
@@ -135,7 +135,9 @@ router.put("/post/like/:id", async (req: Request, res: Response) => {
 });
 
 router.post("/post", async (req: Request, res: Response) => {
-  const newPost = new Post(req.body);
+  const body = req.body;
+
+  const newPost = new Post(body);
 
   try {
     const createdPost = await newPost.save();
@@ -155,15 +157,15 @@ router.post("/upload", async (req, res) => {
   const myFile = req.files.file as UploadedFile;
   const format = myFile.name.split(".")[1];
 
-  const post = {
-    format: format,
-    creator: req.body.creator,
-    tags: req.body.tags,
-    visibility: req.body.visibility,
-    caption: req.body.caption,
-  };
+  const body = req.body;
 
-  const newPost = new Post(post);
+  if (body && body.tags) {
+    body.tags = body.tags.split(",");
+  }
+
+  body.format = format;
+
+  const newPost = new Post(body);
 
   // Use the mv() method to place the file somewhere on your server
 
