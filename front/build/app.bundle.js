@@ -92308,7 +92308,7 @@ function NewPost() {
   function handleTagsChange(event) {
     var tagsFormatted = event.target.value.trim().split(' ');
     var tmpArray = tagsFormatted.filter(function (tag) {
-      return tag != "";
+      return tag != '';
     });
     setTagsFormatted(tmpArray);
   }
