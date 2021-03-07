@@ -93042,6 +93042,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CommentsRenderer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CommentsRenderer.js */ "./src/CommentsRenderer.js");
 /* harmony import */ var _LikeButtons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LikeButtons.js */ "./src/LikeButtons.js");
 /* harmony import */ var reactjs_popup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactjs-popup */ "./node_modules/reactjs-popup/dist/reactjs-popup.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -93053,6 +93055,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -93073,20 +93076,6 @@ function Post(_ref) {
       _useState4 = _slicedToArray(_useState3, 2),
       deleted = _useState4[0],
       setDeleted = _useState4[1];
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState6 = _slicedToArray(_useState5, 2),
-      exif = _useState6[0],
-      setExif = _useState6[1];
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      open = _useState8[0],
-      setOpen = _useState8[1];
-
-  var closeModal = function closeModal() {
-    return setOpen(true);
-  };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _fetchPost();
@@ -93110,23 +93099,6 @@ function Post(_ref) {
     });
   }
 
-  function handleExifInfos() {
-    fetch("http://localhost:3000/post/exif/".concat(idPost)).then(function (response) {
-      return response.json();
-    }).then(function (exif) {
-      if (!exif) {
-        console.log('error');
-      } else {
-        setExif(exif);
-      }
-    });
-    setOpen(function (o) {
-      return !o;
-    });
-    console.log('oepn=', open);
-    console.log('exif=', exif);
-  }
-
   function handleUsernameClick(username) {
     history.push({
       pathname: '/',
@@ -93143,7 +93115,40 @@ function Post(_ref) {
         tag: tag
       }
     });
-  }
+  } // const Modal = () => {
+  // 	let hasExif = false;
+  // 	axios
+  // 		.get(`http://localhost:3000/post/exif/${idPost}`)
+  // 		.then(res => {
+  // 			return (
+  // 				<div className="mt-2">
+  // 					<Popup
+  // 						trigger={
+  // 							<img
+  // 								onClick={() => handleExifInfos()}
+  // 								src={`../images/information-outline.png`}
+  // 								style={{ cursor: 'pointer' }}
+  // 							></img>
+  // 						}
+  // 						modal
+  // 					>
+  // 						<span style={{ backgroundColor: 'whitesmoke' }}>
+  // 							{' '}
+  // 							Modal content{' '}
+  // 						</span>
+  // 					</Popup>
+  // 				</div>
+  // 			);
+  // 		})
+  // 		.catch(err => {
+  // 			console.log(err.message);
+  // 		});
+  // 	if (hasExif) {
+  // 	} else {
+  // 		return '';
+  // 	}
+  // };
+
 
   if (!post) {
     if (deleted) {
@@ -93233,27 +93238,7 @@ function Post(_ref) {
     style: {
       cursor: 'pointer'
     }
-  }))) : '', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "mt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: "../images/information-outline.png",
-    alt: "infos",
-    onClick: function onClick() {
-      return handleExifInfos();
-    },
-    style: {
-      cursor: 'pointer'
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactjs_popup__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    open: open,
-    closeOnDocumentClick: true,
-    onClose: closeModal
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "modal"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    className: "close",
-    onClick: closeModal
-  }, "\xD7"), "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam doloribus. Odit, aut."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }))) : '', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Modal, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1"

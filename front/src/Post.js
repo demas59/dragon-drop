@@ -3,15 +3,13 @@ import { NavLink, useHistory } from 'react-router-dom';
 import CommentsRenderer from './CommentsRenderer.js';
 import LikeButtons from './LikeButtons.js';
 import Popup from 'reactjs-popup';
+import axios from 'axios';
 
 export default function Post({ idPost }) {
 	let history = useHistory();
 	const username = localStorage.getItem('username');
 	const [post, setPost] = useState(null);
 	const [deleted, setDeleted] = useState(false);
-	const [exif, setExif] = useState(null);
-	const [open, setOpen] = useState(false);
-	const closeModal = () => setOpen(true);
 
 	useEffect(() => {
 		fetchPost();
@@ -33,21 +31,6 @@ export default function Post({ idPost }) {
 		});
 	}
 
-	function handleExifInfos() {
-		fetch(`http://localhost:3000/post/exif/${idPost}`)
-			.then(response => response.json())
-			.then(exif => {
-				if (!exif) {
-					console.log('error');
-				} else {
-					setExif(exif);
-				}
-			});
-		setOpen(o => !o);
-		console.log('oepn=', open);
-		console.log('exif=', exif);
-	}
-
 	function handleUsernameClick(username) {
 		history.push({
 			pathname: '/',
@@ -61,6 +44,41 @@ export default function Post({ idPost }) {
 			state: { tag: tag },
 		});
 	}
+
+	// const Modal = () => {
+	// 	let hasExif = false;
+	// 	axios
+	// 		.get(`http://localhost:3000/post/exif/${idPost}`)
+	// 		.then(res => {
+	// 			return (
+	// 				<div className="mt-2">
+	// 					<Popup
+	// 						trigger={
+	// 							<img
+	// 								onClick={() => handleExifInfos()}
+	// 								src={`../images/information-outline.png`}
+	// 								style={{ cursor: 'pointer' }}
+	// 							></img>
+	// 						}
+	// 						modal
+	// 					>
+	// 						<span style={{ backgroundColor: 'whitesmoke' }}>
+	// 							{' '}
+	// 							Modal content{' '}
+	// 						</span>
+	// 					</Popup>
+	// 				</div>
+	// 			);
+	// 		})
+	// 		.catch(err => {
+	// 			console.log(err.message);
+	// 		});
+
+	// 	if (hasExif) {
+	// 	} else {
+	// 		return '';
+	// 	}
+	// };
 
 	if (!post) {
 		if (deleted) {
@@ -138,28 +156,7 @@ export default function Post({ idPost }) {
 							) : (
 								''
 							)}
-							{
-								<div className="mt-2">
-									<img
-										src={`../images/information-outline.png`}
-										alt="infos"
-										onClick={() => handleExifInfos()}
-										style={{ cursor: 'pointer' }}
-									></img>
-									<Popup open={open} closeOnDocumentClick onClose={closeModal}>
-										<div className="modal">
-											<a className="close" onClick={closeModal}>
-												&times;
-											</a>
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-											Beatae magni omnis delectus nemo, maxime molestiae dolorem
-											numquam mollitia, voluptate ea, accusamus excepturi
-											deleniti ratione sapiente! Laudantium, aperiam doloribus.
-											Odit, aut.
-										</div>
-									</Popup>
-								</div>
-							}
+							{<Modal></Modal>}
 						</div>
 					</div>
 					<div className="row">
