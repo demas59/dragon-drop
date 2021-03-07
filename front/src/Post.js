@@ -29,6 +29,13 @@ export default function Post({idPost}) {
         });
     }
 
+    function handleModifyPost(){
+        history.push({
+			pathname: '/updatePost',
+			state: { post: post }
+		})
+    }
+
     function handleUsernameClick(username) {
         history.push({
 			pathname: '/',
