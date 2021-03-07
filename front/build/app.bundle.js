@@ -92201,7 +92201,6 @@ function Navigator() {
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (location.state) {
-      console.log(location.state);
       setState(location.state);
     }
   }, [location]);
@@ -92311,9 +92310,9 @@ function NewPost() {
     formData.append('creator', localStorage.getItem('username'));
 
     if (closeFriends.current.checked) {
-      formData.append('visibility', 'all');
-    } else {
       formData.append('visibility', 'hidden');
+    } else {
+      formData.append('visibility', 'all');
     }
 
     formData.append('file', file);
@@ -93067,6 +93066,33 @@ function UpdatePost(_ref) {
   function handleSubmitUpdatePost(event) {
     setIsLoading(true);
     event.preventDefault();
+    var postToSend = {};
+    postToSend._id = postToUpdate.post._id;
+    postToSend.caption = caption.current.value;
+
+    if (tagsFormatted.length === 0) {
+      postToSend.tags = tags.current.value.split(' ');
+    } else {
+      postToSend.tags = tagsFormatted;
+    }
+
+    if (closeFriends.current.checked) {
+      postToSend.visibility = 'hidden';
+    } else {
+      postToSend.visibility = 'all';
+    }
+
+    fetch("http://localhost:3000/post", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postToSend)
+    }).then(function () {
+      setIsLoading(false);
+      history.push('/');
+      return;
+    });
   }
 
   function handleTagsChange(event) {

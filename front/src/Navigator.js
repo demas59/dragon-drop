@@ -13,7 +13,6 @@ export default function Navigator() {
 
 	useEffect(() => {
 		if(location.state) {
-			console.log(location.state);
 			setState(
 				location.state
 			);

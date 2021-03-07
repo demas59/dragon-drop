@@ -36,9 +36,9 @@ export default function NewPost() {
 		formData.append('creator', localStorage.getItem('username'));
 
 		if (closeFriends.current.checked) {
-			formData.append('visibility', 'all');
-		} else {
 			formData.append('visibility', 'hidden');
+		} else {
+			formData.append('visibility', 'all');
 		}
 
 		formData.append('file', file);

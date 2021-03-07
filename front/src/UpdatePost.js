@@ -24,8 +24,30 @@ export default function UpdatePost({postToUpdate}) {
 		setIsLoading(true);
 		event.preventDefault();
 
+        const postToSend = {};
+        postToSend._id = postToUpdate.post._id;
+        postToSend.caption = caption.current.value;
+        if(tagsFormatted.length===0) {
+            postToSend.tags = tags.current.value.split(' ');
+        }else {
+            postToSend.tags = tagsFormatted;
+        }
+        if (closeFriends.current.checked) {
+			postToSend.visibility='hidden';
+		} else {
+			postToSend.visibility='all';
+		}
+        
+        fetch(`http://localhost:3000/post`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(postToSend)
+		}).then(() => {
+            setIsLoading(false);
+            history.push('/');
+			return;
+		});
 
-		
 	}
 
 	function handleTagsChange(event) {
