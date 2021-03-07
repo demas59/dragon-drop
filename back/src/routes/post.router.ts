@@ -14,6 +14,20 @@ const userController = new UserController();
 const commentController = new CommentController();
 const ExifImage = require("exif").ExifImage;
 
+router.put("/post", async (req: Request, res: Response) => {
+  const post = await postController.getById(req.body._id);
+  if (post) {
+    for (const element in req.body) {
+      post[element] = req.body[element];
+    }
+  } else {
+    res.status(HttpStatusCodes.NOT_FOUND).send("post not found");
+  }
+
+  const savedPost = await post.save();
+  return res.send(savedPost);
+});
+
 router.get("/post/exif/:id", async (req: Request, res: Response) => {
   const post = await postController.getById(req.params.id);
 

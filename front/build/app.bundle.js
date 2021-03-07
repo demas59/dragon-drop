@@ -93085,7 +93085,7 @@ function Post(_ref) {
       setOpen = _useState8[1];
 
   var closeModal = function closeModal() {
-    return setOpen(false);
+    return setOpen(true);
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -93111,13 +93111,20 @@ function Post(_ref) {
   }
 
   function handleExifInfos() {
-    // fetch(`http://localhost:3000/post/exif/${idPost}`)
-    // 	.then(response => response.json())
-    // 	.then(exif => setExif(exif));
+    fetch("http://localhost:3000/post/exif/".concat(idPost)).then(function (response) {
+      return response.json();
+    }).then(function (exif) {
+      if (!exif) {
+        console.log('error');
+      } else {
+        setExif(exif);
+      }
+    });
     setOpen(function (o) {
       return !o;
     });
-    console.log(open);
+    console.log('oepn=', open);
+    console.log('exif=', exif);
   }
 
   function handleUsernameClick(username) {

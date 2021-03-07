@@ -11,7 +11,7 @@ export default function Post({ idPost }) {
 	const [deleted, setDeleted] = useState(false);
 	const [exif, setExif] = useState(null);
 	const [open, setOpen] = useState(false);
-	const closeModal = () => setOpen(false);
+	const closeModal = () => setOpen(true);
 
 	useEffect(() => {
 		fetchPost();
@@ -34,11 +34,18 @@ export default function Post({ idPost }) {
 	}
 
 	function handleExifInfos() {
-		// fetch(`http://localhost:3000/post/exif/${idPost}`)
-		// 	.then(response => response.json())
-		// 	.then(exif => setExif(exif));
+		fetch(`http://localhost:3000/post/exif/${idPost}`)
+			.then(response => response.json())
+			.then(exif => {
+				if (!exif) {
+					console.log('error');
+				} else {
+					setExif(exif);
+				}
+			});
 		setOpen(o => !o);
-		console.log(open);
+		console.log('oepn=', open);
+		console.log('exif=', exif);
 	}
 
 	function handleUsernameClick(username) {
