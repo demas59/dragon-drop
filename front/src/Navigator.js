@@ -5,14 +5,15 @@ import Login from './Login';
 import Register from './Register';
 import MyAccount from './MyAccount';
 import NewPost from './NewPost';
+import UpdatePost from './UpdatePost';
 
 export default function Navigator() {
 	const location = useLocation();
-	const [search, setSearch] = useState({});
+	const [state, setState] = useState({});
 
 	useEffect(() => {
 		if(location.state) {
-			setSearch(
+			setState(
 				location.state
 			);
 		}
@@ -21,7 +22,7 @@ export default function Navigator() {
 	return (
 		<Switch>
 			<Route exact path="/">
-				<Thread search={search} />
+				<Thread search={state} />
 			</Route>
 			<Route exact path="/login">
 				<Login />
@@ -34,6 +35,9 @@ export default function Navigator() {
 			</Route>
 			<Route exact path="/newPost">
 				<NewPost />
+			</Route>
+			<Route exact path="/updatePost">
+				<UpdatePost postToUpdate={state} />
 			</Route>
 		</Switch>
 	);

@@ -92198,7 +92198,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CommentsRenderer; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CommentForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommentForm */ "./src/CommentForm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _CommentForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CommentForm */ "./src/CommentForm.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -92213,10 +92214,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function CommentsRenderer(_ref) {
   var comments = _ref.comments,
       idPost = _ref.idPost,
       _fetchPost = _ref.fetchPost;
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
   var username = localStorage.getItem('username');
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
@@ -92228,7 +92231,7 @@ function CommentsRenderer(_ref) {
     //comments not displayed
     if (comments.length === 0) {
       //no comments
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No commentary.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No commentary.", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         idPost: idPost,
         fetchPost: function fetchPost() {
           return _fetchPost();
@@ -92259,7 +92262,6 @@ function CommentsRenderer(_ref) {
     }, []);
 
     function fetchComment() {
-      console.log(username.toLocaleLowerCase());
       fetch("http://localhost:3000/comment/".concat(idComment)).then(function (response) {
         return response.json();
       }).then(function (sentComment) {
@@ -92276,6 +92278,15 @@ function CommentsRenderer(_ref) {
       });
     }
 
+    function handleUsernameClick(username) {
+      history.push({
+        pathname: '/',
+        state: {
+          user: username
+        }
+      });
+    }
+
     if (!comment) {
       return "";
     }
@@ -92283,7 +92294,13 @@ function CommentsRenderer(_ref) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "container pl-2 d-flex justify-content-between"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "h6 mt-1 mb-0"
+      className: "h6 mt-1 mb-0",
+      onClick: function onClick() {
+        return handleUsernameClick(comment.userName);
+      },
+      style: {
+        cursor: 'pointer'
+      }
     }, comment.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value)), username && (username.toLocaleLowerCase() === comment.userName.toLocaleLowerCase() || username.toLocaleLowerCase() === "admin") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: "../images/trash.png",
       alt: "Trash",
@@ -92309,7 +92326,7 @@ function CommentsRenderer(_ref) {
     });
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container pl-2 mt-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     idPost: idPost,
     fetchPost: function fetchPost() {
       return _fetchPost();
@@ -92791,6 +92808,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Register */ "./src/Register.js");
 /* harmony import */ var _MyAccount__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MyAccount */ "./src/MyAccount.js");
 /* harmony import */ var _NewPost__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NewPost */ "./src/NewPost.js");
+/* harmony import */ var _UpdatePost__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./UpdatePost */ "./src/UpdatePost.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -92810,24 +92828,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Navigator() {
   var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useLocation"])();
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
       _useState2 = _slicedToArray(_useState, 2),
-      search = _useState2[0],
-      setSearch = _useState2[1];
+      state = _useState2[0],
+      setState = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (location.state) {
-      setSearch(location.state);
+      setState(location.state);
     }
   }, [location]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Thread__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    search: search
+    search: state
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/login"
@@ -92840,7 +92859,12 @@ function Navigator() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MyAccount__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/newPost"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPost__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPost__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/updatePost"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UpdatePost__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    postToUpdate: state
+  })));
 }
 
 /***/ }),
@@ -92924,9 +92948,9 @@ function NewPost() {
     formData.append('creator', localStorage.getItem('username'));
 
     if (closeFriends.current.checked) {
-      formData.append('visibility', 'all');
-    } else {
       formData.append('visibility', 'hidden');
+    } else {
+      formData.append('visibility', 'all');
     }
 
     formData.append('file', file);
@@ -93099,6 +93123,15 @@ function Post(_ref) {
     });
   }
 
+  function handleModifyPost() {
+    history.push({
+      pathname: '/updatePost',
+      state: {
+        post: post
+      }
+    });
+  }
+
   function handleUsernameClick(username) {
     history.push({
       pathname: '/',
@@ -93115,40 +93148,37 @@ function Post(_ref) {
         tag: tag
       }
     });
-  } // const Modal = () => {
-  // 	let hasExif = false;
-  // 	axios
-  // 		.get(`http://localhost:3000/post/exif/${idPost}`)
-  // 		.then(res => {
-  // 			return (
-  // 				<div className="mt-2">
-  // 					<Popup
-  // 						trigger={
-  // 							<img
-  // 								onClick={() => handleExifInfos()}
-  // 								src={`../images/information-outline.png`}
-  // 								style={{ cursor: 'pointer' }}
-  // 							></img>
-  // 						}
-  // 						modal
-  // 					>
-  // 						<span style={{ backgroundColor: 'whitesmoke' }}>
-  // 							{' '}
-  // 							Modal content{' '}
-  // 						</span>
-  // 					</Popup>
-  // 				</div>
-  // 			);
-  // 		})
-  // 		.catch(err => {
-  // 			console.log(err.message);
-  // 		});
-  // 	if (hasExif) {
-  // 	} else {
-  // 		return '';
-  // 	}
-  // };
+  }
 
+  var Modal = function Modal() {
+    var hasExif = false;
+    axios__WEBPACK_IMPORTED_MODULE_5___default.a.get("http://localhost:3000/post/exif/".concat(idPost)).then(function (res) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mt-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactjs_popup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        trigger: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          onClick: function onClick() {
+            return handleExifInfos();
+          },
+          src: "../images/information-outline.png",
+          style: {
+            cursor: 'pointer'
+          }
+        }),
+        modal: true
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        style: {
+          backgroundColor: 'whitesmoke'
+        }
+      }, ' ', "Modal content", ' ')));
+    })["catch"](function (err) {
+      console.log(err.message);
+    });
+
+    if (hasExif) {} else {
+      return '';
+    }
+  };
 
   if (!post) {
     if (deleted) {
@@ -93634,6 +93664,187 @@ function Thread(_ref) {
       key: id
     });
   }));
+}
+
+/***/ }),
+
+/***/ "./src/UpdatePost.js":
+/*!***************************!*\
+  !*** ./src/UpdatePost.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UpdatePost; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+function UpdatePost(_ref) {
+  var postToUpdate = _ref.postToUpdate;
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      isLoading = _useState2[0],
+      setIsLoading = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      tagsFormatted = _useState4[0],
+      setTagsFormatted = _useState4[1];
+
+  var caption = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var tags = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  var closeFriends = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (!localStorage.getItem('username') || localStorage.getItem('username') === '') {
+      history.push("/login");
+    }
+  });
+
+  function handleSubmitUpdatePost(event) {
+    setIsLoading(true);
+    event.preventDefault();
+    var postToSend = {};
+    postToSend._id = postToUpdate.post._id;
+    postToSend.caption = caption.current.value;
+
+    if (tagsFormatted.length === 0) {
+      postToSend.tags = tags.current.value.split(' ');
+    } else {
+      postToSend.tags = tagsFormatted;
+    }
+
+    if (closeFriends.current.checked) {
+      postToSend.visibility = 'hidden';
+    } else {
+      postToSend.visibility = 'all';
+    }
+
+    fetch("http://localhost:3000/post", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postToSend)
+    }).then(function () {
+      setIsLoading(false);
+      history.push('/');
+      return;
+    });
+  }
+
+  function handleTagsChange(event) {
+    var tagsFormatted = event.target.value.trim().split(' ');
+    var tmpArray = tagsFormatted.filter(function (tag) {
+      return tag != '';
+    });
+    setTagsFormatted(tmpArray);
+  }
+
+  if (!postToUpdate || !postToUpdate.post) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "container mt-3"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col-7 mx-auto"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "card p-4"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "mx-auto"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "spinner-border",
+      role: "status"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "sr-only"
+    }, "Loading..."))))));
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container mt-5"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-5 mx-auto"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card p-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "text-center mb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Update post")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: function onSubmit(event) {
+      return handleSubmitUpdatePost(event);
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "text-muted"
+  }, " Update your post!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "mb-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "http://localhost:3000/".concat(postToUpdate.post._id, ".").concat(postToUpdate.post.format),
+    className: "img-fluid",
+    alt: "Responsive image"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "captionInput"
+  }, "Caption"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    className: "form-control",
+    id: "captionInput",
+    placeholder: "Caption",
+    readOnly: isLoading,
+    ref: caption,
+    defaultValue: postToUpdate.post.caption
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "tagsInput"
+  }, "Tags (example: tag1 tag2 tag3)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "tagsInput",
+    placeholder: "Tag list",
+    onChange: function onChange(e) {
+      return handleTagsChange(e);
+    },
+    readOnly: isLoading,
+    ref: tags,
+    defaultValue: postToUpdate.post.tags.join(' ')
+  }), tagsFormatted.map(function (tag, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      key: index,
+      className: "badge badge-pill badge-light"
+    }, "#", tag);
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group form-check"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "checkbox",
+    className: "form-check-input",
+    id: "visibilityCheckbox",
+    ref: closeFriends,
+    disabled: isLoading,
+    defaultChecked: postToUpdate.post.visibility !== "all" ? "checked" : ""
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: "form-check-label",
+    htmlFor: "visibilityCheckbox"
+  }, "Only for close friends")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "d-flex justify-content-between mt-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit",
+    className: "btn btn-primary",
+    disabled: isLoading
+  }, !isLoading ? 'Update' : 'Updating ...'))))));
 }
 
 /***/ }),

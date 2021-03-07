@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import CommentsForm from './CommentForm';
 
 export default function CommentsRenderer({comments, idPost, fetchPost}) {
+	let history = useHistory();
 	const username = localStorage.getItem('username');
     const [displayComments, setDisplayComments] = useState(false);
 
@@ -28,7 +30,6 @@ export default function CommentsRenderer({comments, idPost, fetchPost}) {
 		}, []);
 
 		function fetchComment(){
-			console.log(username.toLocaleLowerCase());
 			fetch(`http://localhost:3000/comment/${idComment}`)
 				.then(response => response.json())
 				.then(sentComment => setComment(sentComment));
@@ -43,6 +44,13 @@ export default function CommentsRenderer({comments, idPost, fetchPost}) {
 			});
 		}
 
+		function handleUsernameClick(username) {
+			history.push({
+				pathname: '/',
+				state: { user: username }
+			});
+		}
+
 		if(!comment) {
 			return "";
 		}
@@ -50,7 +58,7 @@ export default function CommentsRenderer({comments, idPost, fetchPost}) {
 		return (
 			<div className="container pl-2 d-flex justify-content-between">
 				<div>
-					<div className="h6 mt-1 mb-0">{comment.userName}</div>
+					<div className="h6 mt-1 mb-0" onClick={() => handleUsernameClick(comment.userName)} style={{cursor: 'pointer'}}>{comment.userName}</div>
 					<div>{comment.value}</div>
 				</div>
 				{

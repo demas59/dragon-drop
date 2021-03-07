@@ -31,6 +31,13 @@ export default function Post({ idPost }) {
 		});
 	}
 
+	function handleModifyPost() {
+		history.push({
+			pathname: '/updatePost',
+			state: { post: post },
+		});
+	}
+
 	function handleUsernameClick(username) {
 		history.push({
 			pathname: '/',
@@ -45,40 +52,40 @@ export default function Post({ idPost }) {
 		});
 	}
 
-	// const Modal = () => {
-	// 	let hasExif = false;
-	// 	axios
-	// 		.get(`http://localhost:3000/post/exif/${idPost}`)
-	// 		.then(res => {
-	// 			return (
-	// 				<div className="mt-2">
-	// 					<Popup
-	// 						trigger={
-	// 							<img
-	// 								onClick={() => handleExifInfos()}
-	// 								src={`../images/information-outline.png`}
-	// 								style={{ cursor: 'pointer' }}
-	// 							></img>
-	// 						}
-	// 						modal
-	// 					>
-	// 						<span style={{ backgroundColor: 'whitesmoke' }}>
-	// 							{' '}
-	// 							Modal content{' '}
-	// 						</span>
-	// 					</Popup>
-	// 				</div>
-	// 			);
-	// 		})
-	// 		.catch(err => {
-	// 			console.log(err.message);
-	// 		});
+	const Modal = () => {
+		let hasExif = false;
+		axios
+			.get(`http://localhost:3000/post/exif/${idPost}`)
+			.then(res => {
+				return (
+					<div className="mt-2">
+						<Popup
+							trigger={
+								<img
+									onClick={() => handleExifInfos()}
+									src={`../images/information-outline.png`}
+									style={{ cursor: 'pointer' }}
+								></img>
+							}
+							modal
+						>
+							<span style={{ backgroundColor: 'whitesmoke' }}>
+								{' '}
+								Modal content{' '}
+							</span>
+						</Popup>
+					</div>
+				);
+			})
+			.catch(err => {
+				console.log(err.message);
+			});
 
-	// 	if (hasExif) {
-	// 	} else {
-	// 		return '';
-	// 	}
-	// };
+		if (hasExif) {
+		} else {
+			return '';
+		}
+	};
 
 	if (!post) {
 		if (deleted) {
