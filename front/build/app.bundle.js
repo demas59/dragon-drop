@@ -92443,6 +92443,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+ //import Popup from 'reactjs-popup';
 
 function Post(_ref) {
   var idPost = _ref.idPost;
@@ -92457,7 +92458,10 @@ function Post(_ref) {
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState4 = _slicedToArray(_useState3, 2),
       deleted = _useState4[0],
-      setDeleted = _useState4[1];
+      setDeleted = _useState4[1]; // const [exif, setExif] = useState(null);
+  // const [open, setOpen] = useState(false);
+  // const closeModal = () => setOpen(true);
+
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _fetchPost();
@@ -92479,7 +92483,21 @@ function Post(_ref) {
       setDeleted(true);
       return;
     });
-  }
+  } // function handleExifInfos() {
+  // 	fetch(`http://localhost:3000/post/exif/${idPost}`)
+  // 		.then(response => response.json())
+  // 		.then(exif => {
+  // 			if (!exif) {
+  // 				console.log('error');
+  // 			} else {
+  // 				setExif(exif);
+  // 			}
+  // 		});
+  // 	setOpen(o => !o);
+  // 	console.log('oepn=', open);
+  // 	console.log('exif=', exif);
+  // }
+
 
   function handleModifyPost() {
     history.push({
@@ -92510,7 +92528,7 @@ function Post(_ref) {
 
   if (!post) {
     if (deleted) {
-      return "";
+      return '';
     }
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -92576,7 +92594,7 @@ function Post(_ref) {
     alt: "Responsive image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1 pl-0 pr-3"
-  }, username && (username.toLocaleLowerCase() === creator.toLocaleLowerCase() || username.toLocaleLowerCase() === "admin") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+  }, username && (username.toLocaleLowerCase() === creator.toLocaleLowerCase() || username.toLocaleLowerCase() === 'admin') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "../images/trash.png",
     alt: "Trash",
     onClick: function onClick() {
@@ -92596,7 +92614,7 @@ function Post(_ref) {
     style: {
       cursor: 'pointer'
     }
-  }))) : "")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }))) : '')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1"
