@@ -10,6 +10,7 @@ export default function Post({ idPost }) {
 	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 	const [post, setPost] = useState(null);
 	const [deleted, setDeleted] = useState(false);
+	const [exif, setExif] = useState(null);
 
 	useEffect(() => {
 		fetchPost();
@@ -54,38 +55,34 @@ export default function Post({ idPost }) {
 	}
 
 	const Modal = () => {
-		let hasExif = false;
 		axios
 			.get(`http://localhost:3000/post/exif/${idPost}`)
 			.then(res => {
-				return (
-					<div className="mt-2">
-						<Popup
-							trigger={
-								<img
-									onClick={() => handleExifInfos()}
-									src={`../images/information-outline.png`}
-									style={{ cursor: 'pointer' }}
-								></img>
-							}
-							modal
-						>
-							<span style={{ backgroundColor: 'whitesmoke' }}>
-								{' '}
-								Modal content{' '}
-							</span>
-						</Popup>
-					</div>
-				);
+				setExif(res.data);
+				console.log('🚀 ~ file: Post.js ~ line 65 ~ Modal ~ exif', exif);
 			})
 			.catch(err => {
 				console.log(err.message);
 			});
 
-		if (hasExif) {
-		} else {
-			return '';
-		}
+		return exif ? (
+			<div className="mt-2">
+				<Popup
+					trigger={
+						<img
+							onClick={() => handleExifInfos()}
+							src={`../images/information-outline.png`}
+							style={{ cursor: 'pointer' }}
+						></img>
+					}
+					modal
+				>
+					<span style={{ backgroundColor: 'whitesmoke' }}> Modal content </span>
+				</Popup>
+			</div>
+		) : (
+			''
+		);
 	};
 
 	if (!post) {
@@ -140,9 +137,11 @@ export default function Post({ idPost }) {
 							></img>
 						</div>
 						<div className="col-sm-1 pl-0 pr-3">
-							{connectedUser && connectedUser.login &&
-							(connectedUser.login.toLocaleLowerCase() === creator.toLocaleLowerCase() ||
-							connectedUser.role.toLocaleLowerCase() === 'admin') ? (
+							{connectedUser &&
+							connectedUser.login &&
+							(connectedUser.login.toLocaleLowerCase() ===
+								creator.toLocaleLowerCase() ||
+								connectedUser.role.toLocaleLowerCase() === 'admin') ? (
 								<div>
 									<div>
 										<img

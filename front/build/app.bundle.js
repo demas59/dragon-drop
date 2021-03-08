@@ -38145,7 +38145,7 @@ utils.intFromLE = intFromLE;
 /*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"C:\\\\Users\\\\Tom\\\\Documents\\\\Cours\\\\JS\\\\tp6\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"C:\\\\Users\\\\Tom\\\\Documents\\\\Cours\\\\JS\\\\tp6\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
+module.exports = JSON.parse("{\"_args\":[[\"elliptic@6.5.3\",\"C:\\\\Users\\\\33695\\\\Documents\\\\github\\\\dragon-drop\\\\front\"]],\"_development\":true,\"_from\":\"elliptic@6.5.3\",\"_id\":\"elliptic@6.5.3\",\"_inBundle\":false,\"_integrity\":\"sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==\",\"_location\":\"/elliptic\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"elliptic@6.5.3\",\"name\":\"elliptic\",\"escapedName\":\"elliptic\",\"rawSpec\":\"6.5.3\",\"saveSpec\":null,\"fetchSpec\":\"6.5.3\"},\"_requiredBy\":[\"/browserify-sign\",\"/create-ecdh\"],\"_resolved\":\"https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz\",\"_spec\":\"6.5.3\",\"_where\":\"C:\\\\Users\\\\33695\\\\Documents\\\\github\\\\dragon-drop\\\\front\",\"author\":{\"name\":\"Fedor Indutny\",\"email\":\"fedor@indutny.com\"},\"bugs\":{\"url\":\"https://github.com/indutny/elliptic/issues\"},\"dependencies\":{\"bn.js\":\"^4.4.0\",\"brorand\":\"^1.0.1\",\"hash.js\":\"^1.0.0\",\"hmac-drbg\":\"^1.0.0\",\"inherits\":\"^2.0.1\",\"minimalistic-assert\":\"^1.0.0\",\"minimalistic-crypto-utils\":\"^1.0.0\"},\"description\":\"EC cryptography\",\"devDependencies\":{\"brfs\":\"^1.4.3\",\"coveralls\":\"^3.0.8\",\"grunt\":\"^1.0.4\",\"grunt-browserify\":\"^5.0.0\",\"grunt-cli\":\"^1.2.0\",\"grunt-contrib-connect\":\"^1.0.0\",\"grunt-contrib-copy\":\"^1.0.0\",\"grunt-contrib-uglify\":\"^1.0.1\",\"grunt-mocha-istanbul\":\"^3.0.1\",\"grunt-saucelabs\":\"^9.0.1\",\"istanbul\":\"^0.4.2\",\"jscs\":\"^3.0.7\",\"jshint\":\"^2.10.3\",\"mocha\":\"^6.2.2\"},\"files\":[\"lib\"],\"homepage\":\"https://github.com/indutny/elliptic\",\"keywords\":[\"EC\",\"Elliptic\",\"curve\",\"Cryptography\"],\"license\":\"MIT\",\"main\":\"lib/elliptic.js\",\"name\":\"elliptic\",\"repository\":{\"type\":\"git\",\"url\":\"git+ssh://git@github.com/indutny/elliptic.git\"},\"scripts\":{\"jscs\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"jshint\":\"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js\",\"lint\":\"npm run jscs && npm run jshint\",\"test\":\"npm run lint && npm run unit\",\"unit\":\"istanbul test _mocha --reporter=spec test/index.js\",\"version\":\"grunt dist && git add dist/\"},\"version\":\"6.5.3\"}");
 
 /***/ }),
 
@@ -93092,6 +93092,11 @@ function Post(_ref) {
       deleted = _useState4[0],
       setDeleted = _useState4[1];
 
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      exif = _useState6[0],
+      setExif = _useState6[1];
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _fetchPost(); // console.log(connectedUser);
 
@@ -93143,33 +93148,30 @@ function Post(_ref) {
   }
 
   var Modal = function Modal() {
-    var hasExif = false;
     axios__WEBPACK_IMPORTED_MODULE_5___default.a.get("http://localhost:3000/post/exif/".concat(idPost)).then(function (res) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mt-2"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactjs_popup__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        trigger: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          onClick: function onClick() {
-            return handleExifInfos();
-          },
-          src: "../images/information-outline.png",
-          style: {
-            cursor: 'pointer'
-          }
-        }),
-        modal: true
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        style: {
-          backgroundColor: 'whitesmoke'
-        }
-      }, ' ', "Modal content", ' ')));
+      setExif(res.data);
+      console.log('🚀 ~ file: Post.js ~ line 65 ~ Modal ~ exif', exif);
     })["catch"](function (err) {
       console.log(err.message);
     });
-
-    if (hasExif) {} else {
-      return '';
-    }
+    return exif ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "mt-2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactjs_popup__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      trigger: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        onClick: function onClick() {
+          return handleExifInfos();
+        },
+        src: "../images/information-outline.png",
+        style: {
+          cursor: 'pointer'
+        }
+      }),
+      modal: true
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      style: {
+        backgroundColor: 'whitesmoke'
+      }
+    }, " Modal content "))) : '';
   };
 
   if (!post) {
