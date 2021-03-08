@@ -92301,7 +92301,7 @@ function CommentsRenderer(_ref) {
       style: {
         cursor: 'pointer'
       }
-    }, comment.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value)), username && (username.toLocaleLowerCase() === comment.userName.toLocaleLowerCase() || username.toLocaleLowerCase() === "admin") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    }, comment.userName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, comment.value)), connectedUser && connectedUser.login && (connectedUser.login.toLocaleLowerCase() === comment.userName.toLocaleLowerCase() || connectedUser.role.toLocaleLowerCase() === "admin") ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: "../images/trash.png",
       alt: "Trash",
       onClick: function onClick() {

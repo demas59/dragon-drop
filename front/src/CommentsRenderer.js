@@ -62,7 +62,7 @@ export default function CommentsRenderer({comments, idPost, fetchPost}) {
 					<div>{comment.value}</div>
 				</div>
 				{
-					(username && (username.toLocaleLowerCase()===comment.userName.toLocaleLowerCase() || username.toLocaleLowerCase()==="admin")) ?
+					(connectedUser && connectedUser.login && (connectedUser.login.toLocaleLowerCase()===comment.userName.toLocaleLowerCase() || connectedUser.role.toLocaleLowerCase()==="admin")) ?
 					<div><img src={`../images/trash.png`} alt="Trash" onClick={() => handleDelete()} style={{cursor: 'pointer'}}></img></div>
 					: ""
 				}
