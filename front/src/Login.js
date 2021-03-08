@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { generate as generateHash, verify as verifyHash } from 'password-hash';
-import { UsernameHook } from './app';
+import { ConnectedUserHook } from './app';
 
 export default function Login() {
-	const [{ username }, dispatch] = UsernameHook();
+	const [{ connectedUsed }, dispatch] = ConnectedUserHook();
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [validLogin, setValidLogin] = useState(true);
@@ -15,12 +15,6 @@ export default function Login() {
 	function handleSubmitLogin(event) {
 		event.preventDefault();
 		setIsLoading(true);
-
-		// setTimeout(() => {
-		//     localStorage.setItem('username', usernameTyped.current.value);
-		//     dispatch({newUsername:usernameTyped.current.value});
-		//     history.push(`/`);
-		// }, 1000);
 
 		const body = JSON.stringify({
 			role: 'user',
@@ -39,14 +33,8 @@ export default function Login() {
 					setIsLoading(false);
 					setValidLogin(false);
 				} else {
-					const lowerCaseUsername = usernameTyped.current.value
-						.toString()
-						.toLowerCase();
-					const wellFormattedUsername =
-						lowerCaseUsername.charAt(0).toUpperCase() +
-						lowerCaseUsername.slice(1);
-					localStorage.setItem('username', wellFormattedUsername);
-					dispatch({ newUsername: wellFormattedUsername });
+					localStorage.setItem('connectedUser', JSON.stringify(res));
+					dispatch({ connectedUser: res });
 					history.push(`/`);
 				}
 			})

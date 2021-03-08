@@ -15,8 +15,8 @@ export default function NewPost() {
 
 	useEffect(() => {
 		if (
-			!localStorage.getItem('username') ||
-			localStorage.getItem('username') === ''
+			!JSON.parse(localStorage.getItem('connectedUser')) ||
+			!JSON.parse(localStorage.getItem('connectedUser')).login
 		) {
 			history.push(`/login`);
 		}
@@ -33,7 +33,7 @@ export default function NewPost() {
 		const formData = new FormData();
 		formData.append('tags', tagsFormatted);
 		formData.append('caption', caption.current.value);
-		formData.append('creator', localStorage.getItem('username'));
+		formData.append('creator', JSON.parse(localStorage.getItem('connectedUser')).login);
 
 		if (closeFriends.current.checked) {
 			formData.append('visibility', 'hidden');

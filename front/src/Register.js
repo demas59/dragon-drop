@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import {generate as generateHash, verify as verifyHash} from 'password-hash'
-import { UsernameHook } from './app';
+import { ConnectedUserHook } from './app';
 
 export default function Register() {
-	const [{username}, dispatch] = UsernameHook();
+	const [{connectedUser}, dispatch] = ConnectedUserHook();
     
     const usernameTyped = useRef();
     const [validUsername, setValidUsername] = useState(true);
@@ -16,7 +16,7 @@ export default function Register() {
 
     function handleInputUsername(event) {
         event.preventDefault();
-        if(false) { //si le username est déjà pris
+        if(false) { 
             setValidUsername(false);
         }
 	}
@@ -31,11 +31,13 @@ export default function Register() {
         setIsLoading(true);
         
         if(!passwordsMatch) {setIsLoading(false); return;}
-        const hashedPassword = generateHash(password.current.value);
+
+        const lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
+        const wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
         
         const body = JSON.stringify({
 			role: "user",
-			login: usernameTyped.current.value.toString().toLowerCase(),
+			login: wellFormattedUsername,
 			password: password.current.value,
             friends: []
 		});
@@ -47,12 +49,11 @@ export default function Register() {
                 body
             }
         )
-        .then(() => {
-            const lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-            const wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
-            localStorage.setItem('username', wellFormattedUsername);
-            dispatch({newUsername: wellFormattedUsername});
-            history.push(`/`);
+        .then(response => response.json())
+			.then(res => {
+                localStorage.setItem('connectedUser', JSON.stringify(res));
+                dispatch({connectedUser: res});
+                history.push(`/`);
         }).catch(error => {
             setValidUsername(false);
             console.error(error);

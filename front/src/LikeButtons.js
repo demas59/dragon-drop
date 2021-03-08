@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { UsernameHook } from './app';
 
 export default function LikeButtons({likes, fetchPost, idPost}) {
-	const username = localStorage.getItem('username');
+	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 
 	const [likeValue, setLikeValue] = useState(0);
     let history = useHistory();
@@ -14,37 +13,37 @@ export default function LikeButtons({likes, fetchPost, idPost}) {
 	});
 
 	function updateLikeValue() {
-		if(!username || username.length === 0) {
+		if(!connectedUser || !connectedUser.login) {
 			setLikeValue(0);
 			return;
 		}
 
-		const foundLike = likes.find(like => like.userName === username);
+		const foundLike = likes.find(like => like.userName === connectedUser.login);
 		if(!foundLike) {setLikeValue(0); return;}
 		setLikeValue(foundLike.value);
 	}
 
 	function handleLikeClick() {
-		if(!username){history.push(`/login`);return;}
+		if(!connectedUser || !connectedUser.login){history.push(`/login`);return;}
 
 		let updateLikeValue = (likeValue===1)?0:1;
 
 		fetch(`http://localhost:3000/post/like/${idPost}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({userName: username, likeValue: updateLikeValue})
+			body: JSON.stringify({userName: connectedUser.login, likeValue: updateLikeValue})
 		}).then(() => fetchPost());
 	}
     
 	function handleDislikeClick() {
-		if(!username){history.push(`/login`);}
+		if(!connectedUser || !connectedUser.login){history.push(`/login`);}
 
 		let updateLikeValue = (likeValue===-1)?0:-1;
 
         fetch(`http://localhost:3000/post/like/${idPost}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({userName: username, likeValue: updateLikeValue})
+			body: JSON.stringify({userName: connectedUser.login, likeValue: updateLikeValue})
 		}).then(() => fetchPost());
 	}
 

@@ -7,12 +7,13 @@ import axios from 'axios';
 
 export default function Post({ idPost }) {
 	let history = useHistory();
-	const username = localStorage.getItem('username');
+	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 	const [post, setPost] = useState(null);
 	const [deleted, setDeleted] = useState(false);
 
 	useEffect(() => {
 		fetchPost();
+		// console.log(connectedUser);
 	}, []);
 
 	function fetchPost() {
@@ -139,9 +140,9 @@ export default function Post({ idPost }) {
 							></img>
 						</div>
 						<div className="col-sm-1 pl-0 pr-3">
-							{username &&
-							(username.toLocaleLowerCase() === creator.toLocaleLowerCase() ||
-								username.toLocaleLowerCase() === 'admin') ? (
+							{connectedUser && connectedUser.login &&
+							(connectedUser.login.toLocaleLowerCase() === creator.toLocaleLowerCase() ||
+							connectedUser.role.toLocaleLowerCase() === 'admin') ? (
 								<div>
 									<div>
 										<img

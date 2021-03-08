@@ -2,20 +2,20 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export default function CommentsForm({idPost, fetchPost}) {
-	const username = localStorage.getItem('username');
+	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 	const [isLoading, setIsLoading] = useState(false);
 	const commentTyped = useRef();
     let history = useHistory();
 
 	function handleSubmitComment(event) {
-		if(!username){history.push(`/login`);return;}
+		if(!connectedUser || !connectedUser.login){history.push(`/login`);return;}
 		event.preventDefault();
 		setIsLoading(true);
 		
 		fetch(`http://localhost:3000/post/comment/${idPost}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({userName: username, value: commentTyped.current.value})
+			body: JSON.stringify({userName: connectedUser.login, value: commentTyped.current.value})
 		}).then(() => {
             setIsLoading(false);
 			commentTyped.current.value="";
@@ -24,7 +24,7 @@ export default function CommentsForm({idPost, fetchPost}) {
 		});
 	}
 
-	if(!username) {
+	if(!connectedUser || !connectedUser.login) {
 		return (
 			<div className="text-muted mb-2">
 				You need to be logged in to write a comment.

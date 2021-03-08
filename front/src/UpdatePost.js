@@ -13,14 +13,15 @@ export default function UpdatePost({postToUpdate}) {
 
 	useEffect(() => {
 		if (
-			!localStorage.getItem('username') ||
-			localStorage.getItem('username') === ''
+			!JSON.parse(localStorage.getItem('connectedUser')) ||
+			!JSON.parse(localStorage.getItem('connectedUser')).login
 		) {
 			history.push(`/login`);
 		}
 	});
 
 	function handleSubmitUpdatePost(event) {
+		console.log("coucou");
 		setIsLoading(true);
 		event.preventDefault();
 
@@ -37,6 +38,7 @@ export default function UpdatePost({postToUpdate}) {
 		} else {
 			postToSend.visibility='all';
 		}
+
         
         fetch(`http://localhost:3000/post`, {
 			method: 'PUT',
@@ -132,6 +134,7 @@ export default function UpdatePost({postToUpdate}) {
 							<button
 								className="btn btn-secondary"
 								disabled={isLoading}
+								onClick={() => history.push('/')}
 							>
 								Cancel
 							</button>
@@ -139,7 +142,6 @@ export default function UpdatePost({postToUpdate}) {
 								type="submit"
 								className="btn btn-primary"
 								disabled={isLoading}
-								onClick={() => history.push('/')}
 							>
 								{!isLoading ? 'Update' : 'Updating ...'}
 							</button>

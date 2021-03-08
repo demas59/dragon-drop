@@ -5,29 +5,29 @@ import Navigator from './Navigator';
 import { BrowserRouter } from 'react-router-dom';
 
 const initialState = {
-    username: '',
+    connectedUser: {}
 };
 const reducer = (state, action) => {
 	return {
 		...state,
-		username: action.newUsername
+		connectedUser: action.connectedUser
 	};
 };
-const UsernameContext = createContext();
-export const UsernameHook = () => useContext(UsernameContext);
-export const UsernameProvider = ({children}) => (
-	<UsernameContext.Provider value={useReducer(reducer, initialState)}>
+const ConnectedUserContext = createContext();
+export const ConnectedUserHook = () => useContext(ConnectedUserContext);
+export const ConnectedUserProvider = ({children}) => (
+	<ConnectedUserContext.Provider value={useReducer(reducer, initialState)}>
 		{children}
-	</UsernameContext.Provider>
+	</ConnectedUserContext.Provider>
 );
 
 
 render(
-	<UsernameProvider>
+	<ConnectedUserProvider>
 		<BrowserRouter>
 			<Menu />
 			<Navigator />
 		</BrowserRouter>
-	</UsernameProvider>,
+	</ConnectedUserProvider>,
 	document.querySelector('.appContainer')
 );

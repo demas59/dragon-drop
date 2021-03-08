@@ -92118,7 +92118,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function CommentsForm(_ref) {
   var idPost = _ref.idPost,
       fetchPost = _ref.fetchPost;
-  var username = localStorage.getItem('username');
+  var connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -92129,7 +92129,7 @@ function CommentsForm(_ref) {
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
   function handleSubmitComment(event) {
-    if (!username) {
+    if (!connectedUser || !connectedUser.login) {
       history.push("/login");
       return;
     }
@@ -92142,7 +92142,7 @@ function CommentsForm(_ref) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userName: username,
+        userName: connectedUser.login,
         value: commentTyped.current.value
       })
     }).then(function () {
@@ -92153,7 +92153,7 @@ function CommentsForm(_ref) {
     });
   }
 
-  if (!username) {
+  if (!connectedUser || !connectedUser.login) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "text-muted mb-2"
     }, "You need to be logged in to write a comment.");
@@ -92220,7 +92220,7 @@ function CommentsRenderer(_ref) {
       idPost = _ref.idPost,
       _fetchPost = _ref.fetchPost;
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
-  var username = localStorage.getItem('username');
+  var connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -92354,7 +92354,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app */ "./src/app.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -92369,12 +92368,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function LikeButtons(_ref) {
   var likes = _ref.likes,
       fetchPost = _ref.fetchPost,
       idPost = _ref.idPost;
-  var username = localStorage.getItem('username');
+  var connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
       _useState2 = _slicedToArray(_useState, 2),
@@ -92387,13 +92385,13 @@ function LikeButtons(_ref) {
   });
 
   function updateLikeValue() {
-    if (!username || username.length === 0) {
+    if (!connectedUser || !connectedUser.login) {
       setLikeValue(0);
       return;
     }
 
     var foundLike = likes.find(function (like) {
-      return like.userName === username;
+      return like.userName === connectedUser.login;
     });
 
     if (!foundLike) {
@@ -92405,7 +92403,7 @@ function LikeButtons(_ref) {
   }
 
   function handleLikeClick() {
-    if (!username) {
+    if (!connectedUser || !connectedUser.login) {
       history.push("/login");
       return;
     }
@@ -92417,7 +92415,7 @@ function LikeButtons(_ref) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userName: username,
+        userName: connectedUser.login,
         likeValue: updateLikeValue
       })
     }).then(function () {
@@ -92426,7 +92424,7 @@ function LikeButtons(_ref) {
   }
 
   function handleDislikeClick() {
-    if (!username) {
+    if (!connectedUser || !connectedUser.login) {
       history.push("/login");
     }
 
@@ -92437,7 +92435,7 @@ function LikeButtons(_ref) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userName: username,
+        userName: connectedUser.login,
         likeValue: updateLikeValue
       })
     }).then(function () {
@@ -92509,10 +92507,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Login() {
-  var _UsernameHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["UsernameHook"])(),
-      _UsernameHook2 = _slicedToArray(_UsernameHook, 2),
-      username = _UsernameHook2[0].username,
-      dispatch = _UsernameHook2[1];
+  var _ConnectedUserHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["ConnectedUserHook"])(),
+      _ConnectedUserHook2 = _slicedToArray(_ConnectedUserHook, 2),
+      connectedUsed = _ConnectedUserHook2[0].connectedUsed,
+      dispatch = _ConnectedUserHook2[1];
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -92530,12 +92528,7 @@ function Login() {
 
   function handleSubmitLogin(event) {
     event.preventDefault();
-    setIsLoading(true); // setTimeout(() => {
-    //     localStorage.setItem('username', usernameTyped.current.value);
-    //     dispatch({newUsername:usernameTyped.current.value});
-    //     history.push(`/`);
-    // }, 1000);
-
+    setIsLoading(true);
     var body = JSON.stringify({
       role: 'user',
       login: usernameTyped.current.value.toString().toLowerCase(),
@@ -92555,11 +92548,9 @@ function Login() {
         setIsLoading(false);
         setValidLogin(false);
       } else {
-        var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-        var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
-        localStorage.setItem('username', wellFormattedUsername);
+        localStorage.setItem('connectedUser', JSON.stringify(res));
         dispatch({
-          newUsername: wellFormattedUsername
+          connectedUser: res
         });
         history.push("/");
       }
@@ -92660,16 +92651,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Menu() {
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
 
-  var _UsernameHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["UsernameHook"])(),
-      _UsernameHook2 = _slicedToArray(_UsernameHook, 2),
-      username = _UsernameHook2[0].username,
-      dispatch = _UsernameHook2[1];
+  var _ConnectedUserHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["ConnectedUserHook"])(),
+      _ConnectedUserHook2 = _slicedToArray(_ConnectedUserHook, 2),
+      connectedUser = _ConnectedUserHook2[0].connectedUser,
+      dispatch = _ConnectedUserHook2[1];
 
   var search = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (localStorage.getItem('username')) {
+    if (JSON.parse(localStorage.getItem('connectedUser'))) {
       dispatch({
-        newUsername: localStorage.getItem('username')
+        connectedUser: JSON.parse(localStorage.getItem('connectedUser'))
       });
     }
   }, []);
@@ -92714,13 +92705,13 @@ function Menu() {
       pathname: '/',
       state: {}
     }
-  }, "Thread"), username && username.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "Thread"), connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/newPost"
-  }, "New post") : "", username && username.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "New post") : "", connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/myAccount"
-  }, "My account (", username, ")") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "My account (", connectedUser.login, ")") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/login"
   }, "Login")));
@@ -92758,14 +92749,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function MyAccount() {
-  var _UsernameHook = Object(_app__WEBPACK_IMPORTED_MODULE_2__["UsernameHook"])(),
-      _UsernameHook2 = _slicedToArray(_UsernameHook, 2),
-      username = _UsernameHook2[0].username,
-      dispatch = _UsernameHook2[1];
+  var _ConnectedUserHook = Object(_app__WEBPACK_IMPORTED_MODULE_2__["ConnectedUserHook"])(),
+      _ConnectedUserHook2 = _slicedToArray(_ConnectedUserHook, 2),
+      connectedUser = _ConnectedUserHook2[0].connectedUser,
+      dispatch = _ConnectedUserHook2[1];
 
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (!localStorage.getItem('username') || localStorage.getItem('username') === "") {
+    if (!JSON.parse(localStorage.getItem('connectedUser')) || !JSON.parse(localStorage.getItem('connectedUser')).login) {
       history.push("/login");
     }
   });
@@ -92773,7 +92764,7 @@ function MyAccount() {
   function handleDisconnectClick(event) {
     localStorage.clear();
     dispatch({
-      newUsername: ""
+      connectedUser: {}
     });
     history.push('/');
   }
@@ -92929,7 +92920,7 @@ function NewPost() {
   var tags = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   var closeFriends = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (!localStorage.getItem('username') || localStorage.getItem('username') === '') {
+    if (!JSON.parse(localStorage.getItem('connectedUser')) || !JSON.parse(localStorage.getItem('connectedUser')).login) {
       history.push("/login");
     }
   });
@@ -92945,7 +92936,7 @@ function NewPost() {
     var formData = new FormData();
     formData.append('tags', tagsFormatted);
     formData.append('caption', caption.current.value);
-    formData.append('creator', localStorage.getItem('username'));
+    formData.append('creator', JSON.parse(localStorage.getItem('connectedUser')).login);
 
     if (closeFriends.current.checked) {
       formData.append('visibility', 'hidden');
@@ -93089,7 +93080,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Post(_ref) {
   var idPost = _ref.idPost;
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
-  var username = localStorage.getItem('username');
+  var connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState2 = _slicedToArray(_useState, 2),
@@ -93102,7 +93093,8 @@ function Post(_ref) {
       setDeleted = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _fetchPost();
+    _fetchPost(); // console.log(connectedUser);
+
   }, []);
 
   function _fetchPost() {
@@ -93248,7 +93240,7 @@ function Post(_ref) {
     alt: "Responsive image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-sm-1 pl-0 pr-3"
-  }, username && (username.toLocaleLowerCase() === creator.toLocaleLowerCase() || username.toLocaleLowerCase() === 'admin') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+  }, connectedUser && connectedUser.login && (connectedUser.login.toLocaleLowerCase() === creator.toLocaleLowerCase() || connectedUser.role.toLocaleLowerCase() === 'admin') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "../images/trash.png",
     alt: "Trash",
     onClick: function onClick() {
@@ -93345,10 +93337,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Register() {
-  var _UsernameHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["UsernameHook"])(),
-      _UsernameHook2 = _slicedToArray(_UsernameHook, 2),
-      username = _UsernameHook2[0].username,
-      dispatch = _UsernameHook2[1];
+  var _ConnectedUserHook = Object(_app__WEBPACK_IMPORTED_MODULE_3__["ConnectedUserHook"])(),
+      _ConnectedUserHook2 = _slicedToArray(_ConnectedUserHook, 2),
+      connectedUser = _ConnectedUserHook2[0].connectedUser,
+      dispatch = _ConnectedUserHook2[1];
 
   var usernameTyped = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
 
@@ -93392,10 +93384,11 @@ function Register() {
       return;
     }
 
-    var hashedPassword = Object(password_hash__WEBPACK_IMPORTED_MODULE_2__["generate"])(password.current.value);
+    var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
+    var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
     var body = JSON.stringify({
       role: "user",
-      login: usernameTyped.current.value.toString().toLowerCase(),
+      login: wellFormattedUsername,
       password: password.current.value,
       friends: []
     });
@@ -93405,12 +93398,12 @@ function Register() {
         'Content-Type': 'application/json'
       },
       body: body
-    }).then(function () {
-      var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-      var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
-      localStorage.setItem('username', wellFormattedUsername);
+    }).then(function (response) {
+      return response.json();
+    }).then(function (res) {
+      localStorage.setItem('connectedUser', JSON.stringify(res));
       dispatch({
-        newUsername: wellFormattedUsername
+        connectedUser: res
       });
       history.push("/");
     })["catch"](function (error) {
@@ -93713,12 +93706,13 @@ function UpdatePost(_ref) {
   var tags = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   var closeFriends = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (!localStorage.getItem('username') || localStorage.getItem('username') === '') {
+    if (!JSON.parse(localStorage.getItem('connectedUser')) || !JSON.parse(localStorage.getItem('connectedUser')).login) {
       history.push("/login");
     }
   });
 
   function handleSubmitUpdatePost(event) {
+    console.log("coucou");
     setIsLoading(true);
     event.preventDefault();
     var postToSend = {};
@@ -93842,14 +93836,14 @@ function UpdatePost(_ref) {
     className: "d-flex justify-content-between mt-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-secondary",
-    disabled: isLoading
-  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    type: "submit",
-    className: "btn btn-primary",
     disabled: isLoading,
     onClick: function onClick() {
       return history.push('/');
     }
+  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit",
+    className: "btn btn-primary",
+    disabled: isLoading
   }, !isLoading ? 'Update' : 'Updating ...'))))));
 }
 
@@ -93859,13 +93853,13 @@ function UpdatePost(_ref) {
 /*!********************!*\
   !*** ./src/app.js ***!
   \********************/
-/*! exports provided: UsernameHook, UsernameProvider */
+/*! exports provided: ConnectedUserHook, ConnectedUserProvider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsernameHook", function() { return UsernameHook; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsernameProvider", function() { return UsernameProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConnectedUserHook", function() { return ConnectedUserHook; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConnectedUserProvider", function() { return ConnectedUserProvider; });
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -93885,26 +93879,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  username: ''
+  connectedUser: {}
 };
 
 var reducer = function reducer(state, action) {
   return _objectSpread(_objectSpread({}, state), {}, {
-    username: action.newUsername
+    connectedUser: action.connectedUser
   });
 };
 
-var UsernameContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])();
-var UsernameHook = function UsernameHook() {
-  return Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(UsernameContext);
+var ConnectedUserContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])();
+var ConnectedUserHook = function ConnectedUserHook() {
+  return Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(ConnectedUserContext);
 };
-var UsernameProvider = function UsernameProvider(_ref) {
+var ConnectedUserProvider = function ConnectedUserProvider(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(UsernameContext.Provider, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ConnectedUserContext.Provider, {
     value: Object(react__WEBPACK_IMPORTED_MODULE_1__["useReducer"])(reducer, initialState)
   }, children);
 };
-Object(react_dom__WEBPACK_IMPORTED_MODULE_0__["render"])( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(UsernameProvider, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Menu__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Navigator__WEBPACK_IMPORTED_MODULE_3__["default"], null))), document.querySelector('.appContainer'));
+Object(react_dom__WEBPACK_IMPORTED_MODULE_0__["render"])( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ConnectedUserProvider, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Menu__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Navigator__WEBPACK_IMPORTED_MODULE_3__["default"], null))), document.querySelector('.appContainer'));
 
 /***/ }),
 

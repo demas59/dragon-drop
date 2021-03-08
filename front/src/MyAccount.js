@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { UsernameHook } from './app';
+import { ConnectedUserHook } from './app';
 
 export default function MyAccount() {
-	const [{username}, dispatch] = UsernameHook();
+	const [{connectedUser}, dispatch] = ConnectedUserHook();
     let history = useHistory();
 
     useEffect(() => {
-		if(!localStorage.getItem('username') || localStorage.getItem('username') === "") {
+		if(!JSON.parse(localStorage.getItem('connectedUser')) || !JSON.parse(localStorage.getItem('connectedUser')).login) {
             history.push(`/login`);
         }
 	});
 
     function handleDisconnectClick(event) {
         localStorage.clear();
-        dispatch({newUsername:""});
+        dispatch({connectedUser:{}});
         history.push('/');
     }
     

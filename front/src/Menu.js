@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
-import { UsernameHook } from './app';
+import { ConnectedUserHook } from './app';
 
 export default function Menu() {
 	let history = useHistory();
-	const [{username}, dispatch] = UsernameHook();
+	const [{connectedUser}, dispatch] = ConnectedUserHook();
 	const search = useRef();
 
 	useEffect(() => {
-		if(localStorage.getItem('username')) {
-			dispatch({newUsername:localStorage.getItem('username')});
+		if(JSON.parse(localStorage.getItem('connectedUser'))) {
+			dispatch({connectedUser:JSON.parse(localStorage.getItem('connectedUser'))});
 		}
 	}, []);
 	
@@ -38,14 +38,14 @@ export default function Menu() {
 						state: {}
 					}}
 				>Thread</NavLink>
-				{username && username.length>0?
+				{connectedUser && connectedUser.login?
 					<NavLink className="nav-link" to="/newPost">New post</NavLink>
 				:
 					""
 				}
 				
-				{username && username.length>0?
-					<NavLink className="nav-link" to="/myAccount">My account ({username})</NavLink>
+				{connectedUser && connectedUser.login?
+					<NavLink className="nav-link" to="/myAccount">My account ({connectedUser.login})</NavLink>
 				:
 					<NavLink className="nav-link" to="/login">Login</NavLink>
 				}

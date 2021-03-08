@@ -4,7 +4,7 @@ import CommentsForm from './CommentForm';
 
 export default function CommentsRenderer({comments, idPost, fetchPost}) {
 	let history = useHistory();
-	const username = localStorage.getItem('username');
+	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
     const [displayComments, setDisplayComments] = useState(false);
 
 	if(!displayComments) { //comments not displayed
