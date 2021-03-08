@@ -44,6 +44,11 @@ export default function Menu() {
 				:
 					""
 				}
+				{1===1 || connectedUser && connectedUser.role === "admin"?
+					<NavLink className="nav-link" to="/userList">User list (TOCHANGE)</NavLink>
+				:
+					""
+				}
 				
 				{connectedUser && connectedUser.login?
 					<NavLink className="nav-link" to="/myAccount">My account ({connectedUser.login})</NavLink>

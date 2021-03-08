@@ -34,7 +34,7 @@ export default function Register() {
         
         const body = JSON.stringify({
 			role: "user",
-			login: wellFormattedUsername,
+			login: usernameTyped.current.value,
 			password: password.current.value,
             friends: []
 		});
