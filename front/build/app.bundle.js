@@ -92656,9 +92656,14 @@ function Menu() {
       connectedUser = _ConnectedUserHook2[0].connectedUser,
       dispatch = _ConnectedUserHook2[1];
 
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      wellFormattedUsername = _useState2[0].wellFormattedUsername,
+      setWellFormattedUsername = _useState2[1];
+
   var search = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (JSON.parse(localStorage.getItem('connectedUser'))) {
+    if (JSON.parse(localStorage.getItem('connectedUser')) && JSON.parse(localStorage.getItem('connectedUser')).login) {
       dispatch({
         connectedUser: JSON.parse(localStorage.getItem('connectedUser'))
       });
@@ -93384,8 +93389,6 @@ function Register() {
       return;
     }
 
-    var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-    var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
     var body = JSON.stringify({
       role: "user",
       login: wellFormattedUsername,

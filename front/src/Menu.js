@@ -6,10 +6,11 @@ import { ConnectedUserHook } from './app';
 export default function Menu() {
 	let history = useHistory();
 	const [{connectedUser}, dispatch] = ConnectedUserHook();
+	const [{wellFormattedUsername}, setWellFormattedUsername] = useState("");
 	const search = useRef();
 
 	useEffect(() => {
-		if(JSON.parse(localStorage.getItem('connectedUser'))) {
+		if(JSON.parse(localStorage.getItem('connectedUser')) && JSON.parse(localStorage.getItem('connectedUser')).login) {
 			dispatch({connectedUser:JSON.parse(localStorage.getItem('connectedUser'))});
 		}
 	}, []);
