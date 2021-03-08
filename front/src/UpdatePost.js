@@ -130,9 +130,16 @@ export default function UpdatePost({postToUpdate}) {
 						</div>
 						<div className="d-flex justify-content-between mt-4">
 							<button
+								className="btn btn-secondary"
+								disabled={isLoading}
+							>
+								Cancel
+							</button>
+							<button
 								type="submit"
 								className="btn btn-primary"
 								disabled={isLoading}
+								onClick={() => history.push('/')}
 							>
 								{!isLoading ? 'Update' : 'Updating ...'}
 							</button>
