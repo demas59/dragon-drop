@@ -28,8 +28,26 @@ export default function Post({ idPost }) {
 		fetch(`http://localhost:3000/post/exif/${idPost}`)
 			.then(response => response.json())
 			.then(res => {
-				setExif(res);
-				//console.log('🚀 ~ file: Post.js ~ line 65 ~ Modal ~ exif', res);
+				const builtExif = [];
+				for (const item in res.image) {
+					builtExif.push({ label: item, value: res.image[item] });
+				}
+				for (const item in res.thumbnail) {
+					builtExif.push({ label: item, value: res.thumbnail[item] });
+				}
+				// for (const item in res.exif) {
+				// 	builtExif.push({ label: item, value: res.exif[item] });
+				// }
+				// for (const item in res.gps) {
+				// 	builtExif.push({ label: item, value: res.gps[item] });
+				// }
+				// for (const item in res.interoperability) {
+				// 	builtExif.push({ label: item, value: res.interoperability[item] });
+				// }
+				// for (const item in res.makernote) {
+				// 	builtExif.push({ label: item, value: res.makernote[item] });
+				// }
+				setExif(builtExif);
 			})
 			.catch(err => {
 				console.log(err.message);
@@ -67,12 +85,10 @@ export default function Post({ idPost }) {
 		});
 	}
 
-	function Modal () {
+	function Modal() {
 		console.log(exif);
 
-		function handleExifInfos() {
-
-		}
+		function handleExifInfos() {}
 
 		return (
 			<div className="mt-2">
@@ -86,11 +102,22 @@ export default function Post({ idPost }) {
 					}
 					modal
 				>
-					<span style={{ backgroundColor: 'whitesmoke' }}> Modal content </span>
+					<div style={{ backgroundColor: 'whitesmoke', overflowY: 'scroll' }}>
+						<table>
+							{exif.map(data => {
+								return (
+									<tr>
+										<th>{data.label}</th>
+										<td>{data.value}</td>
+									</tr>
+								);
+							})}
+						</table>
+					</div>
 				</Popup>
 			</div>
 		);
-	};
+	}
 
 	if (!post) {
 		if (deleted) {
@@ -170,9 +197,7 @@ export default function Post({ idPost }) {
 							) : (
 								''
 							)}
-							{exif ? (
-								<Modal></Modal>
-							) : ''}
+							{exif ? <Modal></Modal> : ''}
 						</div>
 					</div>
 					<div className="row">

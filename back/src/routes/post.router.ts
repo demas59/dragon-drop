@@ -14,6 +14,8 @@ const userController = new UserController();
 const commentController = new CommentController();
 const ExifImage = require("exif").ExifImage;
 
+var exif = require("exif");
+
 router.put("/post", async (req: Request, res: Response) => {
   const post = await postController.getById(req.body._id);
   if (post) {
