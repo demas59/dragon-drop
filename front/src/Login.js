@@ -51,7 +51,7 @@ export default function Login() {
 			<div className="col-md-5 mx-auto">
 				<div className="card p-4">
 					<div className="text-center mb-3">
-						<h1>Login</h1>
+						<div className="h1">Login</div>
 					</div>
 					<form onSubmit={event => handleSubmitLogin(event)}>
 						<p className="text-muted"> Please enter your login and password!</p>

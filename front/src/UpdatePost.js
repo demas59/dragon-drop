@@ -81,7 +81,7 @@ export default function UpdatePost({postToUpdate}) {
 			<div className="col-md-5 mx-auto">
 				<div className="card p-4">
 					<div className="text-center mb-3">
-						<h1>Update post</h1>
+						<div className="h1">Update post</div>
 					</div>
 					<form onSubmit={event => handleSubmitUpdatePost(event)}>
 						<p className="text-muted"> Update your post!</p>

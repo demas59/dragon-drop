@@ -63,7 +63,7 @@ export default function Register() {
             <div className="col-md-5 mx-auto">
                 <div className="card p-4">
                     <div className="text-center mb-3">
-                        <h1>Register</h1>
+                        <div className="h1">Register</div>
                     </div>
                     <form onSubmit={event => handleSubmitRegister(event)}>
                         <p className="text-muted"> Please enter your login and password!</p>

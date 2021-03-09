@@ -72,7 +72,7 @@ export default function NewPost() {
 			<div className="col-md-5 mx-auto">
 				<div className="card p-4">
 					<div className="text-center mb-3">
-						<h1>New post</h1>
+						<div className="h1">New post</div>
 					</div>
 					<form onSubmit={event => handleSubmitNewPost(event)}>
 						<p className="text-muted"> Create your next post!</p>
