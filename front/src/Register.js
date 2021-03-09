@@ -31,13 +31,10 @@ export default function Register() {
         setIsLoading(true);
         
         if(!passwordsMatch) {setIsLoading(false); return;}
-
-        const lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-        const wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
         
         const body = JSON.stringify({
 			role: "user",
-			login: wellFormattedUsername,
+			login: usernameTyped.current.value,
 			password: password.current.value,
             friends: []
 		});

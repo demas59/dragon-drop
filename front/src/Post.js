@@ -13,7 +13,6 @@ export default function Post({ idPost }) {
 
 	useEffect(() => {
 		fetchPost();
-		// console.log(connectedUser);
 	}, []);
 
 	function fetchPost() {

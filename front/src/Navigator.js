@@ -6,6 +6,7 @@ import Register from './Register';
 import MyAccount from './MyAccount';
 import NewPost from './NewPost';
 import UpdatePost from './UpdatePost';
+import UserList from './UserList';
 
 export default function Navigator() {
 	const location = useLocation();
@@ -35,6 +36,9 @@ export default function Navigator() {
 			</Route>
 			<Route exact path="/newPost">
 				<NewPost />
+			</Route>
+			<Route exact path="/userList">
+				<UserList />
 			</Route>
 			<Route exact path="/updatePost">
 				<UpdatePost postToUpdate={state} />

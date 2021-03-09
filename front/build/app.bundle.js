@@ -92656,9 +92656,14 @@ function Menu() {
       connectedUser = _ConnectedUserHook2[0].connectedUser,
       dispatch = _ConnectedUserHook2[1];
 
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      wellFormattedUsername = _useState2[0].wellFormattedUsername,
+      setWellFormattedUsername = _useState2[1];
+
   var search = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (JSON.parse(localStorage.getItem('connectedUser'))) {
+    if (JSON.parse(localStorage.getItem('connectedUser')) && JSON.parse(localStorage.getItem('connectedUser')).login) {
       dispatch({
         connectedUser: JSON.parse(localStorage.getItem('connectedUser'))
       });
@@ -92708,7 +92713,10 @@ function Menu() {
   }, "Thread"), connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/newPost"
-  }, "New post") : "", connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "New post") : "",  true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    className: "nav-link",
+    to: "/userList"
+  }, "User list (TOCHANGE)") : undefined, connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/myAccount"
   }, "My account (", connectedUser.login, ")") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
@@ -92800,6 +92808,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MyAccount__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MyAccount */ "./src/MyAccount.js");
 /* harmony import */ var _NewPost__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./NewPost */ "./src/NewPost.js");
 /* harmony import */ var _UpdatePost__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./UpdatePost */ "./src/UpdatePost.js");
+/* harmony import */ var _UserList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./UserList */ "./src/UserList.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -92811,6 +92820,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -92851,6 +92861,9 @@ function Navigator() {
     exact: true,
     path: "/newPost"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NewPost__WEBPACK_IMPORTED_MODULE_6__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/userList"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserList__WEBPACK_IMPORTED_MODULE_8__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/updatePost"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UpdatePost__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -93093,8 +93106,7 @@ function Post(_ref) {
       setDeleted = _useState4[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _fetchPost(); // console.log(connectedUser);
-
+    _fetchPost();
   }, []);
 
   function _fetchPost() {
@@ -93384,11 +93396,9 @@ function Register() {
       return;
     }
 
-    var lowerCaseUsername = usernameTyped.current.value.toString().toLowerCase();
-    var wellFormattedUsername = lowerCaseUsername.charAt(0).toUpperCase() + lowerCaseUsername.slice(1);
     var body = JSON.stringify({
       role: "user",
-      login: wellFormattedUsername,
+      login: usernameTyped.current.value,
       password: password.current.value,
       friends: []
     });
@@ -93845,6 +93855,109 @@ function UpdatePost(_ref) {
     className: "btn btn-primary",
     disabled: isLoading
   }, !isLoading ? 'Update' : 'Updating ...'))))));
+}
+
+/***/ }),
+
+/***/ "./src/UserList.js":
+/*!*************************!*\
+  !*** ./src/UserList.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserList; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app */ "./src/app.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+function UserList() {
+  var _ConnectedUserHook = Object(_app__WEBPACK_IMPORTED_MODULE_2__["ConnectedUserHook"])(),
+      _ConnectedUserHook2 = _slicedToArray(_ConnectedUserHook, 2),
+      connectedUser = _ConnectedUserHook2[0].connectedUser,
+      dispatch = _ConnectedUserHook2[1];
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      userList = _useState2[0],
+      setUserList = _useState2[1];
+
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (!connectedUser || !connectedUser.login) {
+      history.push("/login");
+    }
+
+    fetchUserList();
+  }, []);
+
+  function fetchUserList() {
+    fetch("http://localhost:3000/user").then(function (response) {
+      return response.json();
+    }).then(function (res) {
+      setUserList(res.filter(function (user) {
+        return user.login.toLowerCase() !== connectedUser.login.toLowerCase();
+      }).map(function (user) {
+        console.log(connectedUser);
+
+        if (connectedUser.friends.indexOf(user.login) > -1) {
+          return {
+            login: user.login,
+            isCloseFriend: true
+          };
+        } else {
+          return {
+            login: user.login,
+            isCloseFriend: false
+          };
+        }
+      }));
+    });
+  }
+
+  if (userList.length === 0) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "col-7 mx-auto p-4"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "text-center"
+    }, "There is no other user... :(")));
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-7 mx-auto p-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "text-center mb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, connectedUser.role === "admin" ? "User list and close friends" : "Close friends")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "list-group"
+  }, userList.map(function (user) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "list-group-item",
+      key: user.login
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "d-flex justify-content-between"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, user.login), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.isCloseFriend ? "oui" : "non")));
+  }))));
 }
 
 /***/ }),

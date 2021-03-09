@@ -6,10 +6,11 @@ import { ConnectedUserHook } from './app';
 export default function Menu() {
 	let history = useHistory();
 	const [{connectedUser}, dispatch] = ConnectedUserHook();
+	const [{wellFormattedUsername}, setWellFormattedUsername] = useState("");
 	const search = useRef();
 
 	useEffect(() => {
-		if(JSON.parse(localStorage.getItem('connectedUser'))) {
+		if(JSON.parse(localStorage.getItem('connectedUser')) && JSON.parse(localStorage.getItem('connectedUser')).login) {
 			dispatch({connectedUser:JSON.parse(localStorage.getItem('connectedUser'))});
 		}
 	}, []);
@@ -40,6 +41,11 @@ export default function Menu() {
 				>Thread</NavLink>
 				{connectedUser && connectedUser.login?
 					<NavLink className="nav-link" to="/newPost">New post</NavLink>
+				:
+					""
+				}
+				{1===1 || connectedUser && connectedUser.role === "admin"?
+					<NavLink className="nav-link" to="/userList">User list (TOCHANGE)</NavLink>
 				:
 					""
 				}
