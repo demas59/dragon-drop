@@ -21,7 +21,6 @@ export default function UserList() {
             setUserList(res.filter(user => {
                 return user.login.toLowerCase() !== connectedUser.login.toLowerCase()
             }).map(user => {
-                console.log(connectedUser)
                 if(connectedUser.friends.indexOf(user.login) > -1){
                     return {
                         login: user.login,
@@ -35,6 +34,48 @@ export default function UserList() {
                 }
             }));
         });
+    }
+
+    function handleAddCloseFriend(login) {
+        connectedUser.friends.push(login);
+        const userToUpdate = {
+            _id: connectedUser._id,
+            friends: connectedUser.friends
+        }
+        fetch(`http://localhost:3000/user`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(userToUpdate)
+		}).then(() => {
+            localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+            dispatch({ connectedUser: connectedUser });
+            fetchUserList();
+		});
+    }
+
+    function handleRemoveCloseFriend(login) {
+        connectedUser.friends = connectedUser.friends.filter(user => user.toLowerCase() !== login.toLowerCase());
+        const userToUpdate = {
+            _id: connectedUser._id,
+            friends: connectedUser.friends
+        }
+        fetch(`http://localhost:3000/user`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(userToUpdate)
+		}).then(() => {
+            localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+            dispatch({ connectedUser: connectedUser });
+            fetchUserList();
+		});
+    }
+
+    function handleDeleteUser(login) {
+        fetch(`http://localhost:3000/user/${login}`, {
+			method: 'DELETE',
+		}).then(() => {
+            fetchUserList();
+		});
     }
     
     if(userList.length===0) {
@@ -53,7 +94,7 @@ export default function UserList() {
         <div className="container">
                 <div className="col-7 mx-auto p-4">
                     <div className="text-center mb-3">
-						<h1>{connectedUser.role ==="admin"? "User list and close friends" : "Close friends"}</h1>
+						<h1>{connectedUser.role ==="admin"? "Close friends and user list" : "Close friends"}</h1>
 					</div>
                     <ul className="list-group">
                         {userList.map(user => {
@@ -61,7 +102,41 @@ export default function UserList() {
                                 <li className="list-group-item" key={user.login}>
                                     <div className="d-flex justify-content-between">
                                         <span>{user.login}</span>
-                                        <div>{user.isCloseFriend?"oui" : "non"}</div>
+                                        <div>
+                                            <div>
+                                                {!user.isCloseFriend? (
+                                                    <img
+                                                        src={`../images/plus.png`}
+                                                        alt="UserAdd"
+                                                        title="Add as close friend"
+                                                        onClick={() => handleAddCloseFriend(user.login)}
+                                                        style={{ cursor: 'pointer', height: '24px' }}
+                                                    ></img>
+                                                ) : (
+                                                    <img
+                                                        src={`../images/minus.png`}
+                                                        alt="UserRemove"
+                                                        title="Remove as close friend"
+                                                        onClick={() => handleRemoveCloseFriend(user.login)}
+                                                        style={{ cursor: 'pointer', height: '24px' }}
+                                                    ></img>
+                                                )}
+                                                {connectedUser.role === "admin"?
+                                                    (
+                                                        <img
+                                                            src={`../images/trash.png`}
+                                                            className="ml-3"
+                                                            alt="UserRemove"
+                                                            title="Delete user"
+                                                            onClick={() => handleDeleteUser(user.login)}
+                                                            style={{ cursor: 'pointer', height: '24px' }}
+                                                        ></img>
+                                                    ) : ""
+                                                }
+                                                
+                                            </div>
+                                            
+                                        </div>
                                     </div>
                                 </li>
                             );

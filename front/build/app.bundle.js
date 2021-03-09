@@ -92713,10 +92713,10 @@ function Menu() {
   }, "Thread"), connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/newPost"
-  }, "New post") : "",  true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "New post") : "", connectedUser && connectedUser.role === "admin" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/userList"
-  }, "User list (TOCHANGE)") : undefined, connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+  }, "User list") : "", connectedUser && connectedUser.login ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "nav-link",
     to: "/myAccount"
   }, "My account (", connectedUser.login, ")") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
@@ -92784,7 +92784,10 @@ function MyAccount() {
   }, "disconnect"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     className: "",
     to: "/newPost"
-  }, "New post"));
+  }, "New post"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    className: "",
+    to: "/userList"
+  }, "Close friends"));
 }
 
 /***/ }),
@@ -93915,8 +93918,6 @@ function UserList() {
       setUserList(res.filter(function (user) {
         return user.login.toLowerCase() !== connectedUser.login.toLowerCase();
       }).map(function (user) {
-        console.log(connectedUser);
-
         if (connectedUser.friends.indexOf(user.login) > -1) {
           return {
             login: user.login,
@@ -93929,6 +93930,58 @@ function UserList() {
           };
         }
       }));
+    });
+  }
+
+  function handleAddCloseFriend(login) {
+    connectedUser.friends.push(login);
+    var userToUpdate = {
+      _id: connectedUser._id,
+      friends: connectedUser.friends
+    };
+    fetch("http://localhost:3000/user", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userToUpdate)
+    }).then(function () {
+      localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+      dispatch({
+        connectedUser: connectedUser
+      });
+      fetchUserList();
+    });
+  }
+
+  function handleRemoveCloseFriend(login) {
+    connectedUser.friends = connectedUser.friends.filter(function (user) {
+      return user.toLowerCase() !== login.toLowerCase();
+    });
+    var userToUpdate = {
+      _id: connectedUser._id,
+      friends: connectedUser.friends
+    };
+    fetch("http://localhost:3000/user", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userToUpdate)
+    }).then(function () {
+      localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+      dispatch({
+        connectedUser: connectedUser
+      });
+      fetchUserList();
+    });
+  }
+
+  function handleDeleteUser(login) {
+    fetch("http://localhost:3000/user/".concat(login), {
+      method: 'DELETE'
+    }).then(function () {
+      fetchUserList();
     });
   }
 
@@ -93948,7 +94001,7 @@ function UserList() {
     className: "col-7 mx-auto p-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "text-center mb-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, connectedUser.role === "admin" ? "User list and close friends" : "Close friends")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, connectedUser.role === "admin" ? "Close friends and user list" : "Close friends")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "list-group"
   }, userList.map(function (user) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -93956,7 +94009,41 @@ function UserList() {
       key: user.login
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "d-flex justify-content-between"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, user.login), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.isCloseFriend ? "oui" : "non")));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, user.login), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !user.isCloseFriend ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: "../images/plus.png",
+      alt: "UserAdd",
+      title: "Add as close friend",
+      onClick: function onClick() {
+        return handleAddCloseFriend(user.login);
+      },
+      style: {
+        cursor: 'pointer',
+        height: '24px'
+      }
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: "../images/minus.png",
+      alt: "UserRemove",
+      title: "Remove as close friend",
+      onClick: function onClick() {
+        return handleRemoveCloseFriend(user.login);
+      },
+      style: {
+        cursor: 'pointer',
+        height: '24px'
+      }
+    }), connectedUser.role === "admin" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: "../images/trash.png",
+      className: "ml-3",
+      alt: "UserRemove",
+      title: "Delete user",
+      onClick: function onClick() {
+        return handleDeleteUser(user.login);
+      },
+      style: {
+        cursor: 'pointer',
+        height: '24px'
+      }
+    }) : ""))));
   }))));
 }
 
