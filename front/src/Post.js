@@ -14,6 +14,7 @@ export default function Post({ idPost }) {
 
 	useEffect(() => {
 		fetchPost();
+		fetchExif();
 		// console.log(connectedUser);
 	}, []);
 
@@ -21,6 +22,18 @@ export default function Post({ idPost }) {
 		fetch(`http://localhost:3000/post/${idPost}`)
 			.then(response => response.json())
 			.then(post => setPost(post));
+	}
+
+	function fetchExif() {
+		fetch(`http://localhost:3000/post/exif/${idPost}`)
+			.then(response => response.json())
+			.then(res => {
+				setExif(res);
+				//console.log('🚀 ~ file: Post.js ~ line 65 ~ Modal ~ exif', res);
+			})
+			.catch(err => {
+				console.log(err.message);
+			});
 	}
 
 	function handleDeletePost() {
@@ -54,18 +67,14 @@ export default function Post({ idPost }) {
 		});
 	}
 
-	const Modal = () => {
-		axios
-			.get(`http://localhost:3000/post/exif/${idPost}`)
-			.then(res => {
-				setExif(res.data);
-				console.log('🚀 ~ file: Post.js ~ line 65 ~ Modal ~ exif', exif);
-			})
-			.catch(err => {
-				console.log(err.message);
-			});
+	function Modal () {
+		console.log(exif);
 
-		return exif ? (
+		function handleExifInfos() {
+
+		}
+
+		return (
 			<div className="mt-2">
 				<Popup
 					trigger={
@@ -80,8 +89,6 @@ export default function Post({ idPost }) {
 					<span style={{ backgroundColor: 'whitesmoke' }}> Modal content </span>
 				</Popup>
 			</div>
-		) : (
-			''
 		);
 	};
 
@@ -163,7 +170,9 @@ export default function Post({ idPost }) {
 							) : (
 								''
 							)}
-							{<Modal></Modal>}
+							{exif ? (
+								<Modal></Modal>
+							) : ''}
 						</div>
 					</div>
 					<div className="row">
