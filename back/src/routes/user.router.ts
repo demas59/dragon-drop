@@ -8,14 +8,19 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+router.delete("/user/:login", async (req: Request, res: Response) => {
+  await userController.deleteByLogin(req.params.login);
+  res.send("deleted");
+});
+
 router.put("/user/", async (req: Request, res: Response) => {
   const user = await userController.getById(req.body._id);
-  if(user){
-    for(const element in req.body) {
+  if (user) {
+    for (const element in req.body) {
       user[element] = req.body[element];
     }
-  }else{
-    res.status(HttpStatusCodes.NOT_FOUND).send("user not found")
+  } else {
+    res.status(HttpStatusCodes.NOT_FOUND).send("user not found");
   }
 
   const savedUser = await user.save();
