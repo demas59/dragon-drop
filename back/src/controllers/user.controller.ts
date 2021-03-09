@@ -19,4 +19,8 @@ export default class UserController {
       useFindAndModify: false,
     });
   }
+
+  async deleteById(login: String) {
+    return await User.findOneAndDelete({ login: login });
+  }
 }
