@@ -29,24 +29,16 @@ export default function Post({ idPost }) {
 			.then(response => response.json())
 			.then(res => {
 				const builtExif = [];
-				for (const item in res.image) {
-					builtExif.push({ label: item, value: res.image[item] });
+				for (const category in res) {
+					for (const item in res[category]) {
+						if (
+							res[category][item] &&
+							typeof res[category][item] !== 'object'
+						) {
+							builtExif.push({ label: item, value: res[category][item] });
+						}
+					}
 				}
-				for (const item in res.thumbnail) {
-					builtExif.push({ label: item, value: res.thumbnail[item] });
-				}
-				// for (const item in res.exif) {
-				// 	builtExif.push({ label: item, value: res.exif[item] });
-				// }
-				// for (const item in res.gps) {
-				// 	builtExif.push({ label: item, value: res.gps[item] });
-				// }
-				// for (const item in res.interoperability) {
-				// 	builtExif.push({ label: item, value: res.interoperability[item] });
-				// }
-				// for (const item in res.makernote) {
-				// 	builtExif.push({ label: item, value: res.makernote[item] });
-				// }
 				setExif(builtExif);
 			})
 			.catch(err => {
@@ -86,30 +78,35 @@ export default function Post({ idPost }) {
 	}
 
 	function Modal() {
-		console.log(exif);
-
-		function handleExifInfos() {}
-
 		return (
 			<div className="mt-2">
 				<Popup
 					trigger={
 						<img
-							onClick={() => handleExifInfos()}
 							src={`../images/information-outline.png`}
 							style={{ cursor: 'pointer' }}
 						></img>
 					}
 					modal
 				>
-					<div style={{ backgroundColor: 'whitesmoke', overflowY: 'scroll' }}>
+					<div
+						style={{
+							backgroundColor: 'whitesmoke',
+							overflowY: 'auto',
+							border: 'solid',
+							maxHeight: '750px',
+						}}
+					>
+						<h1 className="text-center">exif</h1>
 						<table>
-							{exif.map(data => {
+							{exif.map((data, index) => {
 								return (
-									<tr>
-										<th>{data.label}</th>
-										<td>{data.value}</td>
-									</tr>
+									<thead key={index}>
+										<tr>
+											<th>{data.label}</th>
+											<td>{data.value}</td>
+										</tr>
+									</thead>
 								);
 							})}
 						</table>

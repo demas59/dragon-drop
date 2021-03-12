@@ -93059,6 +93059,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactjs_popup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactjs-popup */ "./node_modules/reactjs-popup/dist/reactjs-popup.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -93117,31 +93119,16 @@ function Post(_ref) {
     }).then(function (res) {
       var builtExif = [];
 
-      for (var item in res.image) {
-        builtExif.push({
-          label: item,
-          value: res.image[item]
-        });
+      for (var category in res) {
+        for (var item in res[category]) {
+          if (res[category][item] && _typeof(res[category][item]) !== 'object') {
+            builtExif.push({
+              label: item,
+              value: res[category][item]
+            });
+          }
+        }
       }
-
-      for (var _item in res.thumbnail) {
-        builtExif.push({
-          label: _item,
-          value: res.thumbnail[_item]
-        });
-      } // for (const item in res.exif) {
-      // 	builtExif.push({ label: item, value: res.exif[item] });
-      // }
-      // for (const item in res.gps) {
-      // 	builtExif.push({ label: item, value: res.gps[item] });
-      // }
-      // for (const item in res.interoperability) {
-      // 	builtExif.push({ label: item, value: res.interoperability[item] });
-      // }
-      // for (const item in res.makernote) {
-      // 	builtExif.push({ label: item, value: res.makernote[item] });
-      // }
-
 
       setExif(builtExif);
     })["catch"](function (err) {
@@ -93187,17 +93174,10 @@ function Post(_ref) {
   }
 
   function Modal() {
-    console.log(exif);
-
-    function handleExifInfos() {}
-
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "mt-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactjs_popup__WEBPACK_IMPORTED_MODULE_4__["default"], {
       trigger: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        onClick: function onClick() {
-          return handleExifInfos();
-        },
         src: "../images/information-outline.png",
         style: {
           cursor: 'pointer'
@@ -93207,10 +93187,16 @@ function Post(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       style: {
         backgroundColor: 'whitesmoke',
-        overflowY: 'scroll'
+        overflowY: 'auto',
+        border: 'solid',
+        maxHeight: '750px'
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, exif.map(function (data) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, data.label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.value));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      className: "text-center"
+    }, "exif"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, exif.map(function (data, index) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
+        key: index
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, data.label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.value)));
     })))));
   }
 
