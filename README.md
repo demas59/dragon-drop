@@ -2,13 +2,17 @@
 
 ## Lancement du projet
 
-### Depuis le dossier front, exécuter les commandes suivantes:
+### Dans un terminal, depuis le dossier front, exécuter les commandes suivantes:
 
 `npm install`
 puis:
 `npx serve -l 8000`
 
-### Depuis le dossier back, exécuter les commandes suivantes:
+### Dans un terminal, depuis le dossier front, exécuter la commande suivante:
+
+`npm run watch`
+
+### Dans un terminal, depuis le dossier back, exécuter les commandes suivantes:
 
 `npm install`
 puis:
