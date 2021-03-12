@@ -8,7 +8,7 @@ import { ConnectedUserHook } from './app.js';
 
 export default function Post({ idPost }) {
 	let history = useHistory();
-	const [{connectedUser}, dispatch] = ConnectedUserHook();
+	const [{ connectedUser }, dispatch] = ConnectedUserHook();
 	const [post, setPost] = useState(null);
 	const [deleted, setDeleted] = useState(false);
 	const [exif, setExif] = useState(null);
@@ -42,7 +42,7 @@ export default function Post({ idPost }) {
 				setExif(builtExif);
 			})
 			.catch(err => {
-				console.log(err.message);
+				console.log('no exif');
 			});
 	}
 
@@ -76,37 +76,38 @@ export default function Post({ idPost }) {
 	}
 
 	function handleAddFavourites(postId) {
-        connectedUser.favourite.push(postId);
-        const userToUpdate = {
-            _id: connectedUser._id,
-            favourite: connectedUser.favourite
-        }
-        fetch(`http://localhost:3000/user`, {
+		connectedUser.favourite.push(postId);
+		const userToUpdate = {
+			_id: connectedUser._id,
+			favourite: connectedUser.favourite,
+		};
+		fetch(`http://localhost:3000/user`, {
 			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify(userToUpdate)
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(userToUpdate),
 		}).then(() => {
-            localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
-            dispatch({ connectedUser: connectedUser });
+			localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+			dispatch({ connectedUser: connectedUser });
 		});
-    }
+	}
 
 	function handleRemoveFavourites(postId) {
-        connectedUser.favourite = connectedUser.favourite.filter(id => id !== postId);
-        const userToUpdate = {
-            _id: connectedUser._id,
-            favourite: connectedUser.favourite
-        }
-        fetch(`http://localhost:3000/user`, {
+		connectedUser.favourite = connectedUser.favourite.filter(
+			id => id !== postId
+		);
+		const userToUpdate = {
+			_id: connectedUser._id,
+			favourite: connectedUser.favourite,
+		};
+		fetch(`http://localhost:3000/user`, {
 			method: 'PUT',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify(userToUpdate)
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(userToUpdate),
 		}).then(() => {
-            localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
-            dispatch({ connectedUser: connectedUser });
+			localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+			dispatch({ connectedUser: connectedUser });
 		});
-    }
-
+	}
 
 	function Modal() {
 		return (
@@ -190,26 +191,31 @@ export default function Post({ idPost }) {
 								fetchPost={() => fetchPost()}
 								idPost={idPost}
 							></LikeButtons>
-							{(connectedUser && connectedUser.favourite) ?
-								(connectedUser.favourite.indexOf(_id) > -1) ? 
-									(<div className="w-100 text-center mt-1"><img
-										src={`../images/star-selected.png`}
-										alt="Remove from favorites"
-										title="Remove from favorites"
-										onClick={() => handleRemoveFavourites(_id)}
-										style={{ cursor: 'pointer' }}
-									></img></div>)
-									:
-									(<div className="w-100 text-center mt-1"><img
-										src={`../images/star-circle.png`}
-										alt="Add to favorites"
-										title="Add to favorites"
-										onClick={() => handleAddFavourites(_id)}
-										style={{ cursor: 'pointer' }}
-									></img></div>)
-								:
-								""
-							}
+							{connectedUser && connectedUser.favourite ? (
+								connectedUser.favourite.indexOf(_id) > -1 ? (
+									<div className="w-100 text-center mt-1">
+										<img
+											src={`../images/star-selected.png`}
+											alt="Remove from favorites"
+											title="Remove from favorites"
+											onClick={() => handleRemoveFavourites(_id)}
+											style={{ cursor: 'pointer' }}
+										></img>
+									</div>
+								) : (
+									<div className="w-100 text-center mt-1">
+										<img
+											src={`../images/star-circle.png`}
+											alt="Add to favorites"
+											title="Add to favorites"
+											onClick={() => handleAddFavourites(_id)}
+											style={{ cursor: 'pointer' }}
+										></img>
+									</div>
+								)
+							) : (
+								''
+							)}
 						</div>
 						<div className="col-sm text-center">
 							<img

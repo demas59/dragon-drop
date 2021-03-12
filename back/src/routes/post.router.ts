@@ -14,8 +14,6 @@ const userController = new UserController();
 const commentController = new CommentController();
 const ExifImage = require("exif").ExifImage;
 
-var exif = require("exif");
-
 router.put("/post", async (req: Request, res: Response) => {
   const post = await postController.getById(req.body._id);
   if (post) {
@@ -38,7 +36,7 @@ router.get("/post/exif/:id", async (req: Request, res: Response) => {
       { image: `public\\${post._id}.${post.format}` },
       function (error: { message: string }, exifData: any) {
         if (error) {
-          res.status(401).send("Error: " + error.message);
+          res.status(200).send("Error: " + error.message);
         } else {
           res.send(exifData); // Do something with your data!
         }
