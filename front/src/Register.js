@@ -66,7 +66,7 @@ export default function Register() {
                         <div className="h1">Register</div>
                     </div>
                     <form onSubmit={event => handleSubmitRegister(event)}>
-                        <p className="text-muted"> Please enter your login and password!</p>
+                        <p className="color-light-blue"> Please enter your login and password!</p>
                         <div className="form-group">
                             <label htmlFor="usernameInput">Username</label>
                             <input
@@ -110,7 +110,7 @@ export default function Register() {
                         </div>
                         <div className="d-flex justify-content-between mt-4">
                             <NavLink className="nav-link pl-0" to="/login">I have an account</NavLink>
-                            <button type="submit" className="btn btn-primary" disabled={isLoading || !passwordsMatch}>{!isLoading ? 'Register' : 'Loading...'}</button>
+                            <button type="submit" className="btn btn-light-blue" disabled={isLoading || !passwordsMatch}>{!isLoading ? 'Register' : 'Loading...'}</button>
                         </div>
                     </form>
                 </div>

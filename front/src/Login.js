@@ -54,7 +54,7 @@ export default function Login() {
 						<div className="h1">Login</div>
 					</div>
 					<form onSubmit={event => handleSubmitLogin(event)}>
-						<p className="text-muted"> Please enter your login and password!</p>
+						<p className="color-light-blue"> Please enter your login and password!</p>
 						<div className={validLogin ? 'd-none' : 'text-danger mb-2'}>
 							Invalid login or username.
 						</div>
@@ -89,7 +89,7 @@ export default function Login() {
 							</NavLink>
 							<button
 								type="submit"
-								className="btn btn-primary"
+								className="btn btn-light-blue"
 								disabled={isLoading}
 							>
 								{!isLoading ? 'Login' : 'Loading...'}

@@ -48,7 +48,7 @@ export default function CommentsForm({idPost, fetchPost}) {
 			<div className="w-100 text-right">
 				<button
 					type="submit"
-					className="btn btn-outline-secondary"
+					className="btn btn-dark-blue"
 					disabled={isLoading}
 				>Send</button>
 			</div>

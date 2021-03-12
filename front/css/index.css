@@ -21,3 +21,45 @@ body {
 .h6 {
 	font-family: Pacifico;
 }
+
+.btn-brown:hover {
+	background-color: #783f04 !important;
+	color: #ffffff !important;
+}
+
+.btn-brown {
+	border-color: #783f04 !important;
+	color: #783f04 !important;
+}
+
+.btn-light-blue:hover {
+	background-color: #33c1ff !important;
+	color: #ffffff !important;
+}
+
+.btn-light-blue {
+	border-color: #33c1ff !important;
+	color: #33c1ff !important;
+}
+
+.btn-dark-blue:hover {
+	background-color: #012e8b !important;
+	color: #ffffff !important;
+}
+
+.btn-dark-blue {
+	border-color: #012e8b !important;
+	color: #012e8b !important;
+}
+
+.btn-color-light-blue {
+	color: #33c1ff !important;
+}
+
+.color-dark-blue {
+	color: #012e8b !important;
+}
+
+.color-light-blue {
+	color: #33c1ff !important;
+}

@@ -6,10 +6,6 @@ export default function Thread({search}) {
 	let history = useHistory();
 	const [posts, setPosts] = useState(null);
 
-    useEffect(() => {
-		fetchPosts();
-	}, []);
-
 	useEffect(() => {
 		fetchPosts();
 	}, [search]);

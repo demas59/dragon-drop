@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default function UpdatePost({postToUpdate}) {
+export default function UpdatePost() {
 	let history = useHistory();
 	const [isLoading, setIsLoading] = useState(false);
 	const [tagsFormatted, setTagsFormatted] = useState([]);
+	const [postToUpdate, setPostToUpdate] = useState(null);
 
 
 	const caption = useRef();
@@ -17,16 +18,18 @@ export default function UpdatePost({postToUpdate}) {
 			!JSON.parse(localStorage.getItem('connectedUser')).login
 		) {
 			history.push(`/login`);
+			return;
 		}
-	});
+
+		setPostToUpdate(JSON.parse(localStorage.getItem("postToUpdate")));
+	}, []);
 
 	function handleSubmitUpdatePost(event) {
-		console.log("coucou");
 		setIsLoading(true);
 		event.preventDefault();
 
         const postToSend = {};
-        postToSend._id = postToUpdate.post._id;
+        postToSend._id = postToUpdate._id;
         postToSend.caption = caption.current.value;
         if(tagsFormatted.length===0) {
             postToSend.tags = tags.current.value.split(' ');
@@ -61,7 +64,7 @@ export default function UpdatePost({postToUpdate}) {
 	}
 
 
-    if (!postToUpdate || !postToUpdate.post) {
+    if (!postToUpdate || !postToUpdate._id) {
 		return (
             <div className="container mt-3">
                 <div className="col-7 mx-auto">
@@ -84,8 +87,8 @@ export default function UpdatePost({postToUpdate}) {
 						<div className="h1">Update post</div>
 					</div>
 					<form onSubmit={event => handleSubmitUpdatePost(event)}>
-						<p className="text-muted"> Update your post!</p>
-                        <div className="mb-2"><img src={`http://localhost:3000/${postToUpdate.post._id}.${postToUpdate.post.format}`} className="img-fluid" alt="Responsive image"></img></div>
+						<p className="color-light-blue"> Update your post!</p>
+                        <div className="mb-2"><img src={`http://localhost:3000/${postToUpdate._id}.${postToUpdate.format}`} className="img-fluid" alt="Responsive image"></img></div>
 						<div className="form-group">
 							<label htmlFor="captionInput">Caption</label>
 							<input
@@ -94,7 +97,7 @@ export default function UpdatePost({postToUpdate}) {
 								placeholder="Caption"
 								readOnly={isLoading}
 								ref={caption}
-                                defaultValue={postToUpdate.post.caption}
+                                defaultValue={postToUpdate.caption}
 							/>
 						</div>
 						<div className="form-group">
@@ -107,7 +110,7 @@ export default function UpdatePost({postToUpdate}) {
 								onChange={e => handleTagsChange(e)}
 								readOnly={isLoading}
 								ref={tags}
-                                defaultValue={postToUpdate.post.tags.join(' ')}
+                                defaultValue={postToUpdate.tags.join(' ')}
 							></input>
 							{tagsFormatted.map((tag, index) => {
 								return (
@@ -124,7 +127,7 @@ export default function UpdatePost({postToUpdate}) {
 								id="visibilityCheckbox"
 								ref={closeFriends}
 								disabled={isLoading}
-                                defaultChecked = {postToUpdate.post.visibility !== "all" ? "checked" : ""}
+                                defaultChecked = {postToUpdate.visibility !== "all" ? "checked" : ""}
 							></input>
 							<label className="form-check-label" htmlFor="visibilityCheckbox">
 								Only for close friends
@@ -140,7 +143,7 @@ export default function UpdatePost({postToUpdate}) {
 							</button>
 							<button
 								type="submit"
-								className="btn btn-primary"
+								className="btn btn-light-blue"
 								disabled={isLoading}
 							>
 								{!isLoading ? 'Update' : 'Updating ...'}

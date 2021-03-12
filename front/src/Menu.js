@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { ConnectedUserHook } from './app';
 
 export default function Menu() {
@@ -17,11 +18,32 @@ export default function Menu() {
 	
 	function handleSearchSubmit(event) {
 		event.preventDefault();
+		//localStorage.setItem("search", JSON.stringify())
 		history.push({
 			pathname: '/',
 			state: { search: search.current.value }
 		});
-		
+	}
+
+	function handleMyPostsClick() {
+		localStorage.setItem("myAccountSearch", "myPosts");
+		history.push('/myAccount');
+	}
+
+	function handleMyFavouritesClick() {
+		localStorage.setItem("myAccountSearch", "favourites");
+		history.push('/myAccount');
+	}
+
+	function handleCloseFriendsClick() {
+		history.push("/userList");
+
+	}
+
+	function handleDisconnect() {
+		localStorage.clear();
+        dispatch({connectedUser:{}});
+        history.push('/');
 	}
 
 	return (
@@ -29,7 +51,7 @@ export default function Menu() {
 			<img style={{height: '3em'}} className="navbar-brand" src="../images/logoDragonDrop.png"></img>
 			<form className="form-inline" onSubmit={event => handleSearchSubmit(event)}>
 				<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ref={search}></input>
-				<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<button className="btn btn-brown my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			<div className="navbar-nav">
 				<NavLink 
@@ -51,7 +73,13 @@ export default function Menu() {
 				}
 				
 				{connectedUser && connectedUser.login?
-					<NavLink className="nav-link" to="/myAccount">My account ({connectedUser.login})</NavLink>
+					<NavDropdown title={`My account (${connectedUser.login})`} id="basic-nav-dropdown">
+						<NavDropdown.Item  onClick={() => handleMyPostsClick()}>My posts</NavDropdown.Item>
+						<NavDropdown.Item onClick={() => handleMyFavouritesClick()}>My Favourites</NavDropdown.Item>
+						<NavDropdown.Item onClick={() => handleCloseFriendsClick()}>Close friends</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item onClick={() => handleDisconnect()}>Disconnect</NavDropdown.Item>
+					</NavDropdown>
 				:
 					<NavLink className="nav-link" to="/login">Login</NavLink>
 				}

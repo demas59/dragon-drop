@@ -33,7 +33,9 @@ export default function NewPost() {
 		const formData = new FormData();
 		formData.append('tags', tagsFormatted);
 		formData.append('caption', caption.current.value);
-		formData.append('creator', JSON.parse(localStorage.getItem('connectedUser')).login);
+		const usernameTmp = JSON.parse(localStorage.getItem('connectedUser')).login
+		const userNameFormatted = usernameTmp.charAt(0).toUpperCase() + usernameTmp.slice(1);
+		formData.append('creator', userNameFormatted);
 
 		if (closeFriends.current.checked) {
 			formData.append('visibility', 'hidden');
@@ -75,7 +77,7 @@ export default function NewPost() {
 						<div className="h1">New post</div>
 					</div>
 					<form onSubmit={event => handleSubmitNewPost(event)}>
-						<p className="text-muted"> Create your next post!</p>
+						<p className="color-light-blue"> Create your next post!</p>
 						<div className="form-group">
 							<label htmlFor="imageInput">Image</label>
 							<input
@@ -130,7 +132,7 @@ export default function NewPost() {
 						<div className="d-flex justify-content-between mt-4">
 							<button
 								type="submit"
-								className="btn btn-primary"
+								className="btn btn-light-blue"
 								disabled={isLoading}
 							>
 								{!isLoading ? 'Post' : 'Posting ...'}

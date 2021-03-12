@@ -4,10 +4,11 @@ import CommentsRenderer from './CommentsRenderer.js';
 import LikeButtons from './LikeButtons.js';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
+import { ConnectedUserHook } from './app.js';
 
 export default function Post({ idPost }) {
 	let history = useHistory();
-	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
+	const [{connectedUser}, dispatch] = ConnectedUserHook();
 	const [post, setPost] = useState(null);
 	const [deleted, setDeleted] = useState(false);
 
@@ -32,10 +33,8 @@ export default function Post({ idPost }) {
 	}
 
 	function handleModifyPost() {
-		history.push({
-			pathname: '/updatePost',
-			state: { post: post },
-		});
+		localStorage.setItem('postToUpdate', JSON.stringify(post));
+		history.push('/updatePost');
 	}
 
 	function handleUsernameClick(username) {
@@ -51,6 +50,38 @@ export default function Post({ idPost }) {
 			state: { tag: tag },
 		});
 	}
+
+	function handleAddFavourites(postId) {
+        connectedUser.favourite.push(postId);
+        const userToUpdate = {
+            _id: connectedUser._id,
+            favourite: connectedUser.favourite
+        }
+        fetch(`http://localhost:3000/user`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(userToUpdate)
+		}).then(() => {
+            localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+            dispatch({ connectedUser: connectedUser });
+		});
+    }
+
+	function handleRemoveFavourites(postId) {
+        connectedUser.favourite = connectedUser.favourite.filter(id => id !== postId);
+        const userToUpdate = {
+            _id: connectedUser._id,
+            favourite: connectedUser.favourite
+        }
+        fetch(`http://localhost:3000/user`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(userToUpdate)
+		}).then(() => {
+            localStorage.setItem('connectedUser', JSON.stringify(connectedUser));
+            dispatch({ connectedUser: connectedUser });
+		});
+    }
 
 	const Modal = () => {
 		let hasExif = false;
@@ -130,6 +161,26 @@ export default function Post({ idPost }) {
 								fetchPost={() => fetchPost()}
 								idPost={idPost}
 							></LikeButtons>
+							{(connectedUser && connectedUser.favourite) ?
+								(connectedUser.favourite.indexOf(_id) > -1) ? 
+									(<div className="w-100 text-center mt-1"><img
+										src={`../images/star-selected.png`}
+										alt="Remove from favorites"
+										title="Remove from favorites"
+										onClick={() => handleRemoveFavourites(_id)}
+										style={{ cursor: 'pointer' }}
+									></img></div>)
+									:
+									(<div className="w-100 text-center mt-1"><img
+										src={`../images/star-circle.png`}
+										alt="Add to favorites"
+										title="Add to favorites"
+										onClick={() => handleAddFavourites(_id)}
+										style={{ cursor: 'pointer' }}
+									></img></div>)
+								:
+								""
+							}
 						</div>
 						<div className="col-sm text-center">
 							<img
@@ -180,7 +231,7 @@ export default function Post({ idPost }) {
 										type="button"
 										key={index}
 										onClick={() => handleTagClick(tag)}
-										className="pl-0 pr-1 pt-0 pb-0 btn btn-link"
+										className="pl-0 pr-1 pt-0 pb-0 btn btn-link btn-color-light-blue"
 									>
 										{'#' + tag}
 									</button>

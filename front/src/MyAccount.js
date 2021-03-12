@@ -1,28 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { ConnectedUserHook } from './app';
+import Post from './Post';
 
 export default function MyAccount() {
 	const [{connectedUser}, dispatch] = ConnectedUserHook();
+	const [posts, setPosts] = useState([]);
     let history = useHistory();
 
     useEffect(() => {
-		if(!JSON.parse(localStorage.getItem('connectedUser')) || !JSON.parse(localStorage.getItem('connectedUser')).login) {
+		if(!connectedUser || !connectedUser.login) {
             history.push(`/login`);
+        }
+        if(localStorage.getItem("myAccountSearch") === "favourites") {
+            fetchFavourites();
+        }else {
+            fetchMyPosts();
         }
 	});
 
-    function handleDisconnectClick(event) {
-        localStorage.clear();
-        dispatch({connectedUser:{}});
-        history.push('/');
+    function fetchFavourites() {
+        setPosts(connectedUser.favourite);
+    }
+    
+    function fetchMyPosts() {
+        fetch(`http://localhost:3000/post/creator/${connectedUser.login}`)
+        .then(response => response.json())
+        .then(postList => {
+            setPosts(postList.map(post => post._id));
+        });
     }
     
 	return (
-        <div>
-            <a onClick={() => handleDisconnectClick()}>disconnect</a>
-            <NavLink className="" to="/newPost">New post</NavLink>
-            <NavLink className="" to="/userList">Close friends</NavLink>
-        </div>
+        <div className="mb-4">
+            <div className="h1 w-100 text-center mt-4 mb-4">{(localStorage.getItem("myAccountSearch") === "favourites") ? "My favourites" : "My posts"}</div>
+			{posts.map(id => {
+				return <Post idPost={id}  key={id}></Post>;
+			})}
+		</div>
     );
 }

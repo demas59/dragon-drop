@@ -41,7 +41,7 @@ export default function Navigator() {
 				<UserList />
 			</Route>
 			<Route exact path="/updatePost">
-				<UpdatePost postToUpdate={state} />
+				<UpdatePost />
 			</Route>
 		</Switch>
 	);
