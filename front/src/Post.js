@@ -11,15 +11,39 @@ export default function Post({ idPost }) {
 	const [{connectedUser}, dispatch] = ConnectedUserHook();
 	const [post, setPost] = useState(null);
 	const [deleted, setDeleted] = useState(false);
+	const [exif, setExif] = useState(null);
 
 	useEffect(() => {
 		fetchPost();
+		fetchExif();
 	}, []);
 
 	function fetchPost() {
 		fetch(`http://localhost:3000/post/${idPost}`)
 			.then(response => response.json())
 			.then(post => setPost(post));
+	}
+
+	function fetchExif() {
+		fetch(`http://localhost:3000/post/exif/${idPost}`)
+			.then(response => response.json())
+			.then(res => {
+				const builtExif = [];
+				for (const category in res) {
+					for (const item in res[category]) {
+						if (
+							res[category][item] &&
+							typeof res[category][item] !== 'object'
+						) {
+							builtExif.push({ label: item, value: res[category][item] });
+						}
+					}
+				}
+				setExif(builtExif);
+			})
+			.catch(err => {
+				console.log(err.message);
+			});
 	}
 
 	function handleDeletePost() {
@@ -83,40 +107,45 @@ export default function Post({ idPost }) {
 		});
     }
 
-	const Modal = () => {
-		let hasExif = false;
-		axios
-			.get(`http://localhost:3000/post/exif/${idPost}`)
-			.then(res => {
-				return (
-					<div className="mt-2">
-						<Popup
-							trigger={
-								<img
-									onClick={() => handleExifInfos()}
-									src={`../images/information-outline.png`}
-									style={{ cursor: 'pointer' }}
-								></img>
-							}
-							modal
-						>
-							<span style={{ backgroundColor: 'whitesmoke' }}>
-								{' '}
-								Modal content{' '}
-							</span>
-						</Popup>
-					</div>
-				);
-			})
-			.catch(err => {
-				console.log(err.message);
-			});
 
-		if (hasExif) {
-		} else {
-			return '';
-		}
-	};
+	function Modal() {
+		return (
+			<div className="mt-2">
+				<Popup
+					trigger={
+						<img
+							src={`../images/information-outline.png`}
+							style={{ cursor: 'pointer' }}
+						></img>
+					}
+					modal
+				>
+					<div
+						style={{
+							backgroundColor: 'whitesmoke',
+							overflowY: 'auto',
+							border: 'solid',
+							maxHeight: '750px',
+						}}
+					>
+						<h1 className="text-center">exif</h1>
+						<table>
+							{exif.map((data, index) => {
+								return (
+									<thead key={index}>
+										<tr>
+											<th>{data.label}</th>
+											<td>{data.value}</td>
+										</tr>
+									</thead>
+								);
+							})}
+						</table>
+					</div>
+				</Popup>
+			</div>
+		);
+	}
 
 	if (!post) {
 		if (deleted) {
@@ -190,9 +219,11 @@ export default function Post({ idPost }) {
 							></img>
 						</div>
 						<div className="col-sm-1 pl-0 pr-3">
-							{connectedUser && connectedUser.login &&
-							(connectedUser.login.toLocaleLowerCase() === creator.toLocaleLowerCase() ||
-							connectedUser.role.toLocaleLowerCase() === 'admin') ? (
+							{connectedUser &&
+							connectedUser.login &&
+							(connectedUser.login.toLocaleLowerCase() ===
+								creator.toLocaleLowerCase() ||
+								connectedUser.role.toLocaleLowerCase() === 'admin') ? (
 								<div>
 									<div>
 										<img
@@ -214,7 +245,7 @@ export default function Post({ idPost }) {
 							) : (
 								''
 							)}
-							{<Modal></Modal>}
+							{exif ? <Modal></Modal> : ''}
 						</div>
 					</div>
 					<div className="row">
