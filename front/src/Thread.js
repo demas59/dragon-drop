@@ -2,22 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Post from './Post';
 
-export default function Thread({search}) {
+export default function Thread({ search }) {
+	const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 	let history = useHistory();
 	const [posts, setPosts] = useState(null);
 
 	useEffect(() => {
-		fetchPosts();
+		if (connectedUser) {
+			fetchPosts();
+		}
 	}, [search]);
 
-	function searchedSomething () {
-		if(!search) {return false}
-		else if(search.tag || search.user) {return true}
-		else if(search.search) {
+	function searchedSomething() {
+		if (!search) {
+			return false;
+		} else if (search.tag || search.user) {
+			return true;
+		} else if (search.search) {
 			search.user = search.search;
 			search.tag = search.search;
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -25,116 +30,119 @@ export default function Thread({search}) {
 	function getIDsFromPosts(posts) {
 		return posts.map(post => {
 			return post._id;
-		})
+		});
 	}
 
-    function fetchPosts() {
-		let postsToDisplay=[];
+	function fetchPosts() {
+		let postsToDisplay = [];
 
-		if(!searchedSomething()) {
-			fetch(`http://localhost:3000/post`)
+		if (!searchedSomething()) {
+			console.log(connectedUser.login);
+			fetch(`http://localhost:3000/post/for/${connectedUser.login}`)
 				.then(response => response.json())
 				.then(post => setPosts(getIDsFromPosts(post)));
 			return;
 		}
 
-		if(search.user) {
+		if (search.user) {
 			fetch(`http://localhost:3000/post/creator/${search.user}`)
-			.then(response => response.json())
-			.then(postList => {
-				
-				const postIDList = getIDsFromPosts(postList);
-				
-				postIDList.forEach(postID => {
-					if(postsToDisplay.indexOf(postID) === -1) {
-						postsToDisplay.push(postID);
-					}
-				});
+				.then(response => response.json())
+				.then(postList => {
+					const postIDList = getIDsFromPosts(postList);
 
-				if(!search.tag) {
-					setPosts(postsToDisplay);
-				}
-			});
-		}
-		if(search.tag) {
-			fetch(`http://localhost:3000/post/tags/${search.tag}`)
-			.then(response => response.json())
-			.then(postList => {
-				
-				const postIDList = getIDsFromPosts(postList);
-				
-				postIDList.forEach(postID => {
-					if(postsToDisplay.indexOf(postID) === -1) {
-						postsToDisplay.push(postID);
+					postIDList.forEach(postID => {
+						if (postsToDisplay.indexOf(postID) === -1) {
+							postsToDisplay.push(postID);
+						}
+					});
+
+					if (!search.tag) {
+						setPosts(postsToDisplay);
 					}
 				});
-				
-				setPosts(postsToDisplay);
-			});
+		}
+		if (search.tag) {
+			fetch(`http://localhost:3000/post/tags/${search.tag}`)
+				.then(response => response.json())
+				.then(postList => {
+					const postIDList = getIDsFromPosts(postList);
+
+					postIDList.forEach(postID => {
+						if (postsToDisplay.indexOf(postID) === -1) {
+							postsToDisplay.push(postID);
+						}
+					});
+
+					setPosts(postsToDisplay);
+				});
 		}
 	}
 
 	function displayRecapResult() {
-		let sentence = "";
-		if(!searchedSomething()) {
-			return "";
+		let sentence = '';
+		if (!searchedSomething()) {
+			return '';
 		}
 
-		if(search.search) {
+		if (search.search) {
 			sentence = `Results for search '${search.search}' : ${posts.length} result(s).`;
-		}else if(search.tag) {
+		} else if (search.tag) {
 			sentence = `Results for tag '${search.tag}' : ${posts.length} result(s).`;
-		}else if(search.user) {
+		} else if (search.user) {
 			sentence = `Results for user '${search.user}' : ${posts.length} result(s).`;
 		}
 
 		return (
 			<div className="container">
-                <div className="col-7 mx-auto pt-4 pb-2">
+				<div className="col-7 mx-auto pt-4 pb-2">
 					<div className="text-center">
-						{sentence} 
+						{sentence}
 						<button
 							type="button"
-							onClick={() => {history.push({
-								pathname: '/',
-								state: {}
-							})}}
+							onClick={() => {
+								history.push({
+									pathname: '/',
+									state: {},
+								});
+							}}
 							className="btn btn-link"
-						>Reset</button>
+						>
+							Reset
+						</button>
 					</div>
 				</div>
 			</div>
 		);
 	}
 
-    if (!posts) {
+	if (!posts && connectedUser) {
 		return (
-            <div className="container">
-                <div className="col-7 mx-auto p-4">
+			<div className="container">
+				<div className="col-7 mx-auto p-4">
 					<div className="text-center">
 						<div className="spinner-border" role="status">
 							<span className="sr-only">Loading...</span>
 						</div>
 					</div>
-                </div>
-            </div>
-        );
-	}else if (posts.length === 0) {
+				</div>
+			</div>
+		);
+	} else if (!connectedUser || posts.length === 0) {
 		return (
-            <div className="container">
-                <div className="col-7 mx-auto p-4">
+			<div className="container">
+				<div className="col-7 mx-auto p-4">
 					<div className="text-center">
-						There isn't any post... :(
+						There isn't any post... Are you logged in ? :(
 					</div>
-                </div>
-            </div>
-        );
+				</div>
+			</div>
+		);
 	}
 	return (
 		<div className="mb-4">
 			{displayRecapResult()}
 			{posts.map(id => {
-				return <Post idPost={id}  key={id}></Post>;
+				return <Post idPost={id} key={id}></Post>;
 			})}
 		</div>
 	);

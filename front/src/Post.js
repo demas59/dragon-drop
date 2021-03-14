@@ -3,7 +3,6 @@ import { NavLink, useHistory } from 'react-router-dom';
 import CommentsRenderer from './CommentsRenderer.js';
 import LikeButtons from './LikeButtons.js';
 import Popup from 'reactjs-popup';
-import axios from 'axios';
 import { ConnectedUserHook } from './app.js';
 
 export default function Post({ idPost }) {

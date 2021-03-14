@@ -23,4 +23,8 @@ export default class UserController {
   async deleteByLogin(login: String) {
     return await User.findOneAndDelete({ login: login });
   }
+
+  async getFriendsOf(login: String) {
+    return await User.find({ friends: login });
+  }
 }

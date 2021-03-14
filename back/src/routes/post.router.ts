@@ -7,12 +7,14 @@ import PostController from "../controllers/post.controller";
 import CommentController from "../controllers/comment.controller";
 import UserController from "../controllers/user.controller";
 import { UploadedFile } from "express-fileupload";
+import { userRouter } from "./user.router";
 
 const router = express.Router();
 const postController = new PostController();
 const userController = new UserController();
 const commentController = new CommentController();
 const ExifImage = require("exif").ExifImage;
+const fs = require("fs");
 
 router.put("/post", async (req: Request, res: Response) => {
   const post = await postController.getById(req.body._id);
@@ -47,8 +49,29 @@ router.get("/post/exif/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/post", async (req: Request, res: Response) => {
-  res.send(await postController.getAll());
+router.get("/post/for/:user", async (req: Request, res: Response) => {
+  const login = req.params.user;
+
+  const user = await userController.getByLogin(login);
+
+  if (user.role === "admin") {
+    const posts = await postController.getAll();
+    res.send(posts);
+  } else {
+    let users = await userController.getFriendsOf(login);
+    users = users.map((user: { login: any }) => user.login);
+    const allPosts = await postController.getAll();
+    const matchingPost = allPosts.filter(
+      (post: { visibility: string; creator: any }) => {
+        return (
+          post.visibility === "all" ||
+          users.includes(post.creator.toLowerCase()) ||
+          post.creator.toLowerCase() === login
+        );
+      }
+    );
+    res.send(matchingPost);
+  }
 });
 
 router.get("/post/id", async (req: Request, res: Response) => {
@@ -74,6 +97,12 @@ router.delete("/post/:id", async (req: Request, res: Response) => {
     await commentController.deleteById(element);
   });
   postController.deleteById(req.params.id);
+  fs.unlink(`public\\${post.id}.${post.format}`, (err: Error) => {
+    if (err) {
+      throw err;
+    }
+    console.log("File is deleted.");
+  });
   res.send("deleted");
 });
 

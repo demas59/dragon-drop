@@ -1,6 +1,23 @@
 import { Post } from "../models/post.model";
 
 export default class PostController {
+  async getPostsForUser(users: String[]) {
+    return await Post.aggregate(
+      [
+        {
+          $or: [{ visibility: "all" }, { creator: { $in: users } }],
+        },
+      ],
+      function (err: any, result: any) {
+        if (err) {
+          return err;
+        } else {
+          return result;
+        }
+      }
+    );
+  }
+
   async deleteById(id: String) {
     return await Post.findByIdAndDelete({ _id: id });
   }
