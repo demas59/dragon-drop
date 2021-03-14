@@ -37,7 +37,6 @@ export default function Thread({ search }) {
 		let postsToDisplay = [];
 
 		if (!searchedSomething()) {
-			console.log(connectedUser.login);
 			fetch(`http://localhost:3000/post/for/${connectedUser.login}`)
 				.then(response => response.json())
 				.then(post => setPosts(getIDsFromPosts(post)));
